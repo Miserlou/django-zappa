@@ -1,5 +1,7 @@
+![Real logo coming soon..](http://i.imgur.com/q2JldvF.png)
+
 # django-zappa
-## Django on AWS Lambda with API Gateway
+#### Django on AWS Lambda with API Gateway
 
 To use other WSGI apps on AWS Lambda, use the Zappa library on which this depends.
 
