@@ -1,4 +1,4 @@
-![Real logo coming soon..](http://i.imgur.com/q2JldvF.png)
+![Real logo coming soon..](https://i.imgur.com/wZ4WVnm.png)
 
 # django-zappa
 #### Django on AWS Lambda with API Gateway
@@ -24,7 +24,7 @@ To use other WSGI apps on AWS Lambda, use the Zappa library on which this depend
 
     $ pip install django-zappa
 
-## Usage
+## Basic Usage
 
 Since you deploy zappa from your local machine's bundle, you'll have to define a zappa_settings.py. This is just like a normal settings.py, but configured with your production AWS database information.
 
@@ -37,3 +37,9 @@ Finally..
 Or, to just stage it but not activate it..
 
     $ python manage.py zappa stage
+
+## Advanced Usage
+
+All of the settings have sane defaults, but you can also override the Zappa-specific settings.
+
+    ZAPPA_FOO = "BAR"
