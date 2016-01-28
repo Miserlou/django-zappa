@@ -21,7 +21,7 @@ That means:
 
 __Awesome!__
 
-This project is for Django-specific integration. If you are intersted in how this works under the hood, you should look at the [Zappa core library](https://github.com/Miserlou/Zappa), which can be used by any WSGI-compatible web framework.
+This project is for Django-specific integration. If you are intersted in how this works under the hood, you should look at the **[Zappa core library](https://github.com/Miserlou/Zappa)**, which can be used by any WSGI-compatible web framework.
 
 ## Installation
 
@@ -43,17 +43,23 @@ You must also create a local file called __zappa_settings.py__. This file will b
 
 ## Basic Usage
 
+#### Initial Deployments
+
 Once your settings are configured, you can package and deploy your Django application to an environment called 'production' with a single command:
 
     $ python manage.py deploy production
     Deploying..
     Your application is now live at: https://7k6anj0k99.execute-api.us-east-1.amazonaws.com/production
 
+#### Updates
+
 If your application has already been deployed and you only need to upload new Python code, but not touch the underlying routes, you can simply:
 
     $ python manage.py update production
     Updating..
     Your application is now live at: https://7k6anj0k99.execute-api.us-east-1.amazonaws.com/production
+
+#### Management
 
 If you want to invoke Django management commands on the remote Zappa instance, you simply call the 'invoke' management command locally:
 
