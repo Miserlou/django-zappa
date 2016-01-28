@@ -51,9 +51,14 @@ Once your settings are configured, you can package and deploy your Django applic
 
 If your application has already been deployed and you only need to upload new Python code, but not touch the underlying routes, you can simply:
 
-    $ python manage.py redeploy production
-    Redeploying..
+    $ python manage.py update production
+    Updating..
     Your application is now live at: https://7k6anj0k99.execute-api.us-east-1.amazonaws.com/production
+
+If you want to invoke Django management commands on the remote Zappa instance, you simply call the 'invoke' management command locally:
+
+    $ python manage.py invoke production check
+    System check identified no issues (0 silenced).
 
 ## TODO
 
