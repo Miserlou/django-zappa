@@ -68,9 +68,8 @@ class LambdaHandler(BaseHandler):
         return response
 
 def lambda_handler(event, context):    
-    #os.environ.setdefault("DJANGO_SETTINGS_MODULE", "zappa_settings")
 
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "helloworld.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "zappa_settings")
     import django
     django.setup()
 

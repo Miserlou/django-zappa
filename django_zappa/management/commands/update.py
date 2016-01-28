@@ -88,17 +88,14 @@ class Command(BaseCommand):
 
         # Register the Lambda function with that zip as the source
         # You'll also need to define the path to your lambda_handler code.
-        lambda_arn = zappa.create_lambda_function(s3_bucket_name, zip_path, lambda_name, 'handler.lambda_handler')
+        lambda_arn = zappa.update_lambda_function(s3_bucket_name, zip_path, lambda_name)
 
-        # Create and configure the API Gateway
-        api_id = zappa.create_api_gateway_routes(lambda_arn, lambda_name)
-
-        # Deploy the API!
-        endpoint_url = zappa.deploy_api_gateway(api_stage)
+        # Get the URL!
+        endpoint_url = zappa.get_api_url(lambda_name)
 
         # Finally, delete the local copy our zip package
         os.remove(zip_path)
 
-        print("Your Zappa deployment is live!: " + endpoint_url)
+        print("Your updated Zappa deployment is live!")
 
         return

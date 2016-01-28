@@ -31,15 +31,22 @@ This project is for Django-specific integration. If you are intersted in how thi
 
 There are a few settings that you must define before you deploy your application. First, you must have your AWS credentials stored in _~/.aws/credentials'_.
 
-Next, define a ZAPPA_SETTINGS setting in your local settings file and map it to an S3 bucket (that must already be created).
+Finally, define a ZAPPA_SETTINGS setting in your local settings file which maps your named deployment environments to deployed settings and an S3 bucket (which must already be created). These can be named anything you like, but you may wish to have seperate _dev_, _staging_ and _production_ environments in order to separate your data.
 
 ```python
 ZAPPA_SETTINGS = {
-    's3_bucket': 'your-bucket-name'
+    'production': {
+       's3_bucket': 'production-bucket',
+       'settings_file': '~/Projects/MyApp/settings/production_settings.py',
+    },
+    'staging': {
+       's3_bucket': 'staging-bucket',
+       'settings_file': '~/Projects/MyApp/settings/staging_settings.py',
+    },
 }
 ```
 
-You must also create a local file called __zappa_settings.py__. This file will be used as your _server-side_ settings file. Specifically, you will want to define [a new SECRET_KEY](https://gist.github.com/Miserlou/a9cbe22d06cbabc07f21), as well as your deployment DATABASES information. 
+Notice that each environment defines a path to a settings file. This file will be used as your _server-side_ settings file. Specifically, you will want to define [a new SECRET_KEY](https://gist.github.com/Miserlou/a9cbe22d06cbabc07f21), as well as your deployment DATABASES information. 
 
 ## Basic Usage
 

@@ -37,6 +37,10 @@ class Command(BaseCommand):
         # Set your configuration
         project_name = settings.BASE_DIR.split(os.sep)[-1]
         api_stage = options['environment'][0]
+        if api_stage not in zappa_settings.keys():
+            print("Please make sure that the environment '" + api_stage + "' is defined in your ZAPPA_SETTINGS in your settings file before deploying.")
+            return
+
         lambda_name = project_name + '-' + api_stage
 
         # Make your Zappa object
