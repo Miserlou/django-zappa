@@ -68,9 +68,6 @@ class Command(BaseCommand):
         # Load your AWS credentials from ~/.aws/credentials
         zappa.load_credentials()
 
-        # Make sure the necessary IAM execution roles are available
-        zappa.create_iam_roles()
-
         # Create the Lambda zip package (includes project and virtualenvironment)
         # Also define the path the handler file so it can be copied to the zip root for Lambda.
         current_file =  os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -95,6 +92,9 @@ class Command(BaseCommand):
 
         # Finally, delete the local copy our zip package
         os.remove(zip_path)
+
+        # Remove the uploaded zip from S3, because it is now registered..
+        zappa.remove_from_s3(zip_path, s3_bucket_name)
 
         print("Your updated Zappa deployment is live!")
 

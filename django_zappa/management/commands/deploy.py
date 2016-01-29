@@ -99,6 +99,9 @@ class Command(BaseCommand):
         # Finally, delete the local copy our zip package
         os.remove(zip_path)
 
+        # Remove the uploaded zip from S3, because it is now registered..
+        zappa.remove_from_s3(zip_path, s3_bucket_name)
+
         print("Your Zappa deployment is live!: " + endpoint_url)
 
         return
