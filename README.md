@@ -48,6 +48,27 @@ ZAPPA_SETTINGS = {
 
 Notice that each environment defines a path to a settings file. This file will be used as your _server-side_ settings file. Specifically, you will want to define [a new SECRET_KEY](https://gist.github.com/Miserlou/a9cbe22d06cbabc07f21), as well as your deployment DATABASES information. 
 
+#### A Note About Databases
+
+Since Zappa requirements are called from a bundled version of your local environment and not from pip, and because we have no way to determine what platform our Zappa handler will be executing on, we need to make sure that we only use portable packages. So, instead of using the default MySQL engine, we will instead need to use _mysql-python-connector_. 
+
+That means your app's settings file will need an entry that looks like something this (notice the Engine field):
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'mysql.connector.django',
+        'NAME': 'your_db_name',
+        'USER': 'your_db_username',
+        'PASSWORD': 'your_db_password',
+        'HOST': 'your_db_name.your_db_id.us-east-1.rds.amazonaws.com',
+        'PORT': '3306',
+    }
+}
+```
+
+Currently, Zappa only supports MySQL and Aurora on RDS.
+
 ## Basic Usage
 
 #### Initial Deployments
@@ -57,6 +78,8 @@ Once your settings are configured, you can package and deploy your Django applic
     $ python manage.py deploy production
     Deploying..
     Your application is now live at: https://7k6anj0k99.execute-api.us-east-1.amazonaws.com/production
+
+And now your app is **live!** How cool is that?!
 
 #### Updates
 
