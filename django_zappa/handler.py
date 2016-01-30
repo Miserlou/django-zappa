@@ -84,30 +84,26 @@ def lambda_handler(event, context):
             returnme[item[0]] = item[1]
         returnme['Status'] = response.status_code
 
-        if response.status_code != 200:
+        if response.status_code in [400, 401, 403, 500]:
 
-            # So that we can always match on the first few characters
-            # ex '{"AAA": "404'
+            ##
+            # A failed attempt at doing content types and status codes
+            # without b64 hacking. Will work when we get JSON parsing in the mapping demplate:
             # returnme['AAA'] = str(response.status_code)
-            # returnme['errorMessage'] = str(response.status_code)
-            # returnme['errorType'] = str(response.status_code)
-            # returnme['stackTrace'] = str(response.status_code)
-
             # error_json = json.dumps(returnme, sort_keys=True)
-            # print "Error JSON:"
-            # print error_json
+            # raise(error_json)
+            ##
 
             content = response.content
             content = "<!DOCTYPE html>" + str(response.status_code) + response.content
-
             b64_content = base64.b64encode(content)
-            print b64_content
-
             raise Exception(b64_content)
+        elif response.status_code in [301, 302]:
+            location = returnme['Location'].replace("http://zappa", "")
+            raise Exception(location)
+        else:
+            return returnme
 
-        print returnme
-
-        return returnme
     # This is a management command invocation.
     elif event.get('command', None):
         from django.core import management
