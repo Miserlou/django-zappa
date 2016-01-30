@@ -78,7 +78,13 @@ def lambda_handler(event, context):
         handler = LambdaHandler()
         environ = create_wsgi_request(event)
         response = handler(environ)
-        returnme = {'Body': response.content}
+        returnme = {'Content': response.content}
+        for item in response.items():
+            returnme[item[0]] = item[1]
+        returnme['Status'] = response.status_code
+
+        print returnme
+
         return returnme
     # This is a management command invocation.
     elif event.get('command', None):

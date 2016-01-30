@@ -12,6 +12,8 @@ from zappa.zappa import Zappa
 class Command(BaseCommand):
 
     can_import_settings = True
+    requires_system_checks = False
+    
     help = '''Invoke a management command in a remote Zappa environment.'''
 
     def add_arguments(self, parser):

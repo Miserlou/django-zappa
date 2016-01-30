@@ -13,6 +13,8 @@ from zappa.zappa import Zappa
 class Command(BaseCommand):
 
     can_import_settings = True
+    requires_system_checks = False
+
     help = '''Deploy this project to AWS with Zappa.'''
 
     def add_arguments(self, parser):
@@ -63,7 +65,7 @@ class Command(BaseCommand):
         ]
         for setting in custom_settings:
             if zappa_settings[api_stage].has_key(setting):
-                setattr(zappa, zappa_settings[api_stage][setting])
+                setattr(zappa, setting, zappa_settings[api_stage][setting])
 
         # Load your AWS credentials from ~/.aws/credentials
         zappa.load_credentials()
@@ -94,7 +96,7 @@ class Command(BaseCommand):
         api_id = zappa.create_api_gateway_routes(lambda_arn, lambda_name)
 
         # Deploy the API!
-        endpoint_url = zappa.deploy_api_gateway(api_stage)
+        endpoint_url = zappa.deploy_api_gateway(api_id, api_stage)
 
         # Finally, delete the local copy our zip package
         os.remove(zip_path)
