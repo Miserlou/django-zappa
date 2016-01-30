@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import base64
 import json
 import mimetypes
 import os
@@ -82,6 +83,27 @@ def lambda_handler(event, context):
         for item in response.items():
             returnme[item[0]] = item[1]
         returnme['Status'] = response.status_code
+
+        if response.status_code != 200:
+
+            # So that we can always match on the first few characters
+            # ex '{"AAA": "404'
+            # returnme['AAA'] = str(response.status_code)
+            # returnme['errorMessage'] = str(response.status_code)
+            # returnme['errorType'] = str(response.status_code)
+            # returnme['stackTrace'] = str(response.status_code)
+
+            # error_json = json.dumps(returnme, sort_keys=True)
+            # print "Error JSON:"
+            # print error_json
+
+            content = response.content
+            content = "<!DOCTYPE html>" + str(response.status_code) + response.content
+
+            b64_content = base64.b64encode(content)
+            print b64_content
+
+            raise Exception(b64_content)
 
         print returnme
 
