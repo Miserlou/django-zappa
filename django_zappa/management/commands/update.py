@@ -2,10 +2,10 @@ from __future__ import absolute_import
 
 from django.core.management.base import BaseCommand
 
-
 import inspect
 import os
 import sys
+import tempfile
 import zipfile
 
 from zappa.zappa import Zappa
@@ -78,9 +78,21 @@ class Command(BaseCommand):
         zip_path = zappa.create_lambda_zip(lambda_name, handler_file=handler_file)
 
         # Add this environment's Django settings to that zipfile
+        with file(settings_file) as f:
+            contents = f.read()
+            contents = contents + '\n# Automatically added by Zappa: \nSCRIPT_NAME=\'/' + api_stage + '\''
+
+        temp = tempfile.NamedTemporaryFile(delete=False)
+        temp.write(contents)
+        temp.flush()
+        temp.seek(0)
+        temp.close() 
+        settings_file = temp.name
+
         with zipfile.ZipFile(zip_path, 'a') as lambda_zip:
             lambda_zip.write(settings_file, 'zappa_settings.py')
             lambda_zip.close()
+        os.unlink(f.name)
 
         # Upload it to S3
         zip_arn = zappa.upload_to_s3(zip_path, s3_bucket_name)

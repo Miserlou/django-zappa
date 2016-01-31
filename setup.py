@@ -14,7 +14,7 @@ with open(os.path.join(os.path.dirname(__file__), 'requirements.txt')) as f:
 
 setup(
     name='django-zappa',
-    version='0.7.0',
+    version='0.7.1',
     packages=['django_zappa'],
     install_requires=required,  
     include_package_data=True,
