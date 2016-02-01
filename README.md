@@ -67,6 +67,10 @@ DATABASES = {
 }
 ```
 
+At time of writing, there seems to be a problem with the Python MySQL connector when calling the initial 'migrate'. You can remedy this by using the usual 'django.db.backends.mysql' for your initial migration from your local machine and just using 'mysql.connector.django' in your remote settings.
+
+Currently, Zappa only supports MySQL and Aurora on RDS.
+
 #### Middleware
 
 Zappa requires special middleware for handling cookies, so in your remote settings file, you must include _ZappaMiddleware_ as the first item in your *MIDDLEWARE_CLASSES*:
@@ -77,8 +81,6 @@ MIDDLEWARE_CLASSES = (
     ...
 )
 ```
-
-Currently, Zappa only supports MySQL and Aurora on RDS.
 
 ## Basic Usage
 
