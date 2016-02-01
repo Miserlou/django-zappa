@@ -95,6 +95,10 @@ def lambda_handler(event, context):
             returnme[item[0]] = item[1]
         returnme['Status'] = response.status_code
 
+        cookie = response.cookies.output()
+        if ': ' in cookie:
+            returnme['Set-Cookie'] = response.cookies.output().split(': ')[1]
+
         if response.status_code in [400, 401, 403, 500]:
 
             ##

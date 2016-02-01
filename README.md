@@ -67,6 +67,17 @@ DATABASES = {
 }
 ```
 
+#### Middleware
+
+Zappa requires special middleware for handling cookies, so in your remote settings file, you must include _ZappaMiddleware_ as the first item in your *MIDDLEWARE_CLASSES*:
+
+```python
+MIDDLEWARE_CLASSES = (
+    'django_zappa.middleware.ZappaMiddleware',
+    ...
+)
+```
+
 Currently, Zappa only supports MySQL and Aurora on RDS.
 
 ## Basic Usage
