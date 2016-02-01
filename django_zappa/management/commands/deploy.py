@@ -84,19 +84,17 @@ class Command(BaseCommand):
         # Add this environment's Django settings to that zipfile
         with open(settings_file, 'r') as f:
             contents = f.read()
-            all_contents = contents + '\n# Automatically added by Zappa: \nSCRIPT_NAME=\'/' + api_stage + '\''
+            all_contents = contents + '\n# Automatically added by Zappa:\nSCRIPT_NAME=\'/' + api_stage + '\'\n'
+            f.close()
 
-        temp = tempfile.NamedTemporaryFile(delete=False)
-        temp.write(all_contents)
-        temp.flush()
-        temp.seek(0)
-        temp.close() 
-        settings_file = temp.name
+        with open('zappa_settings.py', 'w') as f:
+            f.write(all_contents)
 
         with zipfile.ZipFile(zip_path, 'a') as lambda_zip:
-            lambda_zip.write(settings_file, 'zappa_settings.py')
+            lambda_zip.write('zappa_settings.py', 'zappa_settings.py')
             lambda_zip.close()
-        os.unlink(temp.name)
+
+        os.unlink('zappa_settings.py') 
 
         # Upload it to S3
         zip_arn = zappa.upload_to_s3(zip_path, s3_bucket_name)
