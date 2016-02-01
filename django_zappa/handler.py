@@ -110,7 +110,8 @@ def lambda_handler(event, context):
             b64_content = base64.b64encode(content)
             raise Exception(b64_content)
         elif response.status_code in [301, 302]:
-            location = returnme['Location'].replace(settings.SCRIPT_NAME, "/")
+            location = returnme['Location']
+            location = '/' + location.replace("http://zappa/", "")
             raise Exception(location)
         else:
             return returnme
