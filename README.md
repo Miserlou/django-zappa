@@ -124,7 +124,7 @@ ZAPPA_SETTINGS = {
         'parameter_depth': 10, # Size of URL depth to route. Defaults to 5.
         'role_name': "MyLambdaRole", # Lambda execution Role
         's3_bucket': 'dev-bucket', # Zappa zip bucket,
-        'settings_file': '~/Projects/MyApp/settings/production_settings.py', # Server side settings file location,
+        'settings_file': '~/Projects/MyApp/settings/dev_settings.py', # Server side settings file location,
         'touch': False # GET the production URL upon initial deployment (default True)
     }
 }
@@ -136,8 +136,8 @@ This project is very young, so there is still plenty to be done. Contributions a
 
 Things that need work right now:
 
-* Testing
-* Route53/SSL Integration
-* Fix the "hot-start" problem
-* Feedback
+* Testing!
+* Route53/SSL Integration!
+* Fix the "hot-start" problem!
+* Feedback!
 * Real documentation / website!
