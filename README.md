@@ -118,6 +118,7 @@ to change Zappa's behavior. Use these at your own risk!
 ZAPPA_SETTINGS = {
     'dev': {
         'aws_region': 'us-east-1', # AWS Region (default US East),
+        'domain': 'yourapp.yourdomain.com', # Required if you're using a domain
         'http_methods': ['GET', 'POST'], # HTTP Methods to route,
         'integration_response_codes': [200, 301, 404, 500], # Integration response status codes to route
         'method_response_codes': [200, 301, 404, 500], # Method response status codes to route
@@ -141,6 +142,5 @@ This project is very young, so there is still plenty to be done. Contributions a
 Things that need work right now:
 
 * Testing!
-* Route53/SSL Integration!
 * Feedback!
 * Real documentation / website!

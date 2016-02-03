@@ -2,10 +2,10 @@ from __future__ import absolute_import
 
 from django.core.management.base import BaseCommand
 
-
 import inspect
 import os
 import sys
+import urllib2
 import tempfile
 import zipfile
 
@@ -84,7 +84,13 @@ class Command(BaseCommand):
         # Add this environment's Django settings to that zipfile
         with open(settings_file, 'r') as f:
             contents = f.read()
-            all_contents = contents + '\n# Automatically added by Zappa:\nSCRIPT_NAME=\'/' + api_stage + '\'\n'
+            all_contents = contents
+            if not zappa_settings[api_stage].has_key('domain'):
+                script_name = api_stage
+            else:
+                script_name = ''
+            
+            all_contents = all_contents + '\n# Automatically added by Zappa:\nSCRIPT_NAME=\'/' + script_name + '\'\n'
             f.close()
 
         with open('zappa_settings.py', 'w') as f:
@@ -114,6 +120,9 @@ class Command(BaseCommand):
 
         # Remove the uploaded zip from S3, because it is now registered..
         zappa.remove_from_s3(zip_path, s3_bucket_name)
+
+        if zappa_settings[api_stage].get('touch', True):
+            response = urllib2.urlopen(endpoint_url)
 
         print("Your Zappa deployment is live!: " + endpoint_url)
 
