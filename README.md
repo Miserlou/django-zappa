@@ -130,6 +130,10 @@ ZAPPA_SETTINGS = {
 }
 ```
 
+#### Keeping the server warm
+
+Lambda has a limitation that functions which aren't called very often take longer to start - sometimes up to ten seconds. However, functions that are called regularly are cached and start quickly, usually in less than 50ms. To ensure that your servers are kept in a cached stated state, you can [manually configure](http://stackoverflow.com/a/27382253) a scheduled task for your Zappa function that'll keep the server cached by calling it every 5 minutes. There is currently no way to do this through API, so you'll have to set this up manually. When this is available via API, django-zappa will configure this automatically.
+
 ## TODO
 
 This project is very young, so there is still plenty to be done. Contributions are more than welcome! Please file tickets before submitting patches, and submit your patches to the 'dev' branch.
@@ -138,6 +142,5 @@ Things that need work right now:
 
 * Testing!
 * Route53/SSL Integration!
-* Fix the "hot-start" problem!
 * Feedback!
 * Real documentation / website!
