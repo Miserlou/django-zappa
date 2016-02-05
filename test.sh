@@ -1,2 +1,2 @@
 #! /bin/bash
-nosetests
+python manage.py test
