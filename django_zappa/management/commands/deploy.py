@@ -4,9 +4,8 @@ from django.core.management.base import BaseCommand
 
 import inspect
 import os
+import requests
 import sys
-import urllib2
-import tempfile
 import zipfile
 
 from zappa.zappa import Zappa
@@ -121,13 +120,14 @@ class Command(BaseCommand):
         endpoint_url = zappa.deploy_api_gateway(api_id, api_stage)
 
         # Finally, delete the local copy our zip package
-        os.remove(zip_path)
+        if zappa_settings[api_stage].get('delete_zip', True):
+            os.remove(zip_path)
 
         # Remove the uploaded zip from S3, because it is now registered..
         zappa.remove_from_s3(zip_path, s3_bucket_name)
 
         if zappa_settings[api_stage].get('touch', True):
-            response = urllib2.urlopen(endpoint_url)
+            requests.get(endpoint_url)
 
         print("Your Zappa deployment is live!: " + endpoint_url)
 
