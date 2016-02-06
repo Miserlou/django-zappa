@@ -80,7 +80,7 @@ class Command(BaseCommand):
         #Add this environment's Django settings to that zipfile
         with open(settings_file, 'r') as f:
             contents = f.read()
-            if not all_contents.contains("ZappaMiddleware"):
+            if not "ZappaMiddleware" in all_contents:
                 print("\n\nWARNING!\n")
                 print("You do not have ZappaMiddleware in your remote settings's MIDDLEWARE_CLASSES.\n")
                 print("This means that some aspects of your application may not work!\n\n")

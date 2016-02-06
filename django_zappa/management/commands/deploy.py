@@ -89,7 +89,7 @@ class Command(BaseCommand):
             else:
                 script_name = ''
 
-            if not all_contents.contains("ZappaMiddleware"):
+            if not "ZappaMiddleware" in all_contents:
                 print("\n\nWARNING!\n")
                 print("You do not have ZappaMiddleware in your remote settings's MIDDLEWARE_CLASSES.\n")
                 print("This means that some aspects of your application may not work!\n\n")
