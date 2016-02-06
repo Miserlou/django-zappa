@@ -4,7 +4,6 @@ from django.core.management.base import BaseCommand
 
 import inspect
 import os
-import requests
 import sys
 import zipfile
 
@@ -103,18 +102,12 @@ class Command(BaseCommand):
         # You'll also need to define the path to your lambda_handler code.
         lambda_arn = zappa.update_lambda_function(s3_bucket_name, zip_path, lambda_name)
 
-        # Get the URL!
-        endpoint_url = zappa.get_api_url(lambda_name)
-
         # Finally, delete the local copy our zip package
         if zappa_settings[api_stage].get('delete_zip', True):
             os.remove(zip_path)
 
         # Remove the uploaded zip from S3, because it is now registered..
         zappa.remove_from_s3(zip_path, s3_bucket_name)
-
-        if zappa_settings[api_stage].get('touch', True):
-            requests.get(endpoint_url)
 
         print("Your updated Zappa deployment is live!")
 
