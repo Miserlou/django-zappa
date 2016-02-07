@@ -2,7 +2,7 @@
 # django-zappa [![Build Status](https://travis-ci.org/Miserlou/django-zappa.svg)](https://travis-ci.org/Miserlou/django-zappa)
 #### Serverless Django with AWS Lambda + API Gateway
 
-**django-zappa** makes it super easy to deploy Django applications on AWS Lambda + API Gateway. Think of it as "serverless" web hosting for your Django apps. [See in action here!](https://swe19z3zr7.execute-api.us-east-1.amazonaws.com/fadmin/)
+**django-zappa** makes it super easy to deploy Django applications on AWS Lambda + API Gateway. Think of it as "serverless" web hosting for your Django apps. [See in action here!](https://swe19z3zr7.execute-api.us-east-1.amazonaws.com/fadmin/). You can also watch a **[screencast on how to use django-zappa here](https://www.youtube.com/watch?v=plUrbPN0xc8&feature=youtu.be)**.
 
 That means:
 
