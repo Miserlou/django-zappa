@@ -24,7 +24,7 @@ from django.db import close_old_connections
 
 from zappa.wsgi import create_wsgi_request
 
-def lambda_handler(event, context):
+def lambda_handler(event, context, settings_name="zappa_settings"):
     """
     An AWS Lambda function which parses specific API Gateway input into a WSGI request,
     feeds it to Django, procceses the Django response, and returns that 
@@ -34,7 +34,7 @@ def lambda_handler(event, context):
 
     # Django requires settings and an explicit call to setup()
     # if being used from inside a python context.
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "zappa_settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings_name)
     import django
     django.setup()
     from django.conf import settings
@@ -49,6 +49,18 @@ def lambda_handler(event, context):
         if event_echo:
             if 'event_echo' in event['params'].values():
                 return {'Content': str(event) + '\n' + str(context), 'Status': 200}
+
+        # If Let's Encrypt is defined in the settings,
+        # and the path is your.domain.com/.well-known/acme-challenge/{{lets_encrypt_challenge_content}},
+        # return a 200 of lets_encrypt_challenge_content.
+        lets_encrypt_challenge_path = getattr(settings, "LETS_ENCRYPT_CHALLENGE_PATH", None)
+        lets_encrypt_challenge_content = getattr(settings, "LETS_ENCRYPT_CHALLENGE_CONTENT", None)
+        if lets_encrypt_challenge_path:
+            if len(event['params']) == 3:
+                if event['params']['parameter_1'] == '.well-known' and \
+                    event['params']['parameter_2'] == 'acme-challenge' and \
+                    event['params']['parameter_3'] == lets_encrypt_challenge_path:
+                        return {'Content': lets_encrypt_challenge_content, 'Status': 200}
 
         # This doesn't matter, but Django's handler requires it.
         def start(a, b):

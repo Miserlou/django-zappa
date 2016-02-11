@@ -1,4 +1,4 @@
-![Logo placeholder](http://i.imgur.com/vLflpND.gif)
+![Logo](http://i.imgur.com/vLflpND.gif)
 # django-zappa [![Build Status](https://travis-ci.org/Miserlou/django-zappa.svg)](https://travis-ci.org/Miserlou/django-zappa)
 #### Serverless Django with AWS Lambda + API Gateway
 
@@ -132,6 +132,25 @@ ZAPPA_SETTINGS = {
     }
 }
 ```
+
+### Let's Encrypt SSL
+
+Zappa has very basic support for Let's Encrypt, but not automatic certificate updating.
+
+There is also a bootstrapping problem here, as the ACME server will need to access your domain in order to verify that you own it, so you will have to create an initial [self-signed certificate](https://devcenter.heroku.com/articles/ssl-certificate-self) when you first configure a domain for use with API Gateway.
+
+Then, you can generate your Let's Encrypt challenge information using a local client or a service like [GetHTTPSForFree.com](https://gethttpsforfree.com/).
+
+Next, in your remote settings file, define the following entries (change these values, obviously):
+
+```python
+LETS_ENCRYPT_CHALLENGE_PATH = "KkI_AMwzmQxlMDtaitt7eZMWEDn0t0Fsl5HjkJSPxyz"
+LETS_ENCRYPT_CHALLENGE_CONTENT = "KkI_AMwzmQxlMDtaitt7eZMWEDn0t0Fsl5HjkJSPxyz.ABC5hET2fxMsBLCsQLlAVA5MLvYUnX8gEAYaXN0xI4Y"
+```
+
+Then, continue with the process and you should receive a valid Let's Encrypt Certificate for your domain. Nice!
+
+(When creating scheduled Lambda events via API is possible, this whole process may be wrapped into the 'deploy' command. Until then, you're kind of on your own.)
 
 #### Keeping the server warm
 
