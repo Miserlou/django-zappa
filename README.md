@@ -17,7 +17,8 @@ That means:
 * Packaging projects into Lambda-ready zip files and uploading them to S3
 * Correctly setting up IAM roles and permissions
 * Automatically configuring API Gateway routes, methods and integration responses
-* Deploying the API to various stages of readiness
+* Turning API Gateway requests into valid WSGI, and returning API Gateway compatible HTTP responses 
+* Deploying your to various stages of readiness (dev, staging, prod)
 
 __Awesome!__
 
