@@ -130,7 +130,11 @@ ZAPPA_SETTINGS = {
         'role_name': "MyLambdaRole", # Lambda execution Role
         's3_bucket': 'dev-bucket', # Zappa zip bucket,
         'settings_file': '~/Projects/MyApp/settings/dev_settings.py', # Server side settings file location,
-        'touch': False # GET the production URL upon initial deployment (default True)
+        'touch': False, # GET the production URL upon initial deployment (default True)
+        'vpc_config': { # Optional VPC configuration for Lambda function
+            'SubnetIds': [ 'subnet-12345678' ], # Note: not all availability zones support Lambda!
+            'SecurityGroupIds': [ 'sg-12345678' ]
+        }
     }
 }
 ```
