@@ -85,6 +85,21 @@ MIDDLEWARE_CLASSES = (
 )
 ```
 
+#### Installed Apps
+
+Django-Zappa adds commands to the django manage.py script to make deploying and
+updating your application easy. You will need to add `django_zappa` to your
+installed apps in order to enable this functionality.
+
+```python
+INSTALLED_APPS = [
+    ...
+
+    'django_zappa',
+]
+```
+
+
 ## Basic Usage
 
 #### Initial Deployments
@@ -96,6 +111,17 @@ Once your settings are configured, you can package and deploy your Django applic
     Your application is now live at: https://7k6anj0k99.execute-api.us-east-1.amazonaws.com/production
 
 And now your app is **live!** How cool is that?!
+
+However, django won't actually respond to your requests (it will just throw
+errors) until you add your custom endpoint into the `ALLOWED_HOSTS` list. Copy
+your endpoint from the deploy command's output and run update to re-package.
+
+```python
+ALLOWED_HOSTS = [
+    '7k6anj0k99.execute-api.us-east-1.amazonaws.com'
+]
+```
+
 
 #### Updates
 
