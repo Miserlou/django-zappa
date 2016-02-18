@@ -62,7 +62,7 @@ Notice that each environment defines a path to a settings file. This file will b
 
 Since Zappa requirements are called from a bundled version of your local environment and not from pip, and because we have no way to determine what platform our Zappa handler will be executing on, we need to make sure that we only use portable packages. So, instead of using the default MySQL engine, we will instead need to use _mysql-python-connector_. 
 
-That means your app's settings file will need an entry that looks like something this (notice the Engine field):
+That means your app's settings file will need an entry that looks something like this (notice the Engine field):
 
 ```python
 DATABASES = {
