@@ -124,7 +124,7 @@ class DjangoZappaTests(TestCase):
 
     def test_invoke_sanity(self):
         
-        cmd = update.Command()
+        cmd = invoke.Command()
         opts = {} # kwargs
         cmd.handle(**opts)
 

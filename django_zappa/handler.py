@@ -1,7 +1,9 @@
 from __future__ import unicode_literals
 
 import base64
+import datetime
 import json
+import logging
 import mimetypes
 import os
 import re
@@ -22,7 +24,7 @@ from django.core.signals import (
 )
 from django.db import close_old_connections
 
-from zappa.wsgi import create_wsgi_request
+from zappa.wsgi import create_wsgi_request, common_log
 
 def lambda_handler(event, context, settings_name="zappa_settings"):
     """
@@ -30,7 +32,12 @@ def lambda_handler(event, context, settings_name="zappa_settings"):
     feeds it to Django, procceses the Django response, and returns that 
     back to the API Gateway.
 
-    """    
+    """
+    time_start = datetime.datetime.now()
+
+    logging.basicConfig()
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
 
     # Django requires settings and an explicit call to setup()
     # if being used from inside a python context.
@@ -38,6 +45,10 @@ def lambda_handler(event, context, settings_name="zappa_settings"):
     import django
     django.setup()
     from django.conf import settings
+
+    # If in DEBUG mode, log all raw incoming events.
+    if settings.DEBUG:
+        logger.info('Zappa Event: {}'.format(event))
 
     # This is a normal HTTP request
     if event.get('method', None):
@@ -88,17 +99,29 @@ def lambda_handler(event, context, settings_name="zappa_settings"):
         # pack the response as a deterministic B64 string and raise it
         # as an error to match our APIGW regex.
         # The DOCTYPE ensures that the page still renders in the browser.
+        exception = None
         if response.status_code in [400, 401, 403, 500]:
             content = response.content
             content = "<!DOCTYPE html>" + str(response.status_code) + response.content
             b64_content = base64.b64encode(content)
-            raise Exception(b64_content)
+            exception = (b64_content)
         # Internal are changed to become relative redirects
         # so they still work for apps on raw APIGW and on a domain.
         elif response.status_code in [301, 302]:
             location = returnme['Location']
             location = '/' + location.replace("http://zappa/", "")
-            raise Exception(location)
+            exception = location
+
+        # Calculate the total response time,
+        # and log it in the Common Log format.
+        time_end = datetime.datetime.now()
+        delta = time_end - time_start
+        response_time_ms = delta.total_seconds() * 1000
+        common_log(environ, response, response_time=response_time_ms)
+
+        # Finally, return the response to API Gateway.
+        if exception:
+            raise Exception(exception)
         else:
             return returnme
 
