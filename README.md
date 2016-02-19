@@ -32,9 +32,8 @@ This project is for Django-specific integration. If you are intersted in how thi
 
 ## Configuration
 
-There are a few settings that you must define before you deploy your application. First, you must have your AWS credentials stored in _~/.aws/credentials_ (you may have to create this file). This is in ConfigParser format and must include at least `aws_access_key_id` and `aws_secret_access_key` within a 'default' section.
+There are a few settings that you must define before you deploy your application. First, you must have your AWS credentials stored in _~/.aws/credentials_ (you may have to create this file). This is in ConfigParser format and must include at least `aws_access_key_id` and `aws_secret_access_key` within a 'default' section, ex:
 
-~/.aws/credentials
 ```
 [default]
 aws_access_key_id=XXXXXXXXXXXXXXXXXXXX
