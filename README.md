@@ -22,7 +22,7 @@ That means:
 
 __Awesome!__
 
-[See it in action here!](https://swe19z3zr7.execute-api.us-east-1.amazonaws.com/fadmin/) You can also watch a **[screencast on how to use django-zappa](https://www.youtube.com/watch?v=plUrbPN0xc8&feature=youtu.be)**.
+[See it in action here!](https://zappa.gun.io/) You can also watch a **[screencast on how to use django-zappa](https://www.youtube.com/watch?v=plUrbPN0xc8&feature=youtu.be)**.
 
 This project is for Django-specific integration. If you are intersted in how this works under the hood, you should look at the **[Zappa core library](https://github.com/Miserlou/Zappa)**, which can be used by any WSGI-compatible web framework.
 
