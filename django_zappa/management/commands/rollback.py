@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if len(options['rollback_values']) != 2:
-            self.stdout.write("You need to pass in both a function name and number of version to go back")
+            self.stdout.write("You need to pass in both a function name and a number of revisions to rollback")
             return
 
         function_name, revision = options['rollback_values']
@@ -18,7 +18,7 @@ class Command(BaseCommand):
         try:
             int(revision)
         except ValueError:
-            self.stdout.write("2nd argument needs to be an integer")
+            self.stdout.write("2nd argument (revisions) needs to be an integer")
             return
 
         # Make your Zappa object
