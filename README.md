@@ -32,7 +32,15 @@ This project is for Django-specific integration. If you are intersted in how thi
 
 ## Configuration
 
-There are a few settings that you must define before you deploy your application. First, you must have your AWS credentials stored in _~/.aws/credentials'_.
+There are a few settings that you must define before you deploy your application. First, you must have your AWS credentials stored in _~/.aws/credentials_ (you may have to create this file). This is in ConfigParser format and must include at least `aws_access_key_id` and `aws_secret_access_key` within a 'default' section.
+
+~/.aws/credentials
+```
+[default]
+aws_access_key_id=XXXXXXXXXXXXXXXXXXXX
+aws_secret_access_key=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+```
+
 
 Finally, define a ZAPPA_SETTINGS setting in your local settings file which maps your named deployment environments to deployed settings and an S3 bucket (which must already be created). These can be named anything you like, but you may wish to have seperate _dev_, _staging_ and _production_ environments in order to separate your data.
 
@@ -130,7 +138,11 @@ ZAPPA_SETTINGS = {
         'role_name': "MyLambdaRole", # Lambda execution Role
         's3_bucket': 'dev-bucket', # Zappa zip bucket,
         'settings_file': '~/Projects/MyApp/settings/dev_settings.py', # Server side settings file location,
-        'touch': False # GET the production URL upon initial deployment (default True)
+        'touch': False, # GET the production URL upon initial deployment (default True)
+        'vpc_config': { # Optional VPC configuration for Lambda function
+            'SubnetIds': [ 'subnet-12345678' ], # Note: not all availability zones support Lambda!
+            'SecurityGroupIds': [ 'sg-12345678' ]
+        }
     }
 }
 ```
