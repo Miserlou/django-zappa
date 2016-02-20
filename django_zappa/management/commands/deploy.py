@@ -115,8 +115,7 @@ class Command(BaseCommand):
         lambda_arn = zappa.create_lambda_function(s3_bucket_name, zip_path, lambda_name, 'handler.lambda_handler', vpc_config=vpc_config)
 
         # Create and configure the API Gateway
-        delay = zappa_settings[api_stage].get('deploy_delay', 1)
-        api_id = zappa.create_api_gateway_routes(lambda_arn, lambda_name, delay)
+        api_id = zappa.create_api_gateway_routes(lambda_arn, lambda_name)
 
         # Deploy the API!
         endpoint_url = zappa.deploy_api_gateway(api_id, api_stage)
