@@ -119,6 +119,12 @@ If you want to invoke Django management commands on the remote Zappa instance, y
     $ python manage.py invoke production check
     System check identified no issues (0 silenced).
 
+#### Tailing Logs
+
+You can watch the logs of a deployment by calling the 'tail' management command.
+
+    $ python manage.py tail production
+
 ## Advanced Usage
 
 There are other settings that you can define in your ZAPPA_SETTINGS

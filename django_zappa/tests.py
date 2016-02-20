@@ -8,7 +8,7 @@ import os
 
 from .handler import lambda_handler
 from .middleware import ZappaMiddleware
-from .management.commands import deploy, invoke, update
+from .management.commands import deploy, invoke, update, tail
 
 class DjangoZappaTests(TestCase):
 
@@ -128,3 +128,8 @@ class DjangoZappaTests(TestCase):
         opts = {} # kwargs
         cmd.handle(**opts)
 
+    def test_tail_sanity(self):
+        
+        cmd = tail.Command()
+        opts = {} # kwargs
+        cmd.handle(**opts)
