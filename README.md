@@ -128,7 +128,6 @@ to change Zappa's behavior. Use these at your own risk!
 ZAPPA_SETTINGS = {
     'dev': {
         'aws_region': 'us-east-1', # AWS Region (default US East),
-        'deploy_delay': 1, # Delay time while deploying, in seconds (default 1)
         'domain': 'yourapp.yourdomain.com', # Required if you're using a domain
         'http_methods': ['GET', 'POST'], # HTTP Methods to route,
         'integration_response_codes': [200, 301, 404, 500], # Integration response status codes to route
