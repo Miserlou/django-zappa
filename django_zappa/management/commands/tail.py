@@ -63,19 +63,26 @@ class Command(BaseCommand):
         # Load your AWS credentials from ~/.aws/credentials
         zappa.load_credentials()
 
-        # Tail the available logs
-        all_logs = zappa.fetch_logs(lambda_name)
-        self.print_logs(all_logs)
+        try:
+            # Tail the available logs
+            all_logs = zappa.fetch_logs(lambda_name)
+            self.print_logs(all_logs)
 
         # Keep polling, and print any new logs.
-        while True:
-            all_logs_again = zappa.fetch_logs(lambda_name)
-            new_logs = []
-            for log in all_logs_again:
-                if log not in all_logs:
-                    new_logs.append(log)
+            while True:
+                all_logs_again = zappa.fetch_logs(lambda_name)
+                new_logs = []
+                for log in all_logs_again:
+                    if log not in all_logs:
+                        new_logs.append(log)
 
-            self.print_logs(new_logs)
-            all_logs = all_logs + new_logs
+                self.print_logs(new_logs)
+                all_logs = all_logs + new_logs
+        except KeyboardInterrupt:
+            # Die gracefully
+            try:
+                sys.exit(0)
+            except SystemExit:
+                os._exit(0)
 
         return
