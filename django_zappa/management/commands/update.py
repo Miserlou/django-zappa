@@ -79,11 +79,18 @@ class Command(BaseCommand):
         #Add this environment's Django settings to that zipfile
         with open(settings_file, 'r') as f:
             contents = f.read()
-            all_contents = contents + '\n# Automatically added by Zappa:\nSCRIPT_NAME=\'/' + api_stage + '\'\n'
+            all_contents = contents
+            if not zappa_settings[api_stage].has_key('domain'):
+                script_name = api_stage
+            else:
+                script_name = ''
+
             if not "ZappaMiddleware" in all_contents:
                 print("\n\nWARNING!\n")
                 print("You do not have ZappaMiddleware in your remote settings's MIDDLEWARE_CLASSES.\n")
                 print("This means that some aspects of your application may not work!\n\n")
+            
+            all_contents = all_contents + '\n# Automatically added by Zappa:\nSCRIPT_NAME=\'/' + script_name + '\'\n'
             f.close()
 
         with open('zappa_settings.py', 'w') as f:
