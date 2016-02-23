@@ -112,6 +112,12 @@ If your application has already been deployed and you only need to upload new Py
     Updating..
     Your application is now live at: https://7k6anj0k99.execute-api.us-east-1.amazonaws.com/production
 
+#### Rollback 
+
+You can also rollback the deployed code to a previous version by supplying the number of revisions to return to. For instance, to rollback to the version deployed 3 versions ago:
+
+    $ python manage.py rollback production 3
+
 #### Management
 
 If you want to invoke Django management commands on the remote Zappa instance, you simply call the 'invoke' management command locally:
