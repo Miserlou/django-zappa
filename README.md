@@ -181,6 +181,56 @@ Then, continue with the process and you should receive a valid Let's Encrypt Cer
 
 Lambda has a limitation that functions which aren't called very often take longer to start - sometimes up to ten seconds. However, functions that are called regularly are cached and start quickly, usually in less than 50ms. To ensure that your servers are kept in a cached state, you can [manually configure](http://stackoverflow.com/a/27382253) a scheduled task for your Zappa function that'll keep the server cached by calling it every 5 minutes. There is currently no way to configure this through API, so you'll have to set this up manually. When this ability is available via API, django-zappa will configure this automatically. It would be nice to also add support LetsEncrypt through this same mechanism.
 
+
+#### Troubleshooting
+
+Django_zappa has a lot of moving parts and it pushes lambda out of its comfort
+zone, which means sometimes things break unexpectedly. If you have trouble, the
+list below may help you work your way through it.
+
+> botocore.exceptions.ClientError: An error occurred (InvalidClientTokenId)
+when calling the CreateRole operation: The security token included in the
+request is invalid.
+
+Your credentials are incorrect. Double check that you created the
+~/.aws/credentials file, made it readable, and included the correct
+credentials. If all of that looks right, ensure you did NOT wrap your
+credentials in quotes.
+
+> botocore.exceptions.NoRegionError: You must specify a region.
+
+This appears to only happen for some users. There is a fix currently
+in the works.
+
+> botocore.exceptions.ClientError: An error occurred
+(InvalidParameterValueException) when calling the CreateFunction operation:
+Error occurred while GetObject. S3 Error Code: NoSuchKey. S3 Error Message:
+The specified key does not exist.
+
+s3 failed to reach your deployment bucket. boto sucks if your bucket
+isn't in the 'US-Standard' region -- try re-creating the bucket in the
+'US-Standard' region.
+
+> botocore.exceptions.ClientError: An error occurred
+(InvalidParameterValueException) when calling the CreateFunction operation:
+Error occurred while GetObject. S3 Error Code: PermanentRedirect. S3 Error
+Message: The bucket you are attempting to access must be addressed using the
+specified endpoint. Please send all future requests to this endpoint.
+
+Sometimes boto has trouble dealing with regions. Try using region
+us-east-1 for all of your configuration and services as a workaround until
+a better solution can be deployed.
+
+> botocore.exceptions.ClientError: An error occurred
+(ResourceConflictException) when calling the CreateFunction operation:
+Function already exist: xxx
+
+You already have a lambda function with this name - this can happen if
+something goes wrong during a deployment or if you accidentally re-used your
+project name. Go delete the offending function or change the name of your
+project.
+
+
 ## TODO
 
 This project is very young, so there is still plenty to be done. Contributions are more than welcome! Please file tickets before submitting patches, and submit your patches to the 'dev' branch.
