@@ -28,11 +28,13 @@ This project is for Django-specific integration. If you are intersted in how thi
 
 ## Installation
 
+_Before you begin, make sure you have a valid AWS account and your [AWS credentials file](https://blogs.aws.amazon.com/security/post/Tx3D6U6WSFGOK2H/A-New-and-Standardized-Way-to-Manage-Credentials-in-the-AWS-SDKs) is properly installed.)_
+
 **django-zappa** can easily be installed through pip, like so:
 
     $ pip install django-zappa
 
-You will also need to add `django_zappa` to your installed apps in order to add Zappa commands to your management script.
+In your Django settings, you will need to add `django_zappa` to your installed apps in order to add Zappa commands to your management script.
 
 ```python
 INSTALLED_APPS = [
@@ -48,16 +50,6 @@ MIDDLEWARE_CLASSES = (
     'django_zappa.middleware.ZappaMiddleware',
     ...
 )
-```
-
-## Configuration
-
-There are a few settings that you must define before you deploy your application. First, you must have your AWS credentials stored in _~/.aws/credentials_ (you may have to create this file). This is in ConfigParser format and must include at least `aws_access_key_id` and `aws_secret_access_key` within a 'default' section, ex:
-
-```
-[default]
-aws_access_key_id=XXXXXXXXXXXXXXXXXXXX
-aws_secret_access_key=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
 Finally, define a ZAPPA_SETTINGS setting in your local settings file which maps your named deployment environments to deployed settings and an S3 bucket (which must already be created). These can be named anything you like, but you may wish to have seperate _dev_, _staging_ and _production_ environments in order to separate your data.
