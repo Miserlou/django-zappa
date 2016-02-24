@@ -28,7 +28,33 @@ This project is for Django-specific integration. If you are intersted in how thi
 
 ## Installation
 
+**django-zappa** can easily be installed through pip, like so:
+
     $ pip install django-zappa
+
+#### Installed Apps
+
+**django-zappa** adds commands to the Django manage.py script to make deploying and updating your application easy. You will need to add `django_zappa` to your
+installed apps in order to enable this functionality.
+
+```python
+INSTALLED_APPS = [
+ ...
+
+ 'django_zappa',
+]
+```
+
+#### Middleware
+
+Zappa requires special middleware for handling cookies, so in your remote settings file, you must include _ZappaMiddleware_ as the first item in your *MIDDLEWARE_CLASSES*:
+
+```python
+MIDDLEWARE_CLASSES = (
+    'django_zappa.middleware.ZappaMiddleware',
+    ...
+)
+```
 
 ## Configuration
 
@@ -39,7 +65,6 @@ There are a few settings that you must define before you deploy your application
 aws_access_key_id=XXXXXXXXXXXXXXXXXXXX
 aws_secret_access_key=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
-
 
 Finally, define a ZAPPA_SETTINGS setting in your local settings file which maps your named deployment environments to deployed settings and an S3 bucket (which must already be created). These can be named anything you like, but you may wish to have seperate _dev_, _staging_ and _production_ environments in order to separate your data.
 
@@ -80,32 +105,6 @@ DATABASES = {
 At time of writing, there seems to be a problem with the Python MySQL connector when calling the initial 'migrate'. You can remedy this by using the usual 'django.db.backends.mysql' for your initial migration from your local machine and just using 'mysql.connector.django' in your remote settings.
 
 Currently, Zappa only supports MySQL and Aurora on RDS.
-
-#### Middleware
-
-Zappa requires special middleware for handling cookies, so in your remote settings file, you must include _ZappaMiddleware_ as the first item in your *MIDDLEWARE_CLASSES*:
-
-```python
-MIDDLEWARE_CLASSES = (
-    'django_zappa.middleware.ZappaMiddleware',
-    ...
-)
-```
-
-#### Installed Apps
-
- Django-Zappa adds commands to the django manage.py script to make deploying and
- updating your application easy. You will need to add `django_zappa` to your
- installed apps in order to enable this functionality.
-
- ```python
- INSTALLED_APPS = [
-     ...
-
-     'django_zappa',
- ]
- ```
-
 
 ## Basic Usage
 
