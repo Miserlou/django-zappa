@@ -49,6 +49,7 @@ class Command(BaseCommand):
         # Load environment-specific settings
         s3_bucket_name = zappa_settings[api_stage]['s3_bucket']
         vpc_config = zappa_settings[api_stage].get('vpc_config', {})
+        memory_size = zappa_settings[api_stage].get('memory_size', 512)
         settings_file = zappa_settings[api_stage]['settings_file']
         if '~' in settings_file:
             settings_file = settings_file.replace('~', os.path.expanduser('~'))
@@ -112,7 +113,12 @@ class Command(BaseCommand):
 
         # Register the Lambda function with that zip as the source
         # You'll also need to define the path to your lambda_handler code.
-        lambda_arn = zappa.create_lambda_function(s3_bucket_name, zip_path, lambda_name, 'handler.lambda_handler', vpc_config=vpc_config)
+        lambda_arn = zappa.create_lambda_function(bucket=s3_bucket_name,
+                                                  s3_key=zip_path,
+                                                  function_name=lambda_name,
+                                                  handler='handler.lambda_handler',
+                                                  vpc_config=vpc_config,
+                                                  memory_size=memory_size)
 
         # Create and configure the API Gateway
         api_id = zappa.create_api_gateway_routes(lambda_arn, lambda_name)
