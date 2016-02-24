@@ -149,6 +149,7 @@ ZAPPA_SETTINGS = {
         's3_bucket': 'dev-bucket', # Zappa zip bucket,
         'settings_file': '~/Projects/MyApp/settings/dev_settings.py', # Server side settings file location,
         'touch': False, # GET the production URL upon initial deployment (default True)
+        'memory_size': 512, # Lambda function memory in MB
         'vpc_config': { # Optional VPC configuration for Lambda function
             'SubnetIds': [ 'subnet-12345678' ], # Note: not all availability zones support Lambda!
             'SecurityGroupIds': [ 'sg-12345678' ]
