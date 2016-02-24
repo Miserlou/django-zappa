@@ -92,6 +92,21 @@ MIDDLEWARE_CLASSES = (
 )
 ```
 
+#### Installed Apps
+
+ Django-Zappa adds commands to the django manage.py script to make deploying and
+ updating your application easy. You will need to add `django_zappa` to your
+ installed apps in order to enable this functionality.
+
+ ```python
+ INSTALLED_APPS = [
+     ...
+
+     'django_zappa',
+ ]
+ ```
+
+
 ## Basic Usage
 
 #### Initial Deployments
