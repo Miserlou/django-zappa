@@ -32,22 +32,16 @@ This project is for Django-specific integration. If you are intersted in how thi
 
     $ pip install django-zappa
 
-#### Installed Apps
-
-**django-zappa** adds commands to the Django manage.py script to make deploying and updating your application easy. You will need to add `django_zappa` to your
-installed apps in order to enable this functionality.
+You will also need to add `django_zappa` to your installed apps in order to add Zappa commands to your management script.
 
 ```python
 INSTALLED_APPS = [
- ...
-
- 'django_zappa',
+    ...
+    'django_zappa',
 ]
 ```
 
-#### Middleware
-
-Zappa requires special middleware for handling cookies, so in your remote settings file, you must include _ZappaMiddleware_ as the first item in your *MIDDLEWARE_CLASSES*:
+Zappa also requires special middleware for handling cookies, so in your remote settings file, you must include _ZappaMiddleware_ as the first item in your *MIDDLEWARE_CLASSES*:
 
 ```python
 MIDDLEWARE_CLASSES = (
