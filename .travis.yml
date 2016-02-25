@@ -8,3 +8,5 @@ install:
 script: python manage.py test 
 after_success:
   coveralls
+notifications:
+  slack: zappateam:TTJ0mfHunDK0IBweKkEXjGpR
