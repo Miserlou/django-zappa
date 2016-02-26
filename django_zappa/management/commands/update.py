@@ -8,8 +8,9 @@ import sys
 import zipfile
 
 from zappa.zappa import Zappa
+from .zappa_command import ZappaCommand
 
-class Command(BaseCommand):
+class Command(ZappaCommand):
 
     can_import_settings = True
     requires_system_checks = False
@@ -24,30 +25,16 @@ class Command(BaseCommand):
         Execute the command.
 
         """
-        if not options.has_key('environment'):
-            print("You must call deploy with an environment name. \n python manage.py deploy <environment>")
-            return
 
-        from django.conf import settings
-        if not 'ZAPPA_SETTINGS' in dir(settings):
-            print("Please define your ZAPPA_SETTINGS in your settings file before deploying.")
-            return
-
-        zappa_settings = settings.ZAPPA_SETTINGS
-
-        # Set your configuration
-        project_name = settings.BASE_DIR.split(os.sep)[-1]
-        api_stage = options['environment'][0]
-        if api_stage not in zappa_settings.keys():
-            print("Please make sure that the environment '" + api_stage + "' is defined in your ZAPPA_SETTINGS in your settings file before deploying.")
-            return
+        # Load the settings
+        self.require_settings()
 
         # Make your Zappa object
         zappa = Zappa()
 
         # Load environment-specific settings
-        s3_bucket_name = zappa_settings[api_stage]['s3_bucket']
-        settings_file = zappa_settings[api_stage]['settings_file']
+        s3_bucket_name = self.zappa_settings[self.api_stage]['s3_bucket']
+        settings_file = self.zappa_settings[self.api_stage]['settings_file']
         if '~' in settings_file:
             settings_file = settings_file.replace('~', os.path.expanduser('~'))
         if not os.path.isfile(settings_file):
@@ -63,8 +50,8 @@ class Command(BaseCommand):
             'aws_region'
         ]
         for setting in custom_settings:
-            if zappa_settings[api_stage].has_key(setting):
-                setattr(zappa, setting, zappa_settings[api_stage][setting])
+            if self.zappa_settings[self.api_stage].has_key(setting):
+                setattr(zappa, setting, self.zappa_settings[self.api_stage][setting])
 
         # Load your AWS credentials from ~/.aws/credentials
         zappa.load_credentials()
@@ -73,15 +60,15 @@ class Command(BaseCommand):
         # Also define the path the handler file so it can be copied to the zip root for Lambda.
         current_file =  os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
         handler_file = os.sep.join(current_file.split(os.sep)[0:-2]) + os.sep + 'handler.py'
-        lambda_name = project_name + '-' + api_stage
+        lambda_name = project_name + '-' + self.api_stage
         zip_path = zappa.create_lambda_zip(lambda_name, handler_file=handler_file)
 
         #Add this environment's Django settings to that zipfile
         with open(settings_file, 'r') as f:
             contents = f.read()
             all_contents = contents
-            if not zappa_settings[api_stage].has_key('domain'):
-                script_name = api_stage
+            if not self.zappa_settings[self.api_stage].has_key('domain'):
+                script_name = self.api_stage
             else:
                 script_name = ''
 
@@ -110,7 +97,7 @@ class Command(BaseCommand):
         lambda_arn = zappa.update_lambda_function(s3_bucket_name, zip_path, lambda_name)
 
         # Finally, delete the local copy our zip package
-        if zappa_settings[api_stage].get('delete_zip', True):
+        if self.zappa_settings[self.api_stage].get('delete_zip', True):
             os.remove(zip_path)
 
         # Remove the uploaded zip from S3, because it is now registered..
