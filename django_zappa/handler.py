@@ -29,7 +29,7 @@ from zappa.wsgi import create_wsgi_request, common_log
 def lambda_handler(event, context, settings_name="zappa_settings"):
     """
     An AWS Lambda function which parses specific API Gateway input into a WSGI request,
-    feeds it to Django, procceses the Django response, and returns that 
+    feeds it to Django, procceses the Django response, and returns that
     back to the API Gateway.
 
     """
@@ -107,7 +107,7 @@ def lambda_handler(event, context, settings_name="zappa_settings"):
             exception = (b64_content)
         # Internal are changed to become relative redirects
         # so they still work for apps on raw APIGW and on a domain.
-        elif response.status_code in [301, 302]:
+        elif 300 <= response.status_code < 400 and response.has_header('Location'):
             location = returnme['Location']
             location = '/' + location.replace("http://zappa/", "")
             exception = location
