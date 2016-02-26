@@ -107,7 +107,7 @@ def lambda_handler(event, context, settings_name="zappa_settings"):
             exception = (b64_content)
         # Internal are changed to become relative redirects
         # so they still work for apps on raw APIGW and on a domain.
-        elif response.status_code in [301, 302]:
+        elif response.status_code[0] == 3 and response.has_header('Location'):
             location = returnme['Location']
             location = '/' + location.replace("http://zappa/", "")
             exception = location
