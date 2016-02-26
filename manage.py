@@ -11,7 +11,7 @@ if __name__ == "__main__":
 
     if is_testing:
         import coverage
-        cov = coverage.coverage(source=['zappa'], omit=['*tests.py'])
+        cov = coverage.coverage(include="django_zappa/*", omit=['*tests.py'])
         cov.erase()
         cov.start()
 
