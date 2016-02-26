@@ -1,11 +1,12 @@
 import os
-import sys
+
 from setuptools import setup
 
 # Set external files
 try:
     from pypandoc import convert
-    README = convert('README.md', 'rst')     
+
+    README = convert('README.md', 'rst')
 except ImportError:
     README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
 
@@ -16,12 +17,13 @@ setup(
     name='django-zappa',
     version='0.11.3',
     packages=['django_zappa'],
-    install_requires=required,  
+    install_requires=required,
     include_package_data=True,
     license='MIT License',
     description='Serverless Django With AWS Lambda + API Gateway',
     long_description=README,
     url='https://github.com/Miserlou/django-zappa',
+    download_url='https://github.com/Miserlou/django-zappa',
     author='Rich Jones',
     author_email='rich@openwatch.net',
     classifiers=[

@@ -1,0 +1,5 @@
+-e .
+isort
+flake8
+pep8-naming
+pep257

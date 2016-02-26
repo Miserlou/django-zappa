@@ -1,16 +1,14 @@
 from __future__ import absolute_import
 
-from django.core.management.base import BaseCommand
-
 import inspect
 import os
-import sys
 import zipfile
 
+from django.core.management.base import BaseCommand
 from zappa.zappa import Zappa
 
-class Command(BaseCommand):
 
+class Command(BaseCommand):
     can_import_settings = True
     requires_system_checks = False
 
@@ -19,17 +17,17 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('environment', nargs='+', type=str)
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options):  # NoQA
         """
         Execute the command.
 
         """
-        if not options.has_key('environment'):
+        if 'environment' not in options:
             print("You must call deploy with an environment name. \n python manage.py deploy <environment>")
             return
 
         from django.conf import settings
-        if not 'ZAPPA_SETTINGS' in dir(settings):
+        if 'ZAPPA_SETTINGS' not in dir(settings):
             print("Please define your ZAPPA_SETTINGS in your settings file before deploying.")
             return
 
@@ -38,8 +36,11 @@ class Command(BaseCommand):
         # Set your configuration
         project_name = settings.BASE_DIR.split(os.sep)[-1]
         api_stage = options['environment'][0]
-        if api_stage not in zappa_settings.keys():
-            print("Please make sure that the environment '" + api_stage + "' is defined in your ZAPPA_SETTINGS in your settings file before deploying.")
+        if api_stage not in zappa_settings:
+            print(
+                "Please make sure that the environment '%s'"
+                " is defined in your ZAPPA_SETTINGS in your"
+                " settings file before deploying." % api_stage)
             return
 
         # Make your Zappa object
@@ -55,7 +56,7 @@ class Command(BaseCommand):
             return
 
         custom_settings = [
-            'http_methods', 
+            'http_methods',
             'parameter_depth',
             'integration_response_codes',
             'method_response_codes',
@@ -63,7 +64,7 @@ class Command(BaseCommand):
             'aws_region'
         ]
         for setting in custom_settings:
-            if zappa_settings[api_stage].has_key(setting):
+            if setting in zappa_settings[api_stage]:
                 setattr(zappa, setting, zappa_settings[api_stage][setting])
 
         # Load your AWS credentials from ~/.aws/credentials
@@ -71,25 +72,25 @@ class Command(BaseCommand):
 
         # Create the Lambda zip package (includes project and virtualenvironment)
         # Also define the path the handler file so it can be copied to the zip root for Lambda.
-        current_file =  os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+        current_file = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
         handler_file = os.sep.join(current_file.split(os.sep)[0:-2]) + os.sep + 'handler.py'
         lambda_name = project_name + '-' + api_stage
         zip_path = zappa.create_lambda_zip(lambda_name, handler_file=handler_file)
 
-        #Add this environment's Django settings to that zipfile
+        # Add this environment's Django settings to that zipfile
         with open(settings_file, 'r') as f:
             contents = f.read()
             all_contents = contents
-            if not zappa_settings[api_stage].has_key('domain'):
+            if 'domain' not in zappa_settings[api_stage]:
                 script_name = api_stage
             else:
                 script_name = ''
 
-            if not "ZappaMiddleware" in all_contents:
+            if "ZappaMiddleware" not in all_contents:
                 print("\n\nWARNING!\n")
                 print("You do not have ZappaMiddleware in your remote settings's MIDDLEWARE_CLASSES.\n")
                 print("This means that some aspects of your application may not work!\n\n")
-            
+
             all_contents = all_contents + '\n# Automatically added by Zappa:\nSCRIPT_NAME=\'/' + script_name + '\'\n'
             f.close()
 
@@ -100,14 +101,14 @@ class Command(BaseCommand):
             lambda_zip.write('zappa_settings.py', 'zappa_settings.py')
             lambda_zip.close()
 
-        os.unlink('zappa_settings.py') 
+        os.unlink('zappa_settings.py')
 
         # Upload it to S3
-        zip_arn = zappa.upload_to_s3(zip_path, s3_bucket_name)
+        zappa.upload_to_s3(zip_path, s3_bucket_name)
 
         # Register the Lambda function with that zip as the source
         # You'll also need to define the path to your lambda_handler code.
-        lambda_arn = zappa.update_lambda_function(s3_bucket_name, zip_path, lambda_name)
+        zappa.update_lambda_function(s3_bucket_name, zip_path, lambda_name)
 
         # Finally, delete the local copy our zip package
         if zappa_settings[api_stage].get('delete_zip', True):

@@ -1,16 +1,13 @@
 from __future__ import absolute_import
 
-from django.core.management.base import BaseCommand
-
-import inspect
 import os
 import sys
-import zipfile
 
+from django.core.management.base import BaseCommand
 from zappa.zappa import Zappa
 
-class Command(BaseCommand):
 
+class Command(BaseCommand):
     can_import_settings = True
     requires_system_checks = False
 
@@ -33,17 +30,17 @@ class Command(BaseCommand):
 
             print("[" + str(timestamp) + "] " + message.strip())
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options):  # NoQA
         """
         Execute the command.
 
         """
-        if not options.has_key('environment'):
+        if 'environment' not in options:
             print("You must call deploy with an environment name. \n python manage.py deploy <environment>")
             return
 
         from django.conf import settings
-        if not 'ZAPPA_SETTINGS' in dir(settings):
+        if 'ZAPPA_SETTINGS' not in dir(settings):
             print("Please define your ZAPPA_SETTINGS in your settings file before deploying.")
             return
 
@@ -53,7 +50,9 @@ class Command(BaseCommand):
         project_name = settings.BASE_DIR.split(os.sep)[-1]
         api_stage = options['environment'][0]
         if api_stage not in zappa_settings.keys():
-            print("Please make sure that the environment '" + api_stage + "' is defined in your ZAPPA_SETTINGS in your settings file before deploying.")
+            print("Please make sure that the environment '%s'"
+                  " is defined in your ZAPPA_SETTINGS in your"
+                  " settings file before deploying." % api_stage)
             return
         lambda_name = project_name + '-' + api_stage
 
@@ -68,7 +67,7 @@ class Command(BaseCommand):
             all_logs = zappa.fetch_logs(lambda_name)
             self.print_logs(all_logs)
 
-        # Keep polling, and print any new logs.
+            # Keep polling, and print any new logs.
             while True:
                 all_logs_again = zappa.fetch_logs(lambda_name)
                 new_logs = []
