@@ -1,8 +1,8 @@
 ![Logo](http://i.imgur.com/vLflpND.gif)
-# django-zappa [![Build Status](https://travis-ci.org/Miserlou/django-zappa.svg)](https://travis-ci.org/Miserlou/django-zappa) [![Coverage](https://img.shields.io/coveralls/Miserlou/django-zappa.svg)](https://coveralls.io/github/Miserlou/django-zappa) [![Slack](https://img.shields.io/badge/chat-slack-ff69b4.svg)](https://slackautoinviter.herokuapp.com/)
+# django-zappa [![Django-CC](https://img.shields.io/badge/Django-CC-ee66dd.svg)](https://github.com/codingjoe/django-cc) [![Build Status](https://travis-ci.org/Miserlou/django-zappa.svg)](https://travis-ci.org/Miserlou/django-zappa) [![Coverage](https://img.shields.io/coveralls/Miserlou/django-zappa.svg)](https://coveralls.io/github/Miserlou/django-zappa) [![Slack](https://img.shields.io/badge/chat-slack-ff69b4.svg)](https://slackautoinviter.herokuapp.com/)
 #### Serverless Django with AWS Lambda + API Gateway
 
-**django-zappa** makes it super easy to deploy Django applications on AWS Lambda + API Gateway. Think of it as "serverless" web hosting for your Django apps. 
+**django-zappa** makes it super easy to deploy Django applications on AWS Lambda + API Gateway. Think of it as "serverless" web hosting for your Django apps.
 
 That means:
 
@@ -17,7 +17,7 @@ That means:
 * Packaging projects into Lambda-ready zip files and uploading them to S3
 * Correctly setting up IAM roles and permissions
 * Automatically configuring API Gateway routes, methods and integration responses
-* Turning API Gateway requests into valid WSGI, and returning API Gateway compatible HTTP responses 
+* Turning API Gateway requests into valid WSGI, and returning API Gateway compatible HTTP responses
 * Deploying your to various stages of readiness (dev, staging, prod)
 
 __Awesome!__
@@ -67,11 +67,11 @@ ZAPPA_SETTINGS = {
 }
 ```
 
-Notice that each environment defines a path to a settings file. This file will be used as your _server-side_ settings file. Specifically, you will want to define [a new SECRET_KEY](https://gist.github.com/Miserlou/a9cbe22d06cbabc07f21), as well as your deployment DATABASES information. 
+Notice that each environment defines a path to a settings file. This file will be used as your _server-side_ settings file. Specifically, you will want to define [a new SECRET_KEY](https://gist.github.com/Miserlou/a9cbe22d06cbabc07f21), as well as your deployment DATABASES information.
 
 #### A Note About Databases
 
-Since Zappa requirements are called from a bundled version of your local environment and not from pip, and because we have no way to determine what platform our Zappa handler will be executing on, we need to make sure that we only use portable packages. So, instead of using the default MySQL engine, we will instead need to use _mysql-python-connector_. 
+Since Zappa requirements are called from a bundled version of your local environment and not from pip, and because we have no way to determine what platform our Zappa handler will be executing on, we need to make sure that we only use portable packages. So, instead of using the default MySQL engine, we will instead need to use _mysql-python-connector_.
 
 That means your app's settings file will need an entry that looks something like this (notice the Engine field):
 
@@ -112,7 +112,7 @@ If your application has already been deployed and you only need to upload new Py
     Updating..
     Your application is now live at: https://7k6anj0k99.execute-api.us-east-1.amazonaws.com/production
 
-#### Rollback 
+#### Rollback
 
 You can also rollback the deployed code to a previous version by supplying the number of revisions to return to. For instance, to rollback to the version deployed 3 versions ago:
 
@@ -190,3 +190,7 @@ Things that need work right now:
 * Testing!
 * Feedback!
 * Real documentation / website!
+
+## [Contributing](CONTRIBUTING.md)
+
+## [License](LICENSE)

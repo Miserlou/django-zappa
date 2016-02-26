@@ -1,26 +1,20 @@
-from django.core.exceptions import ImproperlyConfigured
-from django.conf import settings
-from django.shortcuts import render
-from django.db import models
-from django.test import TestCase, Client
-
-import os
+from django.test import TestCase
 
 from .handler import lambda_handler
-from .middleware import ZappaMiddleware
-from .management.commands import deploy, invoke, update, tail, rollback
+from .management.commands import deploy, invoke, rollback, tail, update
+
 
 class DjangoZappaTests(TestCase):
-
     ##
     # Sanity
     ##
-    
+
     def test_basic_addition(self):
         """
-        Tests that 1 + 1 always equals 2. (Sanity test.)
-        """
+        Test that 1 + 1 always equals 2.
 
+        Sanity test.
+        """
         self.assertEqual(1 + 1, 2)
 
     ##
@@ -51,13 +45,13 @@ class DjangoZappaTests(TestCase):
             "params": {
             },
             "command": "check",
-            "query": { 
-                "dead": "beef" 
-                }
+            "query": {
+                "dead": "beef"
             }
+        }
 
         try:
-            returned = lambda_handler(event, None)
+            lambda_handler(event, None)
         except Exception as e:
             self.assertTrue("PCFET0NUWVBFIGh" in str(e))
 
@@ -82,7 +76,7 @@ class DjangoZappaTests(TestCase):
         }
 
         try:
-            returned = lambda_handler(yay_event, None, "test_settings")
+            lambda_handler(yay_event, None, "test_settings")
         except Exception as e:
             self.assertTrue(challenge_content in str(e))
 
@@ -102,7 +96,7 @@ class DjangoZappaTests(TestCase):
         }
 
         try:
-            returned = lambda_handler(boo_event, None, "test_settings")
+            lambda_handler(boo_event, None, "test_settings")
         except Exception as e:
             self.assertTrue(challenge_content not in str(e))
 
@@ -111,31 +105,31 @@ class DjangoZappaTests(TestCase):
     ##
 
     def test_deploy_sanity(self):
-        
+
         cmd = deploy.Command()
-        opts = {} # kwargs
+        opts = {}  # kwargs
         cmd.handle(**opts)
 
     def test_update_sanity(self):
-        
+
         cmd = update.Command()
-        opts = {} # kwargs
+        opts = {}  # kwargs
         cmd.handle(**opts)
 
     def test_invoke_sanity(self):
-        
+
         cmd = invoke.Command()
-        opts = {} # kwargs
+        opts = {}  # kwargs
         cmd.handle(**opts)
 
     def test_tail_sanity(self):
-        
+
         cmd = tail.Command()
-        opts = {} # kwargs
+        opts = {}  # kwargs
         cmd.handle(**opts)
 
     def test_rollback_sanity(self):
-        
+
         cmd = rollback.Command()
-        opts = {} # kwargs
+        opts = {}  # kwargs
         cmd.handle(**opts)

@@ -1,5 +1,7 @@
-import base58
 import json
+
+import base58
+
 
 REDIRECT_HTML = """<!DOCTYPE HTML>
 <html lang="en-US">
@@ -17,16 +19,11 @@ REDIRECT_HTML = """<!DOCTYPE HTML>
     </body>
 </html>"""
 
+
 class ZappaMiddleware(object):
-
     def process_request(self, request):
-        """
-        If we have a ZappaCookie, decode it.
-
-        """
-
+        """If we have a ZappaCookie, decode it."""
         if 'zappa' in request.COOKIES.keys():
-
             encoded = request.COOKIES['zappa']
             decoded = base58.b58decode(encoded)
             parsed = json.loads(decoded)
@@ -39,10 +36,9 @@ class ZappaMiddleware(object):
     def process_response(self, request, response):
         """
         If we have multiple Set-Cookies, combine them into a single ZappaCookie.
+
         Returns the modified HTTP Response.
-
         """
-
         if not response.cookies.keys():
             return response
 
@@ -56,7 +52,7 @@ class ZappaMiddleware(object):
         pack = {}
         for key in response.cookies.keys():
             pack[key] = response.cookies[key].value
-            del(response.cookies[key])
+            del (response.cookies[key])
 
         pack_s = json.dumps(pack)
         encoded = base58.b58encode(pack_s)

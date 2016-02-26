@@ -2,36 +2,19 @@ from __future__ import unicode_literals
 
 import base64
 import datetime
-import json
 import logging
-import mimetypes
 import os
-import re
-import sys
-import zipfile
 
-from copy import copy
-from importlib import import_module
-from io import BytesIO
-
-from django.apps import apps
-from django.conf import settings
-from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIHandler
-from django.core.handlers.wsgi import ISO_8859_1, UTF_8, WSGIRequest
-from django.core.signals import (
-    got_request_exception, request_finished, request_started,
-)
-from django.db import close_old_connections
+from zappa.wsgi import common_log, create_wsgi_request
 
-from zappa.wsgi import create_wsgi_request, common_log
 
-def lambda_handler(event, context, settings_name="zappa_settings"):
+def lambda_handler(event, context, settings_name="zappa_settings"):  # NoQA
     """
-    An AWS Lambda function which parses specific API Gateway input into a WSGI request,
-    feeds it to Django, procceses the Django response, and returns that
-    back to the API Gateway.
+    An AWS Lambda function which parses specific API Gateway input into a WSGI request.
 
+    The request get fed it to Django, processes the Django response, and returns that
+    back to the API Gateway.
     """
     time_start = datetime.datetime.now()
 
@@ -69,9 +52,9 @@ def lambda_handler(event, context, settings_name="zappa_settings"):
         if lets_encrypt_challenge_path:
             if len(event['params']) == 3:
                 if event['params']['parameter_1'] == '.well-known' and \
-                    event['params']['parameter_2'] == 'acme-challenge' and \
-                    event['params']['parameter_3'] == lets_encrypt_challenge_path:
-                        return {'Content': lets_encrypt_challenge_content, 'Status': 200}
+                                event['params']['parameter_2'] == 'acme-challenge' and \
+                                event['params']['parameter_3'] == lets_encrypt_challenge_path:
+                    return {'Content': lets_encrypt_challenge_content, 'Status': 200}
 
         # This doesn't matter, but Django's handler requires it.
         def start(a, b):
