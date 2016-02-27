@@ -29,18 +29,6 @@ class Command(ZappaCommand):
         # Load the settings
         self.require_settings()
 
-        # Make your Zappa object
-        zappa = Zappa()
-
-        # Load environment-specific settings
-        s3_bucket_name = self.zappa_settings[self.api_stage]['s3_bucket']
-        settings_file = self.zappa_settings[self.api_stage]['settings_file']
-        if '~' in settings_file:
-            settings_file = settings_file.replace('~', os.path.expanduser('~'))
-        if not os.path.isfile(settings_file):
-            print("Please make sure your settings_file is properly defined.")
-            return
-
         custom_settings = [
             'http_methods', 
             'parameter_depth',
@@ -54,54 +42,17 @@ class Command(ZappaCommand):
                 setattr(zappa, setting, self.zappa_settings[self.api_stage][setting])
 
         # Load your AWS credentials from ~/.aws/credentials
-        zappa.load_credentials()
+        self.zappa.load_credentials()
 
-        # Create the Lambda zip package (includes project and virtualenvironment)
-        # Also define the path the handler file so it can be copied to the zip root for Lambda.
-        current_file =  os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-        handler_file = os.sep.join(current_file.split(os.sep)[0:-2]) + os.sep + 'handler.py'
-        lambda_name = project_name + '-' + self.api_stage
-        zip_path = zappa.create_lambda_zip(lambda_name, handler_file=handler_file)
-
-        #Add this environment's Django settings to that zipfile
-        with open(settings_file, 'r') as f:
-            contents = f.read()
-            all_contents = contents
-            if not self.zappa_settings[self.api_stage].has_key('domain'):
-                script_name = self.api_stage
-            else:
-                script_name = ''
-
-            if not "ZappaMiddleware" in all_contents:
-                print("\n\nWARNING!\n")
-                print("You do not have ZappaMiddleware in your remote settings's MIDDLEWARE_CLASSES.\n")
-                print("This means that some aspects of your application may not work!\n\n")
-            
-            all_contents = all_contents + '\n# Automatically added by Zappa:\nSCRIPT_NAME=\'/' + script_name + '\'\n'
-            f.close()
-
-        with open('zappa_settings.py', 'w') as f:
-            f.write(all_contents)
-
-        with zipfile.ZipFile(zip_path, 'a') as lambda_zip:
-            lambda_zip.write('zappa_settings.py', 'zappa_settings.py')
-            lambda_zip.close()
-
-        os.unlink('zappa_settings.py') 
+        # Create the Lambda Zip
+        self.create_package()
 
         # Upload it to S3
-        zip_arn = zappa.upload_to_s3(zip_path, s3_bucket_name)
+        zip_arn = self.zappa.upload_to_s3(zip_path, s3_bucket_name)
 
         # Register the Lambda function with that zip as the source
         # You'll also need to define the path to your lambda_handler code.
-        lambda_arn = zappa.update_lambda_function(s3_bucket_name, zip_path, lambda_name)
-
-        # Finally, delete the local copy our zip package
-        if self.zappa_settings[self.api_stage].get('delete_zip', True):
-            os.remove(zip_path)
-
-        # Remove the uploaded zip from S3, because it is now registered..
-        zappa.remove_from_s3(zip_path, s3_bucket_name)
+        lambda_arn = self.zappa.update_lambda_function(s3_bucket_name, zip_path, lambda_name)
 
         print("Your updated Zappa deployment is live!")
 
