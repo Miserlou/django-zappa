@@ -19,7 +19,6 @@ install:
   - pip install --upgrade coveralls
 script:
   - isort --check-only --recursive --diff .
-  - flake8 --jobs=2 .
   - pep257 --verbose --explain --source --count stdimage
   - python manage.py test
 after_success:
