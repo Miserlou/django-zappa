@@ -138,14 +138,21 @@ class ZappaCommand(BaseCommand):
 
         os.unlink('zappa_settings.py')
 
+    def remove_local_zip(self):
+        """
+        Remove our local zip file.
+        """
+
+        if self.zappa_settings[self.api_stage].get('delete_zip', True):
+            os.remove(self.zip_path)
+
     def remove_uploaded_zip(self):
         """
         Remove the local and S3 zip file after uploading and updating.
         """
 
-        # Finally, delete the local copy our zip package
-        if self.zappa_settings[self.api_stage].get('delete_zip', True):
-            os.remove(self.zip_path)
-
         # Remove the uploaded zip from S3, because it is now registered..
         self.zappa.remove_from_s3(self.zip_path, self.s3_bucket_name)
+
+        # Finally, delete the local copy our zip package
+        self.remove_local_zip()

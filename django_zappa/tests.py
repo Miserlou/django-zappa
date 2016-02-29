@@ -2,7 +2,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 
 from .handler import lambda_handler
-from .management.commands import deploy, invoke, rollback, tail, update
+from .management.commands import deploy, invoke, rollback, tail, update, zappa_command
 
 
 class DjangoZappaTests(TestCase):
@@ -149,3 +149,13 @@ class DjangoZappaTests(TestCase):
             cmd.handle(**opts)
         except ImproperlyConfigured:
             return
+
+    def test_zappa_command_sanity(self):
+        
+        cmd = zappa_command.ZappaCommand()
+
+        args = {}
+        options = {'environment': ['test']}
+        cmd.require_settings(args, options)
+        cmd.create_package()
+        cmd.remove_local_zip()
