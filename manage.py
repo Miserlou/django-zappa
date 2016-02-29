@@ -7,7 +7,7 @@ if __name__ == "__main__":
 
     from django.core.management import execute_from_command_line
 
-    is_testing = 'test' in sys.argv
+    is_testing = 'test' == sys.argv[1]
 
     if is_testing:
         import coverage
