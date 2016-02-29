@@ -1,7 +1,9 @@
+import sys
+from StringIO import StringIO
 from django.test import TestCase
-
 from .handler import lambda_handler
-from .management.commands import deploy, invoke, rollback, tail, update
+from django.core.management import call_command
+from placebo.utils import placebo_session
 
 
 class DjangoZappaTests(TestCase):
@@ -22,7 +24,6 @@ class DjangoZappaTests(TestCase):
     ##
 
     def test_basic_handler(self):
-
         event = {
             "body": "",
             "headers": {
@@ -103,33 +104,37 @@ class DjangoZappaTests(TestCase):
     ##
     # Commands
     ##
+    @placebo_session
+    def test_deploy(self, session):
+        args = ["test"]
+        opts = {'session': session}
+        out = StringIO()
+        stdout_backup, sys.stdout = sys.stdout, out
+        call_command('deploy', *args, **opts)
+        sys.stdout = stdout_backup
+        self.assertIn(
+            "Your Zappa deployment is live!: "
+            "https://oakuumaiog.execute-api.us-east-1.amazonaws.com/test",
+            out.getvalue()
+        )
 
-    def test_deploy_sanity(self):
+    @placebo_session
+    def test_update(self, session):
+        args = ["test"]
+        opts = {'session': session}
+        call_command('update', *args, **opts)
 
-        cmd = deploy.Command()
-        opts = {}  # kwargs
-        cmd.handle(**opts)
+    def test_invoke(self, session):
+        args = ["test", "check this out"]
+        opts = {'session': session}
+        call_command('invoke', *args, **opts)
 
-    def test_update_sanity(self):
+    def test_tail(self, session):
+        args = ["test"]
+        opts = {'session': session}
+        call_command('tail', *args, **opts)
 
-        cmd = update.Command()
-        opts = {}  # kwargs
-        cmd.handle(**opts)
-
-    def test_invoke_sanity(self):
-
-        cmd = invoke.Command()
-        opts = {}  # kwargs
-        cmd.handle(**opts)
-
-    def test_tail_sanity(self):
-
-        cmd = tail.Command()
-        opts = {}  # kwargs
-        cmd.handle(**opts)
-
-    def test_rollback_sanity(self):
-
-        cmd = rollback.Command()
-        opts = {}  # kwargs
-        cmd.handle(**opts)
+    def test_rollback(self, session):
+        args = ["test", "1"]
+        opts = {'session': session}
+        call_command('rollback', *args, **opts)
