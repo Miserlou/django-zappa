@@ -122,7 +122,14 @@ class DjangoZappaTests(TestCase):
     def test_update(self, session):
         args = ["test"]
         opts = {'session': session}
+        out = StringIO()
+        stdout_backup, sys.stdout = sys.stdout, out
         call_command('update', *args, **opts)
+        sys.stdout = stdout_backup
+        self.assertIn(
+            "Your updated Zappa deployment is live!",
+            out.getvalue()
+        )
 
     def test_invoke(self, session):
         args = ["test", "check this out"]
