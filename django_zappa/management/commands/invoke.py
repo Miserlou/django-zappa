@@ -35,7 +35,8 @@ class Command(ZappaCommand):
         # Invoke it!
         command = {"command": ' '.join(options['environment'][1:])}
 
-        response = self.zappa.invoke_lambda_function(self.lambda_name, json.dumps(command), invocation_type='RequestResponse')
+        response = self.zappa.invoke_lambda_function(
+            self.lambda_name, json.dumps(command), invocation_type='RequestResponse')
 
         if 'LogResult' in response:
             print(base64.b64decode(response['LogResult']))

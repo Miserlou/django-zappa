@@ -42,21 +42,23 @@ class Command(ZappaCommand):
 
         # Upload it to S3
         try:
-            zip_arn = self.zappa.upload_to_s3(self.zip_path, self.s3_bucket_name)
+            zip_arn = self.zappa.upload_to_s3(
+                self.zip_path, self.s3_bucket_name)
         except (KeyboardInterrupt, SystemExit):
             raise
 
         # Register the Lambda function with that zip as the source
         # You'll also need to define the path to your lambda_handler code.
         lambda_arn = self.zappa.create_lambda_function(bucket=self.s3_bucket_name,
-                                                  s3_key=self.zip_path,
-                                                  function_name=self.lambda_name,
-                                                  handler='handler.lambda_handler',
-                                                  vpc_config=self.vpc_config,
-                                                  memory_size=self.memory_size)
+                                                       s3_key=self.zip_path,
+                                                       function_name=self.lambda_name,
+                                                       handler='handler.lambda_handler',
+                                                       vpc_config=self.vpc_config,
+                                                       memory_size=self.memory_size)
 
         # Create and configure the API Gateway
-        api_id = self.zappa.create_api_gateway_routes(lambda_arn, self.lambda_name)
+        api_id = self.zappa.create_api_gateway_routes(
+            lambda_arn, self.lambda_name)
 
         # Deploy the API!
         endpoint_url = self.zappa.deploy_api_gateway(api_id, self.api_stage)

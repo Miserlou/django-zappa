@@ -26,5 +26,6 @@ class Command(ZappaCommand):
 
         print("Rolling back..")
 
-        self.zappa.rollback_lambda_function_version(self.lambda_name, versions_back=revision)
+        self.zappa.rollback_lambda_function_version(
+            self.lambda_name, versions_back=revision)
         print("Done!")

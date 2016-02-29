@@ -44,12 +44,14 @@ class ZappaCommand(BaseCommand):
         """
 
         if not options.has_key('environment'):
-            print("You must call deploy with an environment name. \n python manage.py deploy <environment>")
+            print(
+                "You must call deploy with an environment name. \n python manage.py deploy <environment>")
             raise ImproperlyConfigured
 
         from django.conf import settings
         if not 'ZAPPA_SETTINGS' in dir(settings):
-            print("Please define your ZAPPA_SETTINGS in your settings file before deploying.")
+            print(
+                "Please define your ZAPPA_SETTINGS in your settings file before deploying.")
             raise ImproperlyConfigured
 
         self.zappa_settings = settings.ZAPPA_SETTINGS
@@ -59,16 +61,21 @@ class ZappaCommand(BaseCommand):
         self.api_stage = options['environment'][0]
         self.lambda_name = self.project_name + '-' + self.api_stage
         if self.api_stage not in self.zappa_settings.keys():
-            print("Please make sure that the environment '" + self.api_stage + "' is defined in your ZAPPA_SETTINGS in your settings file before deploying.")
+            print("Please make sure that the environment '" + self.api_stage +
+                  "' is defined in your ZAPPA_SETTINGS in your settings file before deploying.")
             raise ImproperlyConfigured
 
         # Load environment-specific settings
         self.s3_bucket_name = self.zappa_settings[self.api_stage]['s3_bucket']
-        self.vpc_config = self.zappa_settings[self.api_stage].get('vpc_config', {})
-        self.memory_size = self.zappa_settings[self.api_stage].get('memory_size', 512)
-        self.settings_file = self.zappa_settings[self.api_stage]['settings_file']
+        self.vpc_config = self.zappa_settings[
+            self.api_stage].get('vpc_config', {})
+        self.memory_size = self.zappa_settings[
+            self.api_stage].get('memory_size', 512)
+        self.settings_file = self.zappa_settings[
+            self.api_stage]['settings_file']
         if '~' in self.settings_file:
-            self.settings_file = self.settings_file.replace('~', os.path.expanduser('~'))
+            self.settings_file = self.settings_file.replace(
+                '~', os.path.expanduser('~'))
         if not os.path.isfile(self.settings_file):
             print("Please make sure your settings_file is properly defined.")
             raise ImproperlyConfigured
@@ -83,20 +90,25 @@ class ZappaCommand(BaseCommand):
         ]
         for setting in custom_settings:
             if self.zappa_settings[self.api_stage].has_key(setting):
-                setattr(self.zappa, setting, self.zappa_settings[self.api_stage][setting])
+                setattr(self.zappa, setting, self.zappa_settings[
+                        self.api_stage][setting])
 
     def create_package(self):
         """
         Ensure that the package can be properly configured,
         and then create it.
-        
+
         """
 
         # Create the Lambda zip package (includes project and virtualenvironment)
-        # Also define the path the handler file so it can be copied to the zip root for Lambda.
-        current_file = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-        handler_file = os.sep.join(current_file.split(os.sep)[0:-2]) + os.sep + 'handler.py'
-        self.zip_path = self.zappa.create_lambda_zip(self.lambda_name, handler_file=handler_file)
+        # Also define the path the handler file so it can be copied to the zip
+        # root for Lambda.
+        current_file = os.path.dirname(os.path.abspath(
+            inspect.getfile(inspect.currentframe())))
+        handler_file = os.sep.join(current_file.split(os.sep)[
+                                   0:-2]) + os.sep + 'handler.py'
+        self.zip_path = self.zappa.create_lambda_zip(
+            self.lambda_name, handler_file=handler_file)
 
         # Add this environment's Django settings to that zipfile
         with open(self.settings_file, 'r') as f:
@@ -109,10 +121,13 @@ class ZappaCommand(BaseCommand):
 
             if not "ZappaMiddleware" in all_contents:
                 print("\n\nWARNING!\n")
-                print("You do not have ZappaMiddleware in your remote settings's MIDDLEWARE_CLASSES.\n")
-                print("This means that some aspects of your application may not work!\n\n")
+                print(
+                    "You do not have ZappaMiddleware in your remote settings's MIDDLEWARE_CLASSES.\n")
+                print(
+                    "This means that some aspects of your application may not work!\n\n")
 
-            all_contents = all_contents + '\n# Automatically added by Zappa:\nSCRIPT_NAME=\'/' + script_name + '\'\n'
+            all_contents = all_contents + \
+                '\n# Automatically added by Zappa:\nSCRIPT_NAME=\'/' + script_name + '\'\n'
             f.close()
 
         with open('zappa_settings.py', 'w') as f:

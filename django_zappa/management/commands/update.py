@@ -40,7 +40,8 @@ class Command(ZappaCommand):
 
         # Register the Lambda function with that zip as the source
         # You'll also need to define the path to your lambda_handler code.
-        lambda_arn = self.zappa.update_lambda_function(self.s3_bucket_name, self.zip_path, self.lambda_name)
+        lambda_arn = self.zappa.update_lambda_function(
+            self.s3_bucket_name, self.zip_path, self.lambda_name)
 
         print("Your updated Zappa deployment is live!")
 
