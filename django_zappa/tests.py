@@ -148,6 +148,7 @@ class DjangoZappaTests(TestCase):
             out.getvalue()
         )
 
+    @placebo_session
     def test_tail(self, session):
         args = ["test"]
         opts = {'session': session}

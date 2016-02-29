@@ -1,0 +1,61 @@
+{
+    "status_code": 200, 
+    "data": {
+        "logStreams": [
+            {
+                "firstEventTimestamp": 1456709286797, 
+                "lastEventTimestamp": 1456709421925, 
+                "creationTime": 1456709286007, 
+                "uploadSequenceToken": "49556332011586010980081083293260627322702174159011592402", 
+                "logStreamName": "2016/02/29/[$LATEST]16310c9a1802423cbc98e5e96b0d0c12", 
+                "lastIngestionTime": 1456709436958, 
+                "arn": "arn:aws:logs:us-east-1:194470793832:log-group:/aws/lambda/python-test:log-stream:2016/02/29/[$LATEST]16310c9a1802423cbc98e5e96b0d0c12", 
+                "storedBytes": 0
+            }, 
+            {
+                "firstEventTimestamp": 1456703561221, 
+                "lastEventTimestamp": 1456705111485, 
+                "creationTime": 1456703560398, 
+                "uploadSequenceToken": "49556351707537268086730937109007867518886350424733936802", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc", 
+                "lastIngestionTime": 1456705126528, 
+                "arn": "arn:aws:logs:us-east-1:194470793832:log-group:/aws/lambda/python-test:log-stream:2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc", 
+                "storedBytes": 0
+            }, 
+            {
+                "firstEventTimestamp": 1456703312748, 
+                "lastEventTimestamp": 1456705033112, 
+                "creationTime": 1456703311476, 
+                "uploadSequenceToken": "49540113370234897711166024709416010786931716151283050850", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b", 
+                "lastIngestionTime": 1456705048138, 
+                "arn": "arn:aws:logs:us-east-1:194470793832:log-group:/aws/lambda/python-test:log-stream:2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b", 
+                "storedBytes": 0
+            }, 
+            {
+                "firstEventTimestamp": 1456700181907, 
+                "lastEventTimestamp": 1456700181958, 
+                "creationTime": 1456700181281, 
+                "uploadSequenceToken": "49547722087985928200117978420100979493606825802835455330", 
+                "logStreamName": "2016/02/28/[$LATEST]86963b6e47064535b36c105b9dbd269f", 
+                "lastIngestionTime": 1456700196940, 
+                "arn": "arn:aws:logs:us-east-1:194470793832:log-group:/aws/lambda/python-test:log-stream:2016/02/28/[$LATEST]86963b6e47064535b36c105b9dbd269f", 
+                "storedBytes": 0
+            }, 
+            {
+                "firstEventTimestamp": 1456700144919, 
+                "lastEventTimestamp": 1456700144977, 
+                "creationTime": 1456700144540, 
+                "uploadSequenceToken": "49557965923473478286635508936350223313209023568722021186", 
+                "logStreamName": "2016/02/28/[$LATEST]e3302f7116eb4332b07e6c7165f77284", 
+                "lastIngestionTime": 1456700159920, 
+                "arn": "arn:aws:logs:us-east-1:194470793832:log-group:/aws/lambda/python-test:log-stream:2016/02/28/[$LATEST]e3302f7116eb4332b07e6c7165f77284", 
+                "storedBytes": 0
+            }
+        ], 
+        "ResponseMetadata": {
+            "HTTPStatusCode": 200, 
+            "RequestId": "3b4aa6be-de86-11e5-87c0-2795b28a7364"
+        }
+    }
+}
