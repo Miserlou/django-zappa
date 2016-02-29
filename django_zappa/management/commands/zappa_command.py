@@ -10,12 +10,13 @@ import zipfile
 
 from zappa.zappa import Zappa
 
+
 class ZappaCommand(BaseCommand):
 
     # Management command
     can_import_settings = True
     requires_system_checks = False
-    
+
     # Zappa settings
     zappa = None
     zappa_settings = None
@@ -74,7 +75,7 @@ class ZappaCommand(BaseCommand):
             raise ImproperlyConfigured
 
         custom_settings = [
-            'http_methods', 
+            'http_methods',
             'parameter_depth',
             'integration_response_codes',
             'method_response_codes',
@@ -94,7 +95,7 @@ class ZappaCommand(BaseCommand):
 
         # Create the Lambda zip package (includes project and virtualenvironment)
         # Also define the path the handler file so it can be copied to the zip root for Lambda.
-        current_file =  os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+        current_file = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
         handler_file = os.sep.join(current_file.split(os.sep)[0:-2]) + os.sep + 'handler.py'
         self.zip_path = self.zappa.create_lambda_zip(self.lambda_name, handler_file=handler_file)
 
@@ -111,7 +112,7 @@ class ZappaCommand(BaseCommand):
                 print("\n\nWARNING!\n")
                 print("You do not have ZappaMiddleware in your remote settings's MIDDLEWARE_CLASSES.\n")
                 print("This means that some aspects of your application may not work!\n\n")
-            
+
             all_contents = all_contents + '\n# Automatically added by Zappa:\nSCRIPT_NAME=\'/' + script_name + '\'\n'
             f.close()
 
@@ -122,7 +123,7 @@ class ZappaCommand(BaseCommand):
             lambda_zip.write('zappa_settings.py', 'zappa_settings.py')
             lambda_zip.close()
 
-        os.unlink('zappa_settings.py') 
+        os.unlink('zappa_settings.py')
 
     def remove_uploaded_zip(self):
         """

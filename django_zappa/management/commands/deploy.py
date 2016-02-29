@@ -10,6 +10,7 @@ from django.core.management.base import BaseCommand
 from zappa.zappa import Zappa
 from .zappa_command import ZappaCommand
 
+
 class Command(ZappaCommand):
 
     can_import_settings = True
@@ -42,7 +43,7 @@ class Command(ZappaCommand):
         try:
             zip_arn = self.zappa.upload_to_s3(self.zip_path, self.s3_bucket_name)
         except (KeyboardInterrupt, SystemExit):
-            raise            
+            raise
 
         # Register the Lambda function with that zip as the source
         # You'll also need to define the path to your lambda_handler code.

@@ -4,6 +4,7 @@ from django.core.management.base import BaseCommand
 from zappa.zappa import Zappa
 from .zappa_command import ZappaCommand
 
+
 class Command(ZappaCommand):
     help = '''Rollback to specific version of a Zappa deploy.
               python manage.py rollback dev 3'''
