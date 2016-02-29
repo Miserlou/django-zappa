@@ -28,7 +28,7 @@ class Command(BaseCommand):
         zappa = Zappa(options.get("session"))
 
         # Invoke it!
-        command = {"command": ' '.join(options['environment'][1:])}
+        command = {"command": ' '.join(options['command'])}
         response = zappa.invoke_lambda_function(
             lambda_name, json.dumps(command), invocation_type='RequestResponse')
 
