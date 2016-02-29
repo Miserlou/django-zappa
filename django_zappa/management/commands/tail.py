@@ -15,7 +15,9 @@ class Command(BaseCommand):
     help = '''Tail the logs of this Zappa deployment.'''
 
     def add_arguments(self, parser):
-        parser.add_argument('environment', nargs='+', type=str)
+        parser.add_argument('environment', type=str)
+        parser.add_argument(
+            '--follow', '-f', action='store_true', default=False)
 
     def print_logs(self, logs):
         for log in logs:
@@ -47,7 +49,7 @@ class Command(BaseCommand):
             self.print_logs(all_logs)
 
             # Keep polling, and print any new logs.
-            while True:
+            while True and options['follow']:
                 all_logs_again = zappa.fetch_logs(lambda_name)
                 new_logs = []
                 for log in all_logs_again:
