@@ -1,8 +1,6 @@
 from __future__ import absolute_import
 
-import inspect
 import os
-import zipfile
 
 import requests
 from django.conf import settings

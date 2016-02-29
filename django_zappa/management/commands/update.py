@@ -1,8 +1,5 @@
 from __future__ import absolute_import
 
-import inspect
-import os
-import zipfile
 
 from django.core.management.base import BaseCommand
 from zappa.zappa import Zappa
@@ -36,7 +33,7 @@ class Command(ZappaCommand):
         self.create_package()
 
         # Upload it to S3
-        zip_arn = self.zappa.upload_to_s3(self.zip_path, self.s3_bucket_name)
+        self.zappa.upload_to_s3(self.zip_path, self.s3_bucket_name)
 
         # Register the Lambda function with that zip as the source
         # You'll also need to define the path to your lambda_handler code.

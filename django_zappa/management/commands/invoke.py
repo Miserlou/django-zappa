@@ -2,8 +2,6 @@ from __future__ import absolute_import
 
 import base64
 import json
-import os
-import sys
 
 from zappa.zappa import Zappa
 
