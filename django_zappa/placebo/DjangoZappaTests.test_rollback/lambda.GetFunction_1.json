@@ -1,0 +1,27 @@
+{
+    "status_code": 200, 
+    "data": {
+        "Code": {
+            "RepositoryType": "S3", 
+            "Location": "https://prod-04-2014-tasks.s3.amazonaws.com/snapshots/194470793832/python-test-1d2756d8-1e31-4d2b-a12b-2b21aed4a8f0?x-amz-security-token=AQoDYXdzEMr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEa4APD%2Bl5FHaP8R%2FVJ8%2Bc6wOl3xmHsfhzozP72Pa6K8kXMzrr1tosZjAPY9Z2%2F%2F2ou5oPLZgpI5VKodpzTDsNq8vVa%2BBjU0DzGvmHHxiN2%2FbqaDrAvMN%2BtZYQytgbX4dR%2FVkYVYImdcqw2U%2BXzdxj86LxzFzKpdcHG8Y6O4tgrh1Kx6HPHvn8E0uU2vfqtEv1ZqDMB4DKMLyLq4qF88iXwJ89XJUd%2BYGfdTGvKuHha61gbnoEcUckeLC7Yq3SzkJiZsglHdOtxnDsRB7tKAZILmiASjZjS8q5uoq7D22cj%2FXb8L%2FEt0Xy5gx1uWDxcQcjIe4Z3Edk6Krfm0VIXJW1zvQT7KBEdVcg2SkHBxK%2FO5sfvRDvuPbL3BTLl3rIJqgMczW6mMvIR3Ez2QgXq8lqL%2FCoVikFJWd%2Btt6svI86Md0gTKqCXtL%2BSb06WMNLoOgN3v2SxAQl0kwplzbRxrzf1v%2FLlZGzvR4JC6ZGo9NRqEOZxSoJnUc%2BUcu3NeZect0pR4GklA7GJFxysSBRJeyV3SOEITPYsMzpqdtcPJkEht4P%2FF3updnGdw9F6tmJQ2%2B2bD1jvxoMDifOkGwLk5y7%2BfJgQOTHb3n5eSb2pFDScowL18GaTK%2BwZQLA2Ms8j2mYDpPEgv6jOtgU%3D&AWSAccessKeyId=ASIAI4DOUUQH4VXB2XDA&Expires=1456712036&Signature=LEpnOQIosnLyBri3Y5tQOykW0Z8%3D"
+        }, 
+        "Configuration": {
+            "Version": "9", 
+            "CodeSha256": "3MiF6cQEveKjH7VLWNaQcBmoEBDMGOQFcqHJAItvo1U=", 
+            "FunctionName": "python-test", 
+            "MemorySize": 512, 
+            "CodeSize": 10751813, 
+            "FunctionArn": "arn:aws:lambda:us-east-1:194470793832:function:python-test:9", 
+            "Handler": "handler.lambda_handler", 
+            "Role": "arn:aws:iam::194470793832:role/ZappaLambdaExecution", 
+            "Timeout": 30, 
+            "LastModified": "2016-02-29T01:59:19.873+0000", 
+            "Runtime": "python2.7", 
+            "Description": "Zappa Deployment"
+        }, 
+        "ResponseMetadata": {
+            "HTTPStatusCode": 200, 
+            "RequestId": "b096a827-de88-11e5-b443-cb7a29c3c362"
+        }
+    }
+}

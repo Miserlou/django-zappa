@@ -1,0 +1,509 @@
+{
+    "status_code": 200, 
+    "data": {
+        "searchedLogStreams": [
+            {
+                "searchedCompletely": true, 
+                "logStreamName": "2016/02/29/[$LATEST]16310c9a1802423cbc98e5e96b0d0c12"
+            }, 
+            {
+                "searchedCompletely": true, 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "searchedCompletely": true, 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "searchedCompletely": true, 
+                "logStreamName": "2016/02/28/[$LATEST]86963b6e47064535b36c105b9dbd269f"
+            }, 
+            {
+                "searchedCompletely": true, 
+                "logStreamName": "2016/02/28/[$LATEST]e3302f7116eb4332b07e6c7165f77284"
+            }
+        ], 
+        "events": [
+            {
+                "ingestionTime": 1456700159920, 
+                "timestamp": 1456700144919, 
+                "message": "START RequestId: 657ae5ba-de6e-11e5-87b3-bf2e7acbce46 Version: $LATEST\n", 
+                "eventId": "32485498762501252157895498290745678382442652388804853760", 
+                "logStreamName": "2016/02/28/[$LATEST]e3302f7116eb4332b07e6c7165f77284"
+            }, 
+            {
+                "ingestionTime": 1456700159920, 
+                "timestamp": 1456700144960, 
+                "message": "[INFO]\t2016-02-28T22:55:44.960Z\t657ae5ba-de6e-11e5-87b3-bf2e7acbce46\tZappa Event: {u'body': {}, u'headers': {u'Via': u'1.1 dba4881aee9ac99f5dba4dcd7e8175b1.cloudfront.net (CloudFront)', u'Accept-Encoding': u'gzip', u'CloudFront-Is-SmartTV-Viewer': u'false', u'CloudFront-Forwarded-Proto': u'https', u'X-Forwarded-For': u'46.189.157.161, 54.240.157.70', u'CloudFront-Viewer-Country': u'PT', u'Accept': u'*/*', u'User-Agent': u'python-requests/2.9.1', u'Host': u'n2x7tr83e3.execute-api.us-east-1.amazonaws.com', u'X-Forwarded-Proto': u'https', u'X-Amz-Cf-Id': u'0BW2p2KzTAE0i1R7BmUPzPs116S3jyd-c4mwkPZvWj33KJSniVwbug==', u'CloudFront-Is-Tablet-Viewer': u'false', u'X-Forwarded-Port': u'443', u'CloudFront-Is-Mobile-Viewer': u'false', u'CloudFront-Is-Desktop-Viewer': u'true'}, u'params': {}, u'method': u'GET', u'query': {}}\n", 
+                "eventId": "32485498763415582711035253839548642831621235210550050817", 
+                "logStreamName": "2016/02/28/[$LATEST]e3302f7116eb4332b07e6c7165f77284"
+            }, 
+            {
+                "ingestionTime": 1456700159920, 
+                "timestamp": 1456700144962, 
+                "message": "'Settings' object has no attribute 'ROOT_URLCONF': AttributeError\nTraceback (most recent call last):\n  File \"/var/task/handler.py\", line 66, in lambda_handler\n    response = handler(environ, start)\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/wsgi.py\", line 177, in __call__\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/base.py\", line 113, in get_response\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", line 56, in __getattr__\nAttributeError: 'Settings' object has no attribute 'ROOT_URLCONF'\n\n", 
+                "eventId": "32485498763460184201432315085831714268166531933562011650", 
+                "logStreamName": "2016/02/28/[$LATEST]e3302f7116eb4332b07e6c7165f77284"
+            }, 
+            {
+                "ingestionTime": 1456700159920, 
+                "timestamp": 1456700144977, 
+                "message": "END RequestId: 657ae5ba-de6e-11e5-87b3-bf2e7acbce46\n", 
+                "eventId": "32485498763794695379410274432954750042256257356151717891", 
+                "logStreamName": "2016/02/28/[$LATEST]e3302f7116eb4332b07e6c7165f77284"
+            }, 
+            {
+                "ingestionTime": 1456700159920, 
+                "timestamp": 1456700144977, 
+                "message": "REPORT RequestId: 657ae5ba-de6e-11e5-87b3-bf2e7acbce46\tDuration: 43.15 ms\tBilled Duration: 100 ms \tMemory Size: 512 MB\tMax Memory Used: 37 MB\t\n", 
+                "eventId": "32485498763794695379410274432954750042256257356151717892", 
+                "logStreamName": "2016/02/28/[$LATEST]e3302f7116eb4332b07e6c7165f77284"
+            }, 
+            {
+                "ingestionTime": 1456700196940, 
+                "timestamp": 1456700181907, 
+                "message": "START RequestId: 7b93ca64-de6e-11e5-9c06-db935b97e93f Version: $LATEST\n", 
+                "eventId": "32485499587361215561146187094623637358553200532015087616", 
+                "logStreamName": "2016/02/28/[$LATEST]86963b6e47064535b36c105b9dbd269f"
+            }, 
+            {
+                "ingestionTime": 1456700196940, 
+                "timestamp": 1456700181942, 
+                "message": "[INFO]\t2016-02-28T22:56:21.942Z\t7b93ca64-de6e-11e5-9c06-db935b97e93f\tZappa Event: {u'body': {}, u'headers': {u'Via': u'1.1 6f8fe13614539bc3861e8932dc94fb22.cloudfront.net (CloudFront)', u'Accept-Language': u'en-US,en;q=0.8,pt-PT;q=0.6,pt;q=0.4', u'Accept-Encoding': u'gzip', u'CloudFront-Is-SmartTV-Viewer': u'false', u'CloudFront-Forwarded-Proto': u'https', u'X-Forwarded-For': u'46.189.157.161, 54.240.157.70', u'CloudFront-Viewer-Country': u'PT', u'Accept': u'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8', u'Upgrade-Insecure-Requests': u'1', u'Host': u'n2x7tr83e3.execute-api.us-east-1.amazonaws.com', u'X-Forwarded-Proto': u'https', u'X-Amz-Cf-Id': u'9e8JEwEuU6Q41hZnGKFUpabOTlzgx-0kDLCQ6vQXR0rS3mjDPhmvaw==', u'CloudFront-Is-Tablet-Viewer': u'false', u'X-Forwarded-Port': u'443', u'User-Agent': u'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36', u'CloudFront-Is-Mobile-Viewer': u'false', u'CloudFront-Is-Desktop-Viewer': u'true'}, u'params': {}, u'method': u'GET', u'query': {}}\n", 
+                "eventId": "32485499588141741643094758904577387498095893184724402177", 
+                "logStreamName": "2016/02/28/[$LATEST]86963b6e47064535b36c105b9dbd269f"
+            }, 
+            {
+                "ingestionTime": 1456700196940, 
+                "timestamp": 1456700181958, 
+                "message": "'Settings' object has no attribute 'ROOT_URLCONF': AttributeError\nTraceback (most recent call last):\n  File \"/var/task/handler.py\", line 66, in lambda_handler\n    response = handler(environ, start)\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/wsgi.py\", line 177, in __call__\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/base.py\", line 113, in get_response\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", line 56, in __getattr__\nAttributeError: 'Settings' object has no attribute 'ROOT_URLCONF'\n\n", 
+                "eventId": "32485499588498553566271248874841958990458266968820088834", 
+                "logStreamName": "2016/02/28/[$LATEST]86963b6e47064535b36c105b9dbd269f"
+            }, 
+            {
+                "ingestionTime": 1456700196940, 
+                "timestamp": 1456700181958, 
+                "message": "END RequestId: 7b93ca64-de6e-11e5-9c06-db935b97e93f\n", 
+                "eventId": "32485499588498553566271248874841958990458266968820088835", 
+                "logStreamName": "2016/02/28/[$LATEST]86963b6e47064535b36c105b9dbd269f"
+            }, 
+            {
+                "ingestionTime": 1456700196940, 
+                "timestamp": 1456700181958, 
+                "message": "REPORT RequestId: 7b93ca64-de6e-11e5-9c06-db935b97e93f\tDuration: 37.11 ms\tBilled Duration: 100 ms \tMemory Size: 512 MB\tMax Memory Used: 37 MB\t\n", 
+                "eventId": "32485499588498553566271248874841958990458266968820088836", 
+                "logStreamName": "2016/02/28/[$LATEST]86963b6e47064535b36c105b9dbd269f"
+            }, 
+            {
+                "ingestionTime": 1456703327796, 
+                "timestamp": 1456703312748, 
+                "message": "START RequestId: c53cbd4d-de75-11e5-9b3f-4f843e151a32 Version: $LATEST\n", 
+                "eventId": "32485569407448613673960877948426173955038958558812176384", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456703327796, 
+                "timestamp": 1456703312789, 
+                "message": "[INFO]\t2016-02-28T23:48:32.789Z\tc53cbd4d-de75-11e5-9b3f-4f843e151a32\tZappa Event: {u'body': {}, u'headers': {u'Via': u'1.1 d3dcecca4d3103def0c6c7c4abe3473b.cloudfront.net (CloudFront)', u'Accept-Encoding': u'gzip', u'CloudFront-Is-SmartTV-Viewer': u'false', u'CloudFront-Forwarded-Proto': u'https', u'X-Forwarded-For': u'46.189.157.161, 54.240.157.70', u'CloudFront-Viewer-Country': u'PT', u'Accept': u'*/*', u'User-Agent': u'python-requests/2.9.1', u'Host': u'oakuumaiog.execute-api.us-east-1.amazonaws.com', u'X-Forwarded-Proto': u'https', u'X-Amz-Cf-Id': u'J8x06DQke1WtksP4zipb2412BatgB4JQhnc8lDcKtSHwloeWYx7ocw==', u'CloudFront-Is-Tablet-Viewer': u'false', u'X-Forwarded-Port': u'443', u'CloudFront-Is-Mobile-Viewer': u'false', u'CloudFront-Is-Desktop-Viewer': u'true'}, u'params': {}, u'method': u'GET', u'query': {}}\n", 
+                "eventId": "32485569408362944227100633497229138404217541380557373441", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456703327796, 
+                "timestamp": 1456703312791, 
+                "message": "'Settings' object has no attribute 'ROOT_URLCONF': AttributeError\nTraceback (most recent call last):\n  File \"/var/task/handler.py\", line 66, in lambda_handler\n    response = handler(environ, start)\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/wsgi.py\", line 177, in __call__\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/base.py\", line 113, in get_response\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", line 56, in __getattr__\nAttributeError: 'Settings' object has no attribute 'ROOT_URLCONF'\n\n", 
+                "eventId": "32485569408407545717497694743512209840762838103569334274", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456703327796, 
+                "timestamp": 1456703312792, 
+                "message": "END RequestId: c53cbd4d-de75-11e5-9b3f-4f843e151a32\n", 
+                "eventId": "32485569408429846462696225366653745559035486465075314691", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456703327796, 
+                "timestamp": 1456703312792, 
+                "message": "REPORT RequestId: c53cbd4d-de75-11e5-9b3f-4f843e151a32\tDuration: 43.63 ms\tBilled Duration: 100 ms \tMemory Size: 512 MB\tMax Memory Used: 37 MB\t\n", 
+                "eventId": "32485569408429846462696225366653745559035486465075314692", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456703576249, 
+                "timestamp": 1456703561221, 
+                "message": "START RequestId: 599b86ba-de76-11e5-86ba-f7905715c696 Version: $LATEST\n", 
+                "eventId": "32485574948581675388460402095591737804987821791153291264", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456703576249, 
+                "timestamp": 1456703561263, 
+                "message": "[INFO]\t2016-02-28T23:52:41.263Z\t599b86ba-de76-11e5-86ba-f7905715c696\tZappa Event: {u'body': {}, u'headers': {u'Via': u'1.1 231a49a9a0998ee31863b12b3476439c.cloudfront.net (CloudFront)', u'Accept-Encoding': u'gzip', u'CloudFront-Is-SmartTV-Viewer': u'false', u'CloudFront-Forwarded-Proto': u'https', u'X-Forwarded-For': u'46.189.157.161, 54.240.157.70', u'CloudFront-Viewer-Country': u'PT', u'Accept': u'*/*', u'User-Agent': u'python-requests/2.9.1', u'Host': u'oakuumaiog.execute-api.us-east-1.amazonaws.com', u'X-Forwarded-Proto': u'https', u'X-Amz-Cf-Id': u'Xe4QDZEBQ85KJwZSvltIRt7AsFXr8XotOng4UoASXbhyoxN-9ltv3Q==', u'CloudFront-Is-Tablet-Viewer': u'false', u'X-Forwarded-Port': u'443', u'CloudFront-Is-Mobile-Viewer': u'false', u'CloudFront-Is-Desktop-Viewer': u'true'}, u'params': {}, u'method': u'GET', u'query': {}}\n", 
+                "eventId": "32485574949518306686798688267536237972439052974404468737", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456703576249, 
+                "timestamp": 1456703561274, 
+                "message": "'Settings' object has no attribute 'ROOT_URLCONF': AttributeError\nTraceback (most recent call last):\n  File \"/var/task/handler.py\", line 66, in lambda_handler\n    response = handler(environ, start)\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/wsgi.py\", line 177, in __call__\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/base.py\", line 113, in get_response\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", line 56, in __getattr__\nAttributeError: 'Settings' object has no attribute 'ROOT_URLCONF'\n\n", 
+                "eventId": "32485574949763614883982525122093130873438184950970253314", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456703576249, 
+                "timestamp": 1456703561274, 
+                "message": "END RequestId: 599b86ba-de76-11e5-86ba-f7905715c696\n", 
+                "eventId": "32485574949763614883982525122093130873438184950970253315", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456703576249, 
+                "timestamp": 1456703561274, 
+                "message": "REPORT RequestId: 599b86ba-de76-11e5-86ba-f7905715c696\tDuration: 44.04 ms\tBilled Duration: 100 ms \tMemory Size: 512 MB\tMax Memory Used: 37 MB\t\n", 
+                "eventId": "32485574949763614883982525122093130873438184950970253316", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704016793, 
+                "timestamp": 1456704001745, 
+                "message": "START RequestId: 611e2c56-de77-11e5-b824-ab0405d9eb13 Version: $LATEST\n", 
+                "eventId": "32485584772595153225964631430057386006507518877098442752", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456704016793, 
+                "timestamp": 1456704001749, 
+                "message": "[INFO]\t2016-02-29T00:00:01.749Z\t611e2c56-de77-11e5-b824-ab0405d9eb13\tZappa Event: {u'body': {}, u'headers': {u'Via': u'1.1 666fb5cb1d5bef6558ed44d80e5cc6fc.cloudfront.net (CloudFront)', u'Accept-Encoding': u'gzip', u'CloudFront-Is-SmartTV-Viewer': u'false', u'CloudFront-Forwarded-Proto': u'https', u'X-Forwarded-For': u'46.189.157.161, 54.240.157.61', u'CloudFront-Viewer-Country': u'PT', u'Accept': u'*/*', u'User-Agent': u'python-requests/2.9.1', u'Host': u'oakuumaiog.execute-api.us-east-1.amazonaws.com', u'X-Forwarded-Proto': u'https', u'X-Amz-Cf-Id': u'8BQKMSFbOoBU6P9AauSQkrrJIZNzQWXIb-v6Mq3Pl5hHMxh7JmvNJw==', u'CloudFront-Is-Tablet-Viewer': u'false', u'X-Forwarded-Port': u'443', u'CloudFront-Is-Mobile-Viewer': u'false', u'CloudFront-Is-Desktop-Viewer': u'true'}, u'params': {}, u'method': u'GET', u'query': {}}\n", 
+                "eventId": "32485584772684356206758753922623528879598112323122364417", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456704016793, 
+                "timestamp": 1456704001750, 
+                "message": "'Settings' object has no attribute 'ROOT_URLCONF': AttributeError\nTraceback (most recent call last):\n  File \"/var/task/handler.py\", line 66, in lambda_handler\n    response = handler(environ, start)\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/wsgi.py\", line 177, in __call__\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/base.py\", line 113, in get_response\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", line 56, in __getattr__\nAttributeError: 'Settings' object has no attribute 'ROOT_URLCONF'\n\n", 
+                "eventId": "32485584772706656951957284545765064597870760684628344834", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456704016793, 
+                "timestamp": 1456704001750, 
+                "message": "END RequestId: 611e2c56-de77-11e5-b824-ab0405d9eb13\n", 
+                "eventId": "32485584772706656951957284545765064597870760684628344835", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456704016793, 
+                "timestamp": 1456704001750, 
+                "message": "REPORT RequestId: 611e2c56-de77-11e5-b824-ab0405d9eb13\tDuration: 1.45 ms\tBilled Duration: 100 ms \tMemory Size: 512 MB\tMax Memory Used: 37 MB\t\n", 
+                "eventId": "32485584772706656951957284545765064597870760684628344836", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456704092075, 
+                "timestamp": 1456704077043, 
+                "message": "START RequestId: 8e0959ef-de77-11e5-81bc-1d481cd483bf Version: $LATEST\n", 
+                "eventId": "32485586451796665184923492832424454964587969610527473664", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704092075, 
+                "timestamp": 1456704077048, 
+                "message": "[INFO]\t2016-02-29T00:01:17.48Z\t8e0959ef-de77-11e5-81bc-1d481cd483bf\tZappa Event: {u'body': {}, u'headers': {u'Via': u'1.1 f7b43bebaeae45bb7756c57683994054.cloudfront.net (CloudFront)', u'Accept-Encoding': u'gzip', u'CloudFront-Is-SmartTV-Viewer': u'false', u'CloudFront-Forwarded-Proto': u'https', u'X-Forwarded-For': u'46.189.157.161, 54.240.157.71', u'CloudFront-Viewer-Country': u'PT', u'Accept': u'*/*', u'User-Agent': u'python-requests/2.9.1', u'Host': u'oakuumaiog.execute-api.us-east-1.amazonaws.com', u'X-Forwarded-Proto': u'https', u'X-Amz-Cf-Id': u'Q3AZUHs3nfs9axUCVowWThOlI0dRgUNs5wHrMQSgqxuJ5piEPXICtQ==', u'CloudFront-Is-Tablet-Viewer': u'false', u'X-Forwarded-Port': u'443', u'CloudFront-Is-Mobile-Viewer': u'false', u'CloudFront-Is-Desktop-Viewer': u'true'}, u'params': {}, u'method': u'GET', u'query': {}}\n", 
+                "eventId": "32485586451908168910916145948132133555951211418057375745", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704092075, 
+                "timestamp": 1456704077048, 
+                "message": "'Settings' object has no attribute 'ROOT_URLCONF': AttributeError\nTraceback (most recent call last):\n  File \"/var/task/handler.py\", line 66, in lambda_handler\n    response = handler(environ, start)\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/wsgi.py\", line 177, in __call__\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/base.py\", line 113, in get_response\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", line 56, in __getattr__\nAttributeError: 'Settings' object has no attribute 'ROOT_URLCONF'\n\n", 
+                "eventId": "32485586451908168910916145948132133555951211418057375746", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704092075, 
+                "timestamp": 1456704077049, 
+                "message": "END RequestId: 8e0959ef-de77-11e5-81bc-1d481cd483bf\n", 
+                "eventId": "32485586451930469656114676571273669274223859779563356163", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704092075, 
+                "timestamp": 1456704077049, 
+                "message": "REPORT RequestId: 8e0959ef-de77-11e5-81bc-1d481cd483bf\tDuration: 1.74 ms\tBilled Duration: 100 ms \tMemory Size: 512 MB\tMax Memory Used: 37 MB\t\n", 
+                "eventId": "32485586451930469656114676571273669274223859779563356164", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704559374, 
+                "timestamp": 1456704544337, 
+                "message": "START RequestId: a4771ec8-de78-11e5-93a5-2df5bb02453c Version: $LATEST\n", 
+                "eventId": "32485596872801091987092503698146358282285183537932730368", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704559374, 
+                "timestamp": 1456704544343, 
+                "message": "[INFO]\t2016-02-29T00:09:04.342Z\ta4771ec8-de78-11e5-93a5-2df5bb02453c\tZappa Event: {u'body': {}, u'headers': {u'Via': u'1.1 c674a4b29d26cde0a435cefba1a6c2e0.cloudfront.net (CloudFront)', u'Accept-Encoding': u'gzip', u'CloudFront-Is-SmartTV-Viewer': u'false', u'CloudFront-Forwarded-Proto': u'https', u'X-Forwarded-For': u'46.189.157.161, 54.240.157.65', u'CloudFront-Viewer-Country': u'PT', u'Accept': u'*/*', u'User-Agent': u'python-requests/2.9.1', u'Host': u'oakuumaiog.execute-api.us-east-1.amazonaws.com', u'X-Forwarded-Proto': u'https', u'X-Amz-Cf-Id': u'53dZ53h9ZU7Ay4dOcRwux5dYOu7CHkAzMLLURhBr5FxwtjeF96FiTA==', u'CloudFront-Is-Tablet-Viewer': u'false', u'X-Forwarded-Port': u'443', u'CloudFront-Is-Mobile-Viewer': u'false', u'CloudFront-Is-Desktop-Viewer': u'true'}, u'params': {}, u'method': u'GET', u'query': {}}\n", 
+                "eventId": "32485596872934896458283687436995572591921073706968612865", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704559374, 
+                "timestamp": 1456704544343, 
+                "message": "'Settings' object has no attribute 'ROOT_URLCONF': AttributeError\nTraceback (most recent call last):\n  File \"/var/task/handler.py\", line 66, in lambda_handler\n    response = handler(environ, start)\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/wsgi.py\", line 177, in __call__\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/base.py\", line 113, in get_response\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", line 56, in __getattr__\nAttributeError: 'Settings' object has no attribute 'ROOT_URLCONF'\n\n", 
+                "eventId": "32485596872934896458283687436995572591921073706968612866", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704559374, 
+                "timestamp": 1456704544343, 
+                "message": "END RequestId: a4771ec8-de78-11e5-93a5-2df5bb02453c\n", 
+                "eventId": "32485596872934896458283687436995572591921073706968612867", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704559374, 
+                "timestamp": 1456704544343, 
+                "message": "REPORT RequestId: a4771ec8-de78-11e5-93a5-2df5bb02453c\tDuration: 1.75 ms\tBilled Duration: 100 ms \tMemory Size: 512 MB\tMax Memory Used: 37 MB\t\n", 
+                "eventId": "32485596872934896458283687436995572591921073706968612868", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704733591, 
+                "timestamp": 1456704718560, 
+                "message": "START RequestId: 0c6431a3-de79-11e5-8e7f-ed16e646d293 Version: $LATEST\n", 
+                "eventId": "32485600758103822710693259496538751550787574757428428800", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704733591, 
+                "timestamp": 1456704718562, 
+                "message": "[INFO]\t2016-02-29T00:11:58.562Z\t0c6431a3-de79-11e5-8e7f-ed16e646d293\tZappa Event: {u'body': {}, u'headers': {u'Via': u'1.1 b8621586439ebe3e1ff452ee260892d2.cloudfront.net (CloudFront)', u'Accept-Encoding': u'gzip', u'CloudFront-Is-SmartTV-Viewer': u'false', u'CloudFront-Forwarded-Proto': u'https', u'X-Forwarded-For': u'46.189.157.161, 54.240.157.67', u'CloudFront-Viewer-Country': u'PT', u'Accept': u'*/*', u'User-Agent': u'python-requests/2.9.1', u'Host': u'oakuumaiog.execute-api.us-east-1.amazonaws.com', u'X-Forwarded-Proto': u'https', u'X-Amz-Cf-Id': u'yvkou7A1aCmXo4dCR4hGoJtSiIPUQrMoRgVG0WK8Zv8wBLYiye3p6Q==', u'CloudFront-Is-Tablet-Viewer': u'false', u'X-Forwarded-Port': u'443', u'CloudFront-Is-Mobile-Viewer': u'false', u'CloudFront-Is-Desktop-Viewer': u'true'}, u'params': {}, u'method': u'GET', u'query': {}}\n", 
+                "eventId": "32485600758148424201090320742821822987332871480440389633", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704733591, 
+                "timestamp": 1456704718563, 
+                "message": "'Settings' object has no attribute 'ROOT_URLCONF': AttributeError\nTraceback (most recent call last):\n  File \"/var/task/handler.py\", line 66, in lambda_handler\n    response = handler(environ, start)\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/wsgi.py\", line 177, in __call__\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/base.py\", line 113, in get_response\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", line 56, in __getattr__\nAttributeError: 'Settings' object has no attribute 'ROOT_URLCONF'\n\n", 
+                "eventId": "32485600758170724946288851365963358705605519841946370050", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704733591, 
+                "timestamp": 1456704718563, 
+                "message": "END RequestId: 0c6431a3-de79-11e5-8e7f-ed16e646d293\n", 
+                "eventId": "32485600758170724946288851365963358705605519841946370051", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704733591, 
+                "timestamp": 1456704718563, 
+                "message": "REPORT RequestId: 0c6431a3-de79-11e5-8e7f-ed16e646d293\tDuration: 1.74 ms\tBilled Duration: 100 ms \tMemory Size: 512 MB\tMax Memory Used: 37 MB\t\n", 
+                "eventId": "32485600758170724946288851365963358705605519841946370052", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704788560, 
+                "timestamp": 1456704773531, 
+                "message": "START RequestId: 2d29c7c1-de79-11e5-8e77-0f8b6cd59992 Version: $LATEST\n", 
+                "eventId": "32485601983998087019120144276352561153553089762854502400", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704788560, 
+                "timestamp": 1456704773533, 
+                "message": "[INFO]\t2016-02-29T00:12:53.533Z\t2d29c7c1-de79-11e5-8e77-0f8b6cd59992\tZappa Event: {u'body': {}, u'headers': {u'Via': u'1.1 4e4e9cc1cf6e6d6f48bc627cf1467aa9.cloudfront.net (CloudFront)', u'Accept-Encoding': u'gzip', u'CloudFront-Is-SmartTV-Viewer': u'false', u'CloudFront-Forwarded-Proto': u'https', u'X-Forwarded-For': u'46.189.157.161, 54.240.157.72', u'CloudFront-Viewer-Country': u'PT', u'Accept': u'*/*', u'User-Agent': u'python-requests/2.9.1', u'Host': u'oakuumaiog.execute-api.us-east-1.amazonaws.com', u'X-Forwarded-Proto': u'https', u'X-Amz-Cf-Id': u'rhkgnjyLQx_8QwG68SESV9fpSvphhaWaChakBBxPSy2Gtp3jjssmBg==', u'CloudFront-Is-Tablet-Viewer': u'false', u'X-Forwarded-Port': u'443', u'CloudFront-Is-Mobile-Viewer': u'false', u'CloudFront-Is-Desktop-Viewer': u'true'}, u'params': {}, u'method': u'GET', u'query': {}}\n", 
+                "eventId": "32485601984042688509517205522635632590098386485866463233", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704788560, 
+                "timestamp": 1456704773533, 
+                "message": "'Settings' object has no attribute 'ROOT_URLCONF': AttributeError\nTraceback (most recent call last):\n  File \"/var/task/handler.py\", line 66, in lambda_handler\n    response = handler(environ, start)\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/wsgi.py\", line 177, in __call__\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/base.py\", line 113, in get_response\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", line 56, in __getattr__\nAttributeError: 'Settings' object has no attribute 'ROOT_URLCONF'\n\n", 
+                "eventId": "32485601984042688509517205522635632590098386485866463234", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704788560, 
+                "timestamp": 1456704773533, 
+                "message": "END RequestId: 2d29c7c1-de79-11e5-8e77-0f8b6cd59992\n", 
+                "eventId": "32485601984042688509517205522635632590098386485866463235", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456704788560, 
+                "timestamp": 1456704773533, 
+                "message": "REPORT RequestId: 2d29c7c1-de79-11e5-8e77-0f8b6cd59992\tDuration: 1.71 ms\tBilled Duration: 100 ms \tMemory Size: 512 MB\tMax Memory Used: 37 MB\t\n", 
+                "eventId": "32485601984042688509517205522635632590098386485866463236", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456705021001, 
+                "timestamp": 1456705005953, 
+                "message": "START RequestId: b7a91a4c-de79-11e5-bd46-a18f4c52fcd7 Version: $LATEST\n", 
+                "eventId": "32485607167181887552004636359370927476023410030910439424", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456705021001, 
+                "timestamp": 1456705005957, 
+                "message": "[INFO]\t2016-02-29T00:16:45.957Z\tb7a91a4c-de79-11e5-bd46-a18f4c52fcd7\tZappa Event: {u'body': {}, u'headers': {u'Via': u'1.1 ccab09d2fc676f6266ca470208d80fd2.cloudfront.net (CloudFront)', u'Accept-Encoding': u'gzip', u'CloudFront-Is-SmartTV-Viewer': u'false', u'CloudFront-Forwarded-Proto': u'https', u'X-Forwarded-For': u'46.189.157.161, 54.240.157.71', u'CloudFront-Viewer-Country': u'PT', u'Accept': u'*/*', u'User-Agent': u'python-requests/2.9.1', u'Host': u'oakuumaiog.execute-api.us-east-1.amazonaws.com', u'X-Forwarded-Proto': u'https', u'X-Amz-Cf-Id': u'DNlBfrXjtVfLpczJWlYcrPIjKN5sE-S2H8hbg43Pu5SyqVEr6wSCHA==', u'CloudFront-Is-Tablet-Viewer': u'false', u'X-Forwarded-Port': u'443', u'CloudFront-Is-Mobile-Viewer': u'false', u'CloudFront-Is-Desktop-Viewer': u'true'}, u'params': {}, u'method': u'GET', u'query': {}}\n", 
+                "eventId": "32485607167271090532798758851937070349114003476934361089", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456705021001, 
+                "timestamp": 1456705005958, 
+                "message": "'Settings' object has no attribute 'ROOT_URLCONF': AttributeError\nTraceback (most recent call last):\n  File \"/var/task/handler.py\", line 66, in lambda_handler\n    response = handler(environ, start)\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/wsgi.py\", line 177, in __call__\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/base.py\", line 113, in get_response\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", line 56, in __getattr__\nAttributeError: 'Settings' object has no attribute 'ROOT_URLCONF'\n\n", 
+                "eventId": "32485607167293391277997289475078606067386651838440341506", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456705021001, 
+                "timestamp": 1456705005958, 
+                "message": "END RequestId: b7a91a4c-de79-11e5-bd46-a18f4c52fcd7\n", 
+                "eventId": "32485607167293391277997289475078606067386651838440341507", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456705021001, 
+                "timestamp": 1456705005958, 
+                "message": "REPORT RequestId: b7a91a4c-de79-11e5-bd46-a18f4c52fcd7\tDuration: 1.41 ms\tBilled Duration: 100 ms \tMemory Size: 512 MB\tMax Memory Used: 37 MB\t\n", 
+                "eventId": "32485607167293391277997289475078606067386651838440341508", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456705048138, 
+                "timestamp": 1456705033106, 
+                "message": "START RequestId: c7ec2869-de79-11e5-81dc-01cd464e8163 Version: $LATEST\n", 
+                "eventId": "32485607772714021927706646554296743290840160826540097536", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456705048138, 
+                "timestamp": 1456705033111, 
+                "message": "[INFO]\t2016-02-29T00:17:13.111Z\tc7ec2869-de79-11e5-81dc-01cd464e8163\tZappa Event: {u'body': {}, u'headers': {u'Via': u'1.1 a62788af052971abc00f8142b8edd67e.cloudfront.net (CloudFront)', u'Accept-Encoding': u'gzip', u'CloudFront-Is-SmartTV-Viewer': u'false', u'CloudFront-Forwarded-Proto': u'https', u'X-Forwarded-For': u'46.189.157.161, 54.240.157.71', u'CloudFront-Viewer-Country': u'PT', u'Accept': u'*/*', u'User-Agent': u'python-requests/2.9.1', u'Host': u'oakuumaiog.execute-api.us-east-1.amazonaws.com', u'X-Forwarded-Proto': u'https', u'X-Amz-Cf-Id': u'Mdaa2bgcgZxZL8IBvIIIBKDvbUyHcB3yCml5tiOMyCcLCe8xpVqi-Q==', u'CloudFront-Is-Tablet-Viewer': u'false', u'X-Forwarded-Port': u'443', u'CloudFront-Is-Mobile-Viewer': u'false', u'CloudFront-Is-Desktop-Viewer': u'true'}, u'params': {}, u'method': u'GET', u'query': {}}\n", 
+                "eventId": "32485607772825525653699299670004421882203402634069999617", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456705048138, 
+                "timestamp": 1456705033112, 
+                "message": "'Settings' object has no attribute 'ROOT_URLCONF': AttributeError\nTraceback (most recent call last):\n  File \"/var/task/handler.py\", line 66, in lambda_handler\n    response = handler(environ, start)\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/wsgi.py\", line 177, in __call__\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/base.py\", line 113, in get_response\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", line 56, in __getattr__\nAttributeError: 'Settings' object has no attribute 'ROOT_URLCONF'\n\n", 
+                "eventId": "32485607772847826398897830293145957600476050995575980034", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456705048138, 
+                "timestamp": 1456705033112, 
+                "message": "END RequestId: c7ec2869-de79-11e5-81dc-01cd464e8163\n", 
+                "eventId": "32485607772847826398897830293145957600476050995575980035", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456705048138, 
+                "timestamp": 1456705033112, 
+                "message": "REPORT RequestId: c7ec2869-de79-11e5-81dc-01cd464e8163\tDuration: 1.38 ms\tBilled Duration: 100 ms \tMemory Size: 512 MB\tMax Memory Used: 37 MB\t\n", 
+                "eventId": "32485607772847826398897830293145957600476050995575980036", 
+                "logStreamName": "2016/02/28/[$LATEST]82eaddf46e084387894b547701a7274b"
+            }, 
+            {
+                "ingestionTime": 1456705126528, 
+                "timestamp": 1456705111480, 
+                "message": "START RequestId: f69bc235-de79-11e5-aed8-addbf487673c Version: $LATEST\n", 
+                "eventId": "32485609520512626117345704743785378478642845366574710784", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456705126528, 
+                "timestamp": 1456705111484, 
+                "message": "[INFO]\t2016-02-29T00:18:31.484Z\tf69bc235-de79-11e5-aed8-addbf487673c\tZappa Event: {u'body': {}, u'headers': {u'Via': u'1.1 42a8931ddf360038fe6c284fb4cf6388.cloudfront.net (CloudFront)', u'Accept-Encoding': u'gzip', u'CloudFront-Is-SmartTV-Viewer': u'false', u'CloudFront-Forwarded-Proto': u'https', u'X-Forwarded-For': u'46.189.157.161, 54.240.157.68', u'CloudFront-Viewer-Country': u'PT', u'Accept': u'*/*', u'User-Agent': u'python-requests/2.9.1', u'Host': u'oakuumaiog.execute-api.us-east-1.amazonaws.com', u'X-Forwarded-Proto': u'https', u'X-Amz-Cf-Id': u'winl_gfYfCpk2nQUORmWawxUFOhuORaXyEARK9WivcHevQ6b3j-GgQ==', u'CloudFront-Is-Tablet-Viewer': u'false', u'X-Forwarded-Port': u'443', u'CloudFront-Is-Mobile-Viewer': u'false', u'CloudFront-Is-Desktop-Viewer': u'true'}, u'params': {}, u'method': u'GET', u'query': {}}\n", 
+                "eventId": "32485609520601829098139827236351521351733438812598632449", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456705126528, 
+                "timestamp": 1456705111484, 
+                "message": "'Settings' object has no attribute 'ROOT_URLCONF': AttributeError\nTraceback (most recent call last):\n  File \"/var/task/handler.py\", line 66, in lambda_handler\n    response = handler(environ, start)\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/wsgi.py\", line 177, in __call__\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/core/handlers/base.py\", line 113, in get_response\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", line 56, in __getattr__\nAttributeError: 'Settings' object has no attribute 'ROOT_URLCONF'\n\n", 
+                "eventId": "32485609520601829098139827236351521351733438812598632450", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456705126528, 
+                "timestamp": 1456705111485, 
+                "message": "END RequestId: f69bc235-de79-11e5-aed8-addbf487673c\n", 
+                "eventId": "32485609520624129843338357859493057070006087174104612867", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456705126528, 
+                "timestamp": 1456705111485, 
+                "message": "REPORT RequestId: f69bc235-de79-11e5-aed8-addbf487673c\tDuration: 1.72 ms\tBilled Duration: 100 ms \tMemory Size: 512 MB\tMax Memory Used: 37 MB\t\n", 
+                "eventId": "32485609520624129843338357859493057070006087174104612868", 
+                "logStreamName": "2016/02/28/[$LATEST]778c4e5445114d789cad72b81be001fc"
+            }, 
+            {
+                "ingestionTime": 1456709301832, 
+                "timestamp": 1456709286797, 
+                "message": "START RequestId: ae6d5193-de83-11e5-b831-8d4e7f73e98d Version: $LATEST\n", 
+                "eventId": "32485702633193166210631533238908353818480432543092768768", 
+                "logStreamName": "2016/02/29/[$LATEST]16310c9a1802423cbc98e5e96b0d0c12"
+            }, 
+            {
+                "ingestionTime": 1456709301832, 
+                "timestamp": 1456709286814, 
+                "message": "Non-ASCII character '\\xf3' in file /var/task/zappa_settings.py on line 1, but no encoding declared; see http://python.org/dev/peps/pep-0263/ for details (zappa_settings.py, line 1): SyntaxError\nTraceback (most recent call last):\n  File \"/var/task/handler.py\", line 29, in lambda_handler\n    django.setup()\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/__init__.py\", line 17, in setup\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", line 55, in __getattr__\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", line 43, in _setup\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", line 99, in __init__\n  File \"/usr/lib64/python2.7/importlib/__init__.py\", line 37, in import_module\n    __import__(name)\n  File \"/var/task/zappa_settings.py\", line 1\nSyntaxError: Non-ASCII character '\\xf3' in file /var/task/zappa_settings.py on line 1, but no encoding declared; see http://python.org/dev/peps/pep-0263/ for details\n\n", 
+                "eventId": "32485702633572278879006553832314461029115454688694435841", 
+                "logStreamName": "2016/02/29/[$LATEST]16310c9a1802423cbc98e5e96b0d0c12"
+            }, 
+            {
+                "ingestionTime": 1456709301832, 
+                "timestamp": 1456709286814, 
+                "message": "END RequestId: ae6d5193-de83-11e5-b831-8d4e7f73e98d\n", 
+                "eventId": "32485702633572278879006553832314461029115454688694435842", 
+                "logStreamName": "2016/02/29/[$LATEST]16310c9a1802423cbc98e5e96b0d0c12"
+            }, 
+            {
+                "ingestionTime": 1456709301832, 
+                "timestamp": 1456709286814, 
+                "message": "REPORT RequestId: ae6d5193-de83-11e5-b831-8d4e7f73e98d\tDuration: 16.63 ms\tBilled Duration: 100 ms \tMemory Size: 512 MB\tMax Memory Used: 36 MB\t\n", 
+                "eventId": "32485702633572278879006553832314461029115454688694435843", 
+                "logStreamName": "2016/02/29/[$LATEST]16310c9a1802423cbc98e5e96b0d0c12"
+            }, 
+            {
+                "ingestionTime": 1456709436958, 
+                "timestamp": 1456709421919, 
+                "message": "START RequestId: ffdaf5f6-de83-11e5-84ec-5391cf51e4c5 Version: $LATEST\n", 
+                "eventId": "32485705646514458926486393532855204737638224634184007680", 
+                "logStreamName": "2016/02/29/[$LATEST]16310c9a1802423cbc98e5e96b0d0c12"
+            }, 
+            {
+                "ingestionTime": 1456709436958, 
+                "timestamp": 1456709421924, 
+                "message": "Non-ASCII character '\\xf3' in file /var/task/zappa_settings.py on line 1, but no encoding declared; see http://python.org/dev/peps/pep-0263/ for details (zappa_settings.py, line 1): SyntaxError\nTraceback (most recent call last):\n  File \"/var/task/handler.py\", line 29, in lambda_handler\n    django.setup()\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/__init__.py\", line 17, in setup\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", line 55, in __getattr__\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", line 43, in _setup\n  File \"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", line 99, in __init__\n  File \"/usr/lib64/python2.7/importlib/__init__.py\", line 37, in import_module\n    __import__(name)\n  File \"/var/task/zappa_settings.py\", line 1\nSyntaxError: Non-ASCII character '\\xf3' in file /var/task/zappa_settings.py on line 1, but no encoding declared; see http://python.org/dev/peps/pep-0263/ for details\n\n", 
+                "eventId": "32485705646625962652479046648562883329001466441713909761", 
+                "logStreamName": "2016/02/29/[$LATEST]16310c9a1802423cbc98e5e96b0d0c12"
+            }, 
+            {
+                "ingestionTime": 1456709436958, 
+                "timestamp": 1456709421925, 
+                "message": "END RequestId: ffdaf5f6-de83-11e5-84ec-5391cf51e4c5\n", 
+                "eventId": "32485705646648263397677577271704419047274114803219890178", 
+                "logStreamName": "2016/02/29/[$LATEST]16310c9a1802423cbc98e5e96b0d0c12"
+            }, 
+            {
+                "ingestionTime": 1456709436958, 
+                "timestamp": 1456709421925, 
+                "message": "REPORT RequestId: ffdaf5f6-de83-11e5-84ec-5391cf51e4c5\tDuration: 1.07 ms\tBilled Duration: 100 ms \tMemory Size: 512 MB\tMax Memory Used: 36 MB\t\n", 
+                "eventId": "32485705646648263397677577271704419047274114803219890179", 
+                "logStreamName": "2016/02/29/[$LATEST]16310c9a1802423cbc98e5e96b0d0c12"
+            }
+        ], 
+        "ResponseMetadata": {
+            "HTTPStatusCode": 200, 
+            "RequestId": "3b6f4540-de86-11e5-805a-bbd3c7acf037"
+        }
+    }
+}

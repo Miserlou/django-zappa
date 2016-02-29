@@ -1,47 +1,27 @@
-import os
-
 from django.core.management.base import BaseCommand
+from django_zappa.management.utils import load_zappa_settings
 from zappa.zappa import Zappa
 
 
 class Command(BaseCommand):
+    can_import_settings = True
+    requires_system_checks = False
+
     help = '''Rollback to specific version of a Zappa deploy.
               python manage.py rollback dev 3'''
 
     def add_arguments(self, parser):
-        parser.add_argument('environment', nargs='+', type=str)
-        parser.add_argument('revision', nargs='+', type=int)
+        parser.add_argument('environment', type=str)
+        parser.add_argument('revision', type=int)
 
     def handle(self, *args, **options):
-
-        if 'environment' not in options:
-            print("You must call rollback with an environment name.\n"
-                  "python manage.py rollback <environment> <revisions>")
-            return
-
-        from django.conf import settings
-        if 'ZAPPA_SETTINGS' not in dir(settings):
-            print("Please define your ZAPPA_SETTINGS in your settings file before deploying.")
-            return
-
-        zappa_settings = settings.ZAPPA_SETTINGS
-
-        # Set your configuration
-        project_name = settings.BASE_DIR.split(os.sep)[-1]
-        api_stage = options['environment'][0]
-        if api_stage not in zappa_settings.keys():
-            print("Please make sure that the environment '%s'"
-                  " is defined in your ZAPPA_SETTINGS in your"
-                  " settings file before deploying." % api_stage)
-            return
+        zappa_settings, project_name, api_stage = load_zappa_settings(options)
         lambda_name = project_name + '-' + api_stage
 
-        revision = options['revision'][0]
+        revision = options['revision']
 
         # Make your Zappa object
-        zappa = Zappa()
-        # Load your AWS credentials from ~/.aws/credentials
-        zappa.load_credentials()
+        zappa = Zappa(options.get("session"))
 
         print("Rolling back..")
         zappa.rollback_lambda_function_version(lambda_name, versions_back=revision)

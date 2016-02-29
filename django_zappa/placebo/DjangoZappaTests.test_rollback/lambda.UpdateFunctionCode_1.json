@@ -1,0 +1,21 @@
+{
+    "status_code": 200, 
+    "data": {
+        "CodeSha256": "3MiF6cQEveKjH7VLWNaQcBmoEBDMGOQFcqHJAItvo1U=", 
+        "FunctionName": "python-test", 
+        "ResponseMetadata": {
+            "HTTPStatusCode": 200, 
+            "RequestId": "b7365dbc-de88-11e5-bea4-75af525951bb"
+        }, 
+        "CodeSize": 10751813, 
+        "MemorySize": 512, 
+        "FunctionArn": "arn:aws:lambda:us-east-1:194470793832:function:python-test:11", 
+        "Version": "11", 
+        "Role": "arn:aws:iam::194470793832:role/ZappaLambdaExecution", 
+        "Timeout": 30, 
+        "LastModified": "2016-02-29T02:04:58.179+0000", 
+        "Handler": "handler.lambda_handler", 
+        "Runtime": "python2.7", 
+        "Description": "Zappa Deployment"
+    }
+}

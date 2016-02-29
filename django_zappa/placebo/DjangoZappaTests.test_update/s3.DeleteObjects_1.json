@@ -1,0 +1,15 @@
+{
+    "status_code": 200, 
+    "data": {
+        "Deleted": [
+            {
+                "Key": "python-test-1456708063.zip"
+            }
+        ], 
+        "ResponseMetadata": {
+            "HTTPStatusCode": 200, 
+            "HostId": "iCt97wT92LSt8oOSCg2v4hBB1iXi4jny9pLR1ol8f0vl+WA6MLf9X0IJGcKxxgakwlpZHQoZWgA=", 
+            "RequestId": "970AEA6C61E1675E"
+        }
+    }
+}
