@@ -1,0 +1,17 @@
+{
+    "status_code": 200, 
+    "data": {
+        "LogResult": "U1RBUlQgUmVxdWVzdElkOiBmZmRhZjVmNi1kZTgzLTExZTUtODRlYy01MzkxY2Y1MWU0YzUgVmVyc2lvbjogJExBVEVTVApOb24tQVNDSUkgY2hhcmFjdGVyICdceGYzJyBpbiBmaWxlIC92YXIvdGFzay96YXBwYV9zZXR0aW5ncy5weSBvbiBsaW5lIDEsIGJ1dCBubyBlbmNvZGluZyBkZWNsYXJlZDsgc2VlIGh0dHA6Ly9weXRob24ub3JnL2Rldi9wZXBzL3BlcC0wMjYzLyBmb3IgZGV0YWlscyAoemFwcGFfc2V0dGluZ3MucHksIGxpbmUgMSk6IFN5bnRheEVycm9yClRyYWNlYmFjayAobW9zdCByZWNlbnQgY2FsbCBsYXN0KToKICBGaWxlICIvdmFyL3Rhc2svaGFuZGxlci5weSIsIGxpbmUgMjksIGluIGxhbWJkYV9oYW5kbGVyCiAgICBkamFuZ28uc2V0dXAoKQogIEZpbGUgIi9Vc2Vycy92YXNjby9Qcm9nL3ZlbnZzL2RqYW5nby16YXBwYS9idWlsZC9EamFuZ28vZGphbmdvL19faW5pdF9fLnB5IiwgbGluZSAxNywgaW4gc2V0dXAKICBGaWxlICIvVXNlcnMvdmFzY28vUHJvZy92ZW52cy9kamFuZ28temFwcGEvYnVpbGQvRGphbmdvL2RqYW5nby9jb25mL19faW5pdF9fLnB5IiwgbGluZSA1NSwgaW4gX19nZXRhdHRyX18KICBGaWxlICIvVXNlcnMvdmFzY28vUHJvZy92ZW52cy9kamFuZ28temFwcGEvYnVpbGQvRGphbmdvL2RqYW5nby9jb25mL19faW5pdF9fLnB5IiwgbGluZSA0MywgaW4gX3NldHVwCiAgRmlsZSAiL1VzZXJzL3Zhc2NvL1Byb2cvdmVudnMvZGphbmdvLXphcHBhL2J1aWxkL0RqYW5nby9kamFuZ28vY29uZi9fX2luaXRfXy5weSIsIGxpbmUgOTksIGluIF9faW5pdF9fCiAgRmlsZSAiL3Vzci9saWI2NC9weXRob24yLjcvaW1wb3J0bGliL19faW5pdF9fLnB5IiwgbGluZSAzNywgaW4gaW1wb3J0X21vZHVsZQogICAgX19pbXBvcnRfXyhuYW1lKQogIEZpbGUgIi92YXIvdGFzay96YXBwYV9zZXR0aW5ncy5weSIsIGxpbmUgMQpTeW50YXhFcnJvcjogTm9uLUFTQ0lJIGNoYXJhY3RlciAnXHhmMycgaW4gZmlsZSAvdmFyL3Rhc2svemFwcGFfc2V0dGluZ3MucHkgb24gbGluZSAxLCBidXQgbm8gZW5jb2RpbmcgZGVjbGFyZWQ7IHNlZSBodHRwOi8vcHl0aG9uLm9yZy9kZXYvcGVwcy9wZXAtMDI2My8gZm9yIGRldGFpbHMKCkVORCBSZXF1ZXN0SWQ6IGZmZGFmNWY2LWRlODMtMTFlNS04NGVjLTUzOTFjZjUxZTRjNQpSRVBPUlQgUmVxdWVzdElkOiBmZmRhZjVmNi1kZTgzLTExZTUtODRlYy01MzkxY2Y1MWU0YzUJRHVyYXRpb246IDEuMDcgbXMJQmlsbGVkIER1cmF0aW9uOiAxMDAgbXMgCU1lbW9yeSBTaXplOiA1MTIgTUIJTWF4IE1lbW9yeSBVc2VkOiAzNiBNQgkK", 
+        "FunctionError": "Unhandled", 
+        "Payload": {
+            "body": "{\"stackTrace\": [[\"/var/task/handler.py\", 29, \"lambda_handler\", \"django.setup()\"], [\"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/__init__.py\", 17, \"setup\", null], [\"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", 55, \"__getattr__\", null], [\"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", 43, \"_setup\", null], [\"/Users/vasco/Prog/venvs/django-zappa/build/Django/django/conf/__init__.py\", 99, \"__init__\", null], [\"/usr/lib64/python2.7/importlib/__init__.py\", 37, \"import_module\", \"__import__(name)\"]], \"errorType\": \"SyntaxError\", \"errorMessage\": \"Non-ASCII character '\\\\xf3' in file /var/task/zappa_settings.py on line 1, but no encoding declared; see http://python.org/dev/peps/pep-0263/ for details (zappa_settings.py, line 1)\"}", 
+            "__module__": "botocore.response", 
+            "__class__": "StreamingBody"
+        }, 
+        "ResponseMetadata": {
+            "HTTPStatusCode": 200, 
+            "RequestId": "ffdaf5f6-de83-11e5-84ec-5391cf51e4c5"
+        }, 
+        "StatusCode": 200
+    }
+}

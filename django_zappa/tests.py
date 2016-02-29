@@ -131,10 +131,22 @@ class DjangoZappaTests(TestCase):
             out.getvalue()
         )
 
+    @placebo_session
     def test_invoke(self, session):
-        args = ["test", "check this out"]
+        args = ["test", "inspectdb"]
         opts = {'session': session}
+        out = StringIO()
+        stdout_backup, sys.stdout = sys.stdout, out
         call_command('invoke', *args, **opts)
+        sys.stdout = stdout_backup
+        self.assertIn(
+            "START RequestId: ffdaf5f6-de83-11e5-84ec-5391cf51e4c5 Version: $LATEST",
+            out.getvalue()
+        )
+        self.assertIn(
+            "END RequestId: ffdaf5f6-de83-11e5-84ec-5391cf51e4c5",
+            out.getvalue()
+        )
 
     def test_tail(self, session):
         args = ["test"]
