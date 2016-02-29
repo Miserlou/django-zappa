@@ -154,7 +154,12 @@ class DjangoZappaTests(TestCase):
         opts = {'session': session}
         call_command('tail', *args, **opts)
 
+    @placebo_session
     def test_rollback(self, session):
         args = ["test", "1"]
         opts = {'session': session}
+        out = StringIO()
+        stdout_backup, sys.stdout = sys.stdout, out
         call_command('rollback', *args, **opts)
+        sys.stdout = stdout_backup
+        self.assertIn("Done!", out.getvalue())
