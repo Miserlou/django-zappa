@@ -6,7 +6,7 @@ import sys
 import zipfile
 
 from django.core.management.base import BaseCommand
-from django_zappa.management.commands.utils import load_zappa_settings
+from django_zappa.management.utils import load_zappa_settings
 from zappa.zappa import Zappa
 
 
