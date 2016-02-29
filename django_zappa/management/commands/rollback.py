@@ -2,9 +2,9 @@ import os
 
 from django.core.management.base import BaseCommand
 from zappa.zappa import Zappa
+from .zappa_command import ZappaCommand
 
-
-class Command(BaseCommand):
+class Command(ZappaCommand):
     help = '''Rollback to specific version of a Zappa deploy.
               python manage.py rollback dev 3'''
 
@@ -14,35 +14,15 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        if 'environment' not in options:
-            print("You must call rollback with an environment name.\n"
-                  "python manage.py rollback <environment> <revisions>")
-            return
+        # Load the settings
+        self.require_settings(args, options)
 
-        from django.conf import settings
-        if 'ZAPPA_SETTINGS' not in dir(settings):
-            print("Please define your ZAPPA_SETTINGS in your settings file before deploying.")
-            return
-
-        zappa_settings = settings.ZAPPA_SETTINGS
-
-        # Set your configuration
-        project_name = settings.BASE_DIR.split(os.sep)[-1]
-        api_stage = options['environment'][0]
-        if api_stage not in zappa_settings.keys():
-            print("Please make sure that the environment '%s'"
-                  " is defined in your ZAPPA_SETTINGS in your"
-                  " settings file before deploying." % api_stage)
-            return
-        lambda_name = project_name + '-' + api_stage
+        # Load your AWS credentials from ~/.aws/credentials
+        self.zappa.load_credentials()
 
         revision = options['revision'][0]
 
-        # Make your Zappa object
-        zappa = Zappa()
-        # Load your AWS credentials from ~/.aws/credentials
-        zappa.load_credentials()
-
         print("Rolling back..")
-        zappa.rollback_lambda_function_version(lambda_name, versions_back=revision)
+
+        self.zappa.rollback_lambda_function_version(self.lambda_name, versions_back=revision)
         print("Done!")

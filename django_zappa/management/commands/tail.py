@@ -5,9 +5,10 @@ import sys
 
 from django.core.management.base import BaseCommand
 from zappa.zappa import Zappa
+from .zappa_command import ZappaCommand
 
+class Command(ZappaCommand):
 
-class Command(BaseCommand):
     can_import_settings = True
     requires_system_checks = False
 
@@ -35,41 +36,21 @@ class Command(BaseCommand):
         Execute the command.
 
         """
-        if 'environment' not in options:
-            print("You must call deploy with an environment name. \n python manage.py deploy <environment>")
-            return
 
-        from django.conf import settings
-        if 'ZAPPA_SETTINGS' not in dir(settings):
-            print("Please define your ZAPPA_SETTINGS in your settings file before deploying.")
-            return
-
-        zappa_settings = settings.ZAPPA_SETTINGS
-
-        # Set your configuration
-        project_name = settings.BASE_DIR.split(os.sep)[-1]
-        api_stage = options['environment'][0]
-        if api_stage not in zappa_settings.keys():
-            print("Please make sure that the environment '%s'"
-                  " is defined in your ZAPPA_SETTINGS in your"
-                  " settings file before deploying." % api_stage)
-            return
-        lambda_name = project_name + '-' + api_stage
-
-        # Make your Zappa object
-        zappa = Zappa()
+        # Load the settings
+        self.require_settings(args, options)
 
         # Load your AWS credentials from ~/.aws/credentials
-        zappa.load_credentials()
+        self.zappa.load_credentials()
 
         try:
             # Tail the available logs
-            all_logs = zappa.fetch_logs(lambda_name)
+            all_logs = self.zappa.fetch_logs(self.lambda_name)
             self.print_logs(all_logs)
 
             # Keep polling, and print any new logs.
             while True:
-                all_logs_again = zappa.fetch_logs(lambda_name)
+                all_logs_again = self.zappa.fetch_logs(self.lambda_name)
                 new_logs = []
                 for log in all_logs_again:
                     if log not in all_logs:
