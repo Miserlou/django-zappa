@@ -2,7 +2,9 @@ from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 
 from .handler import lambda_handler
-from .management.commands import deploy, invoke, rollback, tail, update, zappa_command
+from .management.commands import (
+    deploy, invoke, rollback, tail, update, zappa_command
+)
 
 
 class DjangoZappaTests(TestCase):
