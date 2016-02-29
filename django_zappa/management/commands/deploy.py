@@ -2,11 +2,12 @@ from __future__ import absolute_import
 
 import inspect
 import os
+import sys
 import zipfile
 
 import requests
-from django.conf import settings
 from django.core.management.base import BaseCommand
+from django_zappa.management.commands.utils import load_zappa_settings
 from zappa.zappa import Zappa
 
 
@@ -17,34 +18,15 @@ class Command(BaseCommand):
     help = '''Deploy this project to AWS with Zappa.'''
 
     def add_arguments(self, parser):
-        parser.add_argument('environment', nargs='+', type=str)
+        parser.add_argument('environment', type=str)
 
     def handle(self, *args, **options):  # NoQA
         """
         Execute the command.
 
         """
-        if 'environment' not in options:
-            print("You must call deploy with an environment name. \n python manage.py deploy <environment>")
-            return
-
-        if 'ZAPPA_SETTINGS' not in dir(settings):
-            print("Please define your ZAPPA_SETTINGS in your settings file before deploying.")
-            return
-
-        zappa_settings = settings.ZAPPA_SETTINGS
-
-        # Set your configuration
-        project_name = settings.BASE_DIR.split(os.sep)[-1]
-        api_stage = options['environment'][0]
-        if api_stage not in zappa_settings:
-            print("Please make sure that the environment '%s'"
-                  " is defined in your ZAPPA_SETTINGS in your"
-                  " settings file before deploying." % api_stage)
-            return
-
-        # Make your Zappa object
-        zappa = Zappa()
+        zappa_settings, project_name, api_stage = load_zappa_settings(options)
+        zappa = Zappa(options.get("session"))
 
         # Load environment-specific settings
         s3_bucket_name = zappa_settings[api_stage]['s3_bucket']
@@ -55,7 +37,7 @@ class Command(BaseCommand):
             settings_file = settings_file.replace('~', os.path.expanduser('~'))
         if not os.path.isfile(settings_file):
             print("Please make sure your settings_file is properly defined.")
-            return
+            sys.exit(1)
 
         custom_settings = [
             'http_methods',
@@ -68,9 +50,6 @@ class Command(BaseCommand):
         for setting in custom_settings:
             if setting in zappa_settings[api_stage]:
                 setattr(zappa, setting, zappa_settings[api_stage][setting])
-
-        # Load your AWS credentials from ~/.aws/credentials
-        zappa.load_credentials()
 
         # Make sure the necessary IAM execution roles are available
         zappa.create_iam_roles()
@@ -137,5 +116,3 @@ class Command(BaseCommand):
             requests.get(endpoint_url)
 
         print("Your Zappa deployment is live!: " + endpoint_url)
-
-        return
