@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+from django.core.exceptions import ImproperlyConfigured
 from django.core.management.base import BaseCommand
 
 import inspect
@@ -20,8 +21,10 @@ class ZappaCommand(BaseCommand):
     zappa_settings = None
     api_stage = None
     project_name = None
+    lambda_name = None
     s3_bucket_name = None
     settings_file = None
+    zip_path = None
     vpc_config = None
     memory_size = None
 
@@ -34,7 +37,7 @@ class ZappaCommand(BaseCommand):
         super(ZappaCommand, self).__init__(*args, **kwargs)
         self.zappa = Zappa()
 
-    def require_settings(self, *args, **options):
+    def require_settings(self, args, options):
         """
         Load the ZAPPA_SETTINGS as we expect it.
 
@@ -42,32 +45,45 @@ class ZappaCommand(BaseCommand):
 
         if not options.has_key('environment'):
             print("You must call deploy with an environment name. \n python manage.py deploy <environment>")
-            return
+            raise ImproperlyConfigured
 
         from django.conf import settings
         if not 'ZAPPA_SETTINGS' in dir(settings):
             print("Please define your ZAPPA_SETTINGS in your settings file before deploying.")
-            return
+            raise ImproperlyConfigured
 
         self.zappa_settings = settings.ZAPPA_SETTINGS
 
         # Set your configuration
         self.project_name = settings.BASE_DIR.split(os.sep)[-1]
         self.api_stage = options['environment'][0]
+        self.lambda_name = self.project_name + '-' + self.api_stage
         if self.api_stage not in self.zappa_settings.keys():
             print("Please make sure that the environment '" + self.api_stage + "' is defined in your ZAPPA_SETTINGS in your settings file before deploying.")
-            return
+            raise ImproperlyConfigured
 
         # Load environment-specific settings
-        self.s3_bucket_name = zappa_settings[api_stage]['s3_bucket']
-        self.vpc_config = zappa_settings[api_stage].get('vpc_config', {})
-        self.memory_size = zappa_settings[api_stage].get('memory_size', 512)
-        self.settings_file = zappa_settings[api_stage]['settings_file']
+        self.s3_bucket_name = self.zappa_settings[self.api_stage]['s3_bucket']
+        self.vpc_config = self.zappa_settings[self.api_stage].get('vpc_config', {})
+        self.memory_size = self.zappa_settings[self.api_stage].get('memory_size', 512)
+        self.settings_file = self.zappa_settings[self.api_stage]['settings_file']
         if '~' in self.settings_file:
             self.settings_file = self.settings_file.replace('~', os.path.expanduser('~'))
         if not os.path.isfile(self.settings_file):
             print("Please make sure your settings_file is properly defined.")
-            return
+            raise ImproperlyConfigured
+
+        custom_settings = [
+            'http_methods', 
+            'parameter_depth',
+            'integration_response_codes',
+            'method_response_codes',
+            'role_name',
+            'aws_region'
+        ]
+        for setting in custom_settings:
+            if self.zappa_settings[self.api_stage].has_key(setting):
+                setattr(self.zappa, setting, self.zappa_settings[self.api_stage][setting])
 
     def create_package(self):
         """
@@ -80,15 +96,14 @@ class ZappaCommand(BaseCommand):
         # Also define the path the handler file so it can be copied to the zip root for Lambda.
         current_file =  os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
         handler_file = os.sep.join(current_file.split(os.sep)[0:-2]) + os.sep + 'handler.py'
-        lambda_name = project_name + '-' + api_stage
-        zip_path = zappa.create_lambda_zip(lambda_name, handler_file=handler_file)
+        self.zip_path = self.zappa.create_lambda_zip(self.lambda_name, handler_file=handler_file)
 
         # Add this environment's Django settings to that zipfile
-        with open(settings_file, 'r') as f:
+        with open(self.settings_file, 'r') as f:
             contents = f.read()
             all_contents = contents
-            if not zappa_settings[api_stage].has_key('domain'):
-                script_name = api_stage
+            if not self.zappa_settings[self.api_stage].has_key('domain'):
+                script_name = self.api_stage
             else:
                 script_name = ''
 
@@ -103,7 +118,7 @@ class ZappaCommand(BaseCommand):
         with open('zappa_settings.py', 'w') as f:
             f.write(all_contents)
 
-        with zipfile.ZipFile(zip_path, 'a') as lambda_zip:
+        with zipfile.ZipFile(self.zip_path, 'a') as lambda_zip:
             lambda_zip.write('zappa_settings.py', 'zappa_settings.py')
             lambda_zip.close()
 
@@ -116,7 +131,7 @@ class ZappaCommand(BaseCommand):
 
         # Finally, delete the local copy our zip package
         if self.zappa_settings[self.api_stage].get('delete_zip', True):
-            os.remove(zip_path)
+            os.remove(self.zip_path)
 
         # Remove the uploaded zip from S3, because it is now registered..
-        self.zappa.remove_from_s3(zip_path, s3_bucket_name)
+        self.zappa.remove_from_s3(self.zip_path, self.s3_bucket_name)
