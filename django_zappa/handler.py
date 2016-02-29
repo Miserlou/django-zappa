@@ -87,7 +87,7 @@ def lambda_handler(event, context, settings_name="zappa_settings"):  # NoQA
         exception = None
         if response.status_code in [400, 401, 403, 404, 500]:
             content = response.content
-            content = "<!DOCTYPE html>" + str(response.status_code) + response.content
+            content = u"<!DOCTYPE html>" + unicode(response.status_code) + unicode('<meta charset="utf-8" />') + response.content.encode('utf-8')
             b64_content = base64.b64encode(content)
             exception = (b64_content)
         # Internal are changed to become relative redirects
