@@ -1,0 +1,11 @@
+{
+    "status_code": 200, 
+    "data": {
+        "ETag": "\"60c6f549233e74076e48264d55ad6c33\"", 
+        "ResponseMetadata": {
+            "HTTPStatusCode": 200, 
+            "HostId": "5qQBM+PhF5BTHQKMJ6FJrTFm6lEubHnZ44Ui68qCJ4k9tyqV0Pv+QQuRI3NnW9TeGcgm63cNa5Q=", 
+            "RequestId": "FF4BA06A768BD547"
+        }
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "status_code": 201, 
+    "data": {
+        "path": "/{parameter_1}/{parameter_2}/{parameter_3}", 
+        "pathPart": "{parameter_3}", 
+        "id": "79s5ez", 
+        "ResponseMetadata": {
+            "HTTPStatusCode": 201, 
+            "RequestId": "aac14203-de75-11e5-8b56-3d047b617af2"
+        }, 
+        "parentId": "1vgdpd"
+    }
+}

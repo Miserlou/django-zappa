@@ -1,0 +1,20 @@
+{
+    "status_code": 201, 
+    "data": {
+        "id": "fjmsco", 
+        "ResponseMetadata": {
+            "HTTPStatusCode": 201, 
+            "RequestId": "c1835e19-de75-11e5-bc01-9b4b9d76b2c5"
+        }, 
+        "createdDate": {
+            "hour": 23, 
+            "__class__": "datetime", 
+            "month": 2, 
+            "second": 27, 
+            "microsecond": 0, 
+            "year": 2016, 
+            "day": 28, 
+            "minute": 48
+        }
+    }
+}

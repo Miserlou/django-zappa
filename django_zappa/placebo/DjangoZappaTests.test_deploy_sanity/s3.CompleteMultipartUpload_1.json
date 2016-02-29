@@ -1,0 +1,14 @@
+{
+    "status_code": 200, 
+    "data": {
+        "ETag": "\"4d62c74ab00b158cb43c801292851e9d-2\"", 
+        "Bucket": "test_zappa_upload", 
+        "Location": "https://s3.amazonaws.com/test_zappa_upload/python-test-1456703164.zip", 
+        "ResponseMetadata": {
+            "HTTPStatusCode": 200, 
+            "HostId": "3qcH/GjM349nTE8EyNnTXQGPx1qMIXkdAkRmox0eNgInFi+iNxDOqm6U3SZY93em0NDxMI/IN7s=", 
+            "RequestId": "83A49512E0ABE49D"
+        }, 
+        "Key": "python-test-1456703164.zip"
+    }
+}
