@@ -6,6 +6,7 @@ import os
 import sys
 
 from zappa.zappa import Zappa
+
 from .zappa_command import ZappaCommand
 
 

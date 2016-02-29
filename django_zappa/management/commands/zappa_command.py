@@ -1,13 +1,12 @@
 from __future__ import absolute_import
 
-from django.core.exceptions import ImproperlyConfigured
-from django.core.management.base import BaseCommand
-
 import inspect
 import os
 import sys
 import zipfile
 
+from django.core.exceptions import ImproperlyConfigured
+from django.core.management.base import BaseCommand
 from zappa.zappa import Zappa
 
 
