@@ -10,6 +10,16 @@ import os
 from django.core.handlers.wsgi import WSGIHandler
 from zappa.wsgi import common_log, create_wsgi_request
 
+# Django requires settings and an explicit call to setup()
+# if being used from inside a python context.
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "zappa_settings")
+import django
+django.setup()
+from django.conf import settings
+
+logging.basicConfig()
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 def lambda_handler(event, context, settings_name="zappa_settings"):  # NoQA
     """
@@ -19,17 +29,6 @@ def lambda_handler(event, context, settings_name="zappa_settings"):  # NoQA
     back to the API Gateway.
     """
     time_start = datetime.datetime.now()
-
-    logging.basicConfig()
-    logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
-
-    # Django requires settings and an explicit call to setup()
-    # if being used from inside a python context.
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings_name)
-    import django
-    django.setup()
-    from django.conf import settings
 
     # If in DEBUG mode, log all raw incoming events.
     if settings.DEBUG:
