@@ -21,6 +21,14 @@ logging.basicConfig()
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
+ERROR_CODES = [400, 401, 403, 404, 500]
+
+def start(a, b):
+    """
+    This doesn't matter, but Django's handler requires it.
+    """
+    return
+
 def lambda_handler(event, context, settings_name="zappa_settings"):  # NoQA
     """
     An AWS Lambda function which parses specific API Gateway input into a WSGI request.
@@ -57,10 +65,6 @@ def lambda_handler(event, context, settings_name="zappa_settings"):  # NoQA
                                 event['params']['parameter_3'] == lets_encrypt_challenge_path:
                     return {'Content': lets_encrypt_challenge_content, 'Status': 200}
 
-        # This doesn't matter, but Django's handler requires it.
-        def start(a, b):
-            return
-
         # Create the environment for WSGI and handle the request
         environ = create_wsgi_request(event, script_name=settings.SCRIPT_NAME)
         handler = WSGIHandler()
@@ -84,7 +88,7 @@ def lambda_handler(event, context, settings_name="zappa_settings"):  # NoQA
         # as an error to match our APIGW regex.
         # The DOCTYPE ensures that the page still renders in the browser.
         exception = None
-        if response.status_code in [400, 401, 403, 404, 500]:
+        if response.status_code in ERROR_CODES:
             content = response.content
             content = u"<!DOCTYPE html>" + unicode(response.status_code) + unicode('<meta charset="utf-8" />') + response.content.encode('utf-8')
             b64_content = base64.b64encode(content)
