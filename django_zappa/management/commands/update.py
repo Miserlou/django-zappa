@@ -39,6 +39,9 @@ class Command(ZappaCommand):
         lambda_arn = self.zappa.update_lambda_function(
             self.s3_bucket_name, self.zip_path, self.lambda_name)
 
+        # Remove the uploaded zip from S3, because it is now registered..
+        self.zappa.remove_from_s3(self.zip_path, self.s3_bucket_name)
+
         print("Your updated Zappa deployment is live!")
 
         return
