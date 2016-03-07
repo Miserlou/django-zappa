@@ -23,4 +23,4 @@ six==1.10.0               # via python-dateutil, zappa
 tqdm==3.7.1               # via zappa
 wheel==0.24.0             # via zappa
 wsgi-request-logger==0.4.4  # via zappa
-zappa==0.11.2
+zappa==0.12.0
