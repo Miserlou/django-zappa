@@ -143,13 +143,14 @@ ZAPPA_SETTINGS = {
         'domain': 'yourapp.yourdomain.com', # Required if you're using a domain
         'http_methods': ['GET', 'POST'], # HTTP Methods to route,
         'integration_response_codes': [200, 301, 404, 500], # Integration response status codes to route
+        'memory_size': 512, # Lambda function memory in MB
         'method_response_codes': [200, 301, 404, 500], # Method response status codes to route
         'parameter_depth': 10, # Size of URL depth to route. Defaults to 5.
         'role_name': "MyLambdaRole", # Lambda execution Role
         's3_bucket': 'dev-bucket', # Zappa zip bucket,
         'settings_file': '~/Projects/MyApp/settings/dev_settings.py', # Server side settings file location,
         'touch': False, # GET the production URL upon initial deployment (default True)
-        'memory_size': 512, # Lambda function memory in MB
+        'use_precompiled_packages': True, # If possible, use C-extension packages which have been pre-compiled for AWS Lambda
         'vpc_config': { # Optional VPC configuration for Lambda function
             'SubnetIds': [ 'subnet-12345678' ], # Note: not all availability zones support Lambda!
             'SecurityGroupIds': [ 'sg-12345678' ]

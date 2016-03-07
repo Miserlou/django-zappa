@@ -57,7 +57,10 @@ class ZappaCommand(BaseCommand):
 
         # Set your configuration
         self.project_name = settings.BASE_DIR.split(os.sep)[-1]
-        self.api_stage = options['environment'][0]
+        if type(options['environment']) == list:
+            self.api_stage = options['environment'][0]
+        else:
+            self.api_stage = options['environment']
         self.lambda_name = self.project_name + '-' + self.api_stage
         if self.api_stage not in self.zappa_settings.keys():
             print("Please make sure that the environment '" + self.api_stage +
@@ -107,7 +110,10 @@ class ZappaCommand(BaseCommand):
         handler_file = os.sep.join(current_file.split(os.sep)[
                                    0:-2]) + os.sep + 'handler.py'
         self.zip_path = self.zappa.create_lambda_zip(
-            self.lambda_name, handler_file=handler_file)
+                self.lambda_name, 
+                handler_file=handler_file,
+                use_precompiled_packages=self.zappa_settings.get('use_precompiled_packages', True)
+            )
 
         # Add this environment's Django settings to that zipfile
         with open(self.settings_file, 'r') as f:
