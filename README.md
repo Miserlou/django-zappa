@@ -69,29 +69,6 @@ ZAPPA_SETTINGS = {
 
 Notice that each environment defines a path to a settings file. This file will be used as your _server-side_ settings file. Specifically, you will want to define [a new SECRET_KEY](https://gist.github.com/Miserlou/a9cbe22d06cbabc07f21), as well as your deployment DATABASES information.
 
-#### A Note About Databases
-
-Since Zappa requirements are called from a bundled version of your local environment and not from pip, and because we have no way to determine what platform our Zappa handler will be executing on, we need to make sure that we only use portable packages. So, instead of using the default MySQL engine, we will instead need to use _mysql-python-connector_.
-
-That means your app's settings file will need an entry that looks something like this (notice the Engine field):
-
-```python
-DATABASES = {
-    'default': {
-        'ENGINE': 'mysql.connector.django',
-        'NAME': 'your_db_name',
-        'USER': 'your_db_username',
-        'PASSWORD': 'your_db_password',
-        'HOST': 'your_db_name.your_db_id.us-east-1.rds.amazonaws.com',
-        'PORT': '3306',
-    }
-}
-```
-
-At time of writing, there seems to be a problem with the Python MySQL connector when calling the initial 'migrate'. You can remedy this by using the usual 'django.db.backends.mysql' for your initial migration from your local machine and just using 'mysql.connector.django' in your remote settings.
-
-Currently, Zappa only supports MySQL and Aurora on RDS.
-
 ## Basic Usage
 
 #### Initial Deployments
@@ -158,25 +135,6 @@ ZAPPA_SETTINGS = {
     }
 }
 ```
-
-### Let's Encrypt SSL
-
-Zappa has very basic support for Let's Encrypt, but not automatic certificate updating.
-
-There is also a bootstrapping problem here, as the ACME server will need to access your domain in order to verify that you own it, so you will have to create an initial [self-signed certificate](https://devcenter.heroku.com/articles/ssl-certificate-self) when you first configure a domain for use with API Gateway.
-
-Then, you can generate your Let's Encrypt challenge information using a local client or a service like [GetHTTPSForFree.com](https://gethttpsforfree.com/).
-
-Next, in your remote settings file, define the following entries (change these values, obviously):
-
-```python
-LETS_ENCRYPT_CHALLENGE_PATH = "KkI_AMwzmQxlMDtaitt7eZMWEDn0t0Fsl5HjkJSPxyz"
-LETS_ENCRYPT_CHALLENGE_CONTENT = "KkI_AMwzmQxlMDtaitt7eZMWEDn0t0Fsl5HjkJSPxyz.ABC5hET2fxMsBLCsQLlAVA5MLvYUnX8gEAYaXN0xI4Y"
-```
-
-Then, continue with the process and you should receive a valid Let's Encrypt Certificate for your domain. Nice!
-
-(When creating scheduled Lambda events via API is possible, this whole process may be wrapped into the 'deploy' command. Until then, you're kind of on your own.)
 
 #### Keeping the server warm
 
