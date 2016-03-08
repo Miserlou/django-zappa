@@ -19,7 +19,6 @@ class DjangoZappaTests(TestCase):
         Sanity test.
         """
         self.assertEqual(1 + 1, 2)
-
     ##
     # Handler
     ##
@@ -102,58 +101,57 @@ class DjangoZappaTests(TestCase):
             lambda_handler(boo_event, None, "test_settings")
         except Exception as e:
             self.assertTrue(challenge_content not in str(e))
-
     ##
     # Commands
     ##
 
     def test_deploy_sanity(self):
-        
+
         try:
             cmd = deploy.Command()
-            opts = {} # kwargs
+            opts = {}  # kwargs
             cmd.handle(**opts)
         except ImproperlyConfigured:
             return
 
     def test_update_sanity(self):
-        
+
         try:
             cmd = update.Command()
-            opts = {} # kwargs
+            opts = {}  # kwargs
             cmd.handle(**opts)
         except ImproperlyConfigured:
             return
 
     def test_invoke_sanity(self):
-        
+
         try:
             cmd = invoke.Command()
-            opts = {} # kwargs
+            opts = {}  # kwargs
             cmd.handle(**opts)
         except ImproperlyConfigured:
             return
 
     def test_tail_sanity(self):
-        
+
         try:
             cmd = tail.Command()
-            opts = {} # kwargs
+            opts = {}  # kwargs
             cmd.handle(**opts)
         except ImproperlyConfigured:
             return
 
     def test_rollback_sanity(self):
-        
+
         try:
             cmd = rollback.Command()
-            opts = {} # kwargs
+            opts = {}  # kwargs
             cmd.handle(**opts)
         except ImproperlyConfigured:
             return
 
     def test_zappa_command_sanity(self):
-        
+
         cmd = zappa_command.ZappaCommand()
 
         args = {}

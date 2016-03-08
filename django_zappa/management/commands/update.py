@@ -4,6 +4,7 @@ import os
 from zappa.zappa import Zappa
 from .zappa_command import ZappaCommand
 
+
 class Command(ZappaCommand):
 
     can_import_settings = True

@@ -2,7 +2,6 @@ import json
 
 import base58
 
-
 REDIRECT_HTML = """<!DOCTYPE HTML>
 <html lang="en-US">
     <head>

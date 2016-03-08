@@ -110,7 +110,7 @@ class ZappaCommand(BaseCommand):
         handler_file = os.sep.join(current_file.split(os.sep)[
                                    0:-2]) + os.sep + 'handler.py'
         self.zip_path = self.zappa.create_lambda_zip(
-                self.lambda_name, 
+                self.lambda_name,
                 handler_file=handler_file,
                 use_precompiled_packages=self.zappa_settings.get('use_precompiled_packages', True)
             )

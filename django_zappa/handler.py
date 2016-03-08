@@ -23,11 +23,13 @@ logger.setLevel(logging.INFO)
 
 ERROR_CODES = [400, 401, 403, 404, 500]
 
+
 def start(a, b):
     """
     This doesn't matter, but Django's handler requires it.
     """
     return
+
 
 def lambda_handler(event, context, settings_name="zappa_settings"):  # NoQA
     """
