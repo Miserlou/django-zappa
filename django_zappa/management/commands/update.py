@@ -1,10 +1,8 @@
 from __future__ import absolute_import
-
 from django.core.management.base import BaseCommand
+import os
 from zappa.zappa import Zappa
-
 from .zappa_command import ZappaCommand
-
 
 class Command(ZappaCommand):
 
