@@ -67,7 +67,7 @@ ZAPPA_SETTINGS = {
 }
 ```
 
-Notice that each environment defines a path to a settings file. This file will be used as your _server-side_ settings file. Specifically, you will want to define [a new SECRET_KEY](https://gist.github.com/Miserlou/a9cbe22d06cbabc07f21), as well as your deployment DATABASES information.
+Notice that each environment defines a path to a settings file. This file will be used as your _server-side_ settings file. Specifically, you will want to define [a new SECRET_KEY](https://gist.github.com/Miserlou/a9cbe22d06cbabc07f21), as well as your deployment DATABASES information. Zappa now supports both _MySQL-Python_ and _pyscopg2_ via [lambda-packages](https://github.com/Miserlou/lambda-packages).
 
 ## Basic Usage
 
