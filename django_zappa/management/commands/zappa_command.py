@@ -56,7 +56,7 @@ class ZappaCommand(BaseCommand):
         self.zappa_settings = settings.ZAPPA_SETTINGS
 
         # Set your configuration
-        self.project_name = settings.BASE_DIR.split(os.sep)[-1]
+        self.project_name = os.path.abspath(settings.BASE_DIR).split(os.sep)[-1]
         if type(options['environment']) == list:
             self.api_stage = options['environment'][0]
         else:
