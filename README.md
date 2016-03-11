@@ -140,6 +140,10 @@ ZAPPA_SETTINGS = {
 
 Lambda has a limitation that functions which aren't called very often take longer to start - sometimes up to ten seconds. However, functions that are called regularly are cached and start quickly, usually in less than 50ms. To ensure that your servers are kept in a cached state, you can [manually configure](http://stackoverflow.com/a/27382253) a scheduled task for your Zappa function that'll keep the server cached by calling it every 5 minutes. There is currently no way to configure this through API, so you'll have to set this up manually. When this ability is available via API, django-zappa will configure this automatically. It would be nice to also add support LetsEncrypt through this same mechanism.
 
+#### Enabling CORS
+
+To enable Cross-Origin Resource Sharing (CORS) for your application, follow the [AWS 'How to CORS' Guide](https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-cors.html) to enable CORS via the API Gateway Console. Don't forget to re-deploy your API after making the changes!
+
 ## TODO
 
 This project is very young, so there is still plenty to be done. Contributions are more than welcome! Please file tickets before submitting patches, and submit your patches to the 'dev' branch.
