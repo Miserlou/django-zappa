@@ -10,7 +10,7 @@ That means:
 * **No more** paying for 24/7 server uptime!
 * **No more** worrying about load balancing / scalability!
 * **No more** worrying about keeping servers online!
-* **No more** worrying about security vulernabilities and patches!
+* **No more** worrying about security vulnerabilities and patches!
 
 **django-zappa** handles:
 
@@ -18,13 +18,13 @@ That means:
 * Correctly setting up IAM roles and permissions
 * Automatically configuring API Gateway routes, methods and integration responses
 * Turning API Gateway requests into valid WSGI, and returning API Gateway compatible HTTP responses
-* Deploying your to various stages of readiness (dev, staging, prod)
+* Deploying your application to various stages of readiness (dev, staging, prod)
 
 __Awesome!__
 
 [See it in action here!](https://zappa.gun.io/) You can also watch a **[screencast on how to use django-zappa](https://www.youtube.com/watch?v=plUrbPN0xc8&feature=youtu.be)**.
 
-This project is for Django-specific integration. If you are intersted in how this works under the hood, you should look at the **[Zappa core library](https://github.com/Miserlou/Zappa)**, which can be used by any WSGI-compatible web framework.
+This project is for Django-specific integration. If you are interested in how this works under the hood, you should look at the **[Zappa core library](https://github.com/Miserlou/Zappa)**, which can be used by any WSGI-compatible web framework.
 
 ## Installation
 
