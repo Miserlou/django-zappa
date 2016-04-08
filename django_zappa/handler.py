@@ -8,6 +8,8 @@ import logging
 import os
 
 from django.core.handlers.wsgi import WSGIHandler
+
+from zappa.middleware import ZappaWSGIMiddleware 
 from zappa.wsgi import common_log, create_wsgi_request
 
 # Django requires settings and an explicit call to setup()
@@ -55,22 +57,10 @@ def lambda_handler(event, context, settings_name="zappa_settings"):  # NoQA
             if 'event_echo' in event['params'].values():
                 return {'Content': str(event) + '\n' + str(context), 'Status': 200}
 
-        # If Let's Encrypt is defined in the settings,
-        # and the path is your.domain.com/.well-known/acme-challenge/{{lets_encrypt_challenge_content}},
-        # return a 200 of lets_encrypt_challenge_content.
-        lets_encrypt_challenge_path = getattr(settings, "LETS_ENCRYPT_CHALLENGE_PATH", None)
-        lets_encrypt_challenge_content = getattr(settings, "LETS_ENCRYPT_CHALLENGE_CONTENT", None)
-        if lets_encrypt_challenge_path:
-            if len(event['params']) == 3:
-                if event['params']['parameter_1'] == '.well-known' and \
-                                event['params']['parameter_2'] == 'acme-challenge' and \
-                                event['params']['parameter_3'] == lets_encrypt_challenge_path:
-                    return {'Content': lets_encrypt_challenge_content, 'Status': 200}
-
         # Create the environment for WSGI and handle the request
         environ = create_wsgi_request(event, script_name=settings.SCRIPT_NAME)
-        handler = WSGIHandler()
-        response = handler(environ, start)
+        app = WSGIHandler()
+        response = ZappaWSGIMiddleware(app(environ, start))
 
         # Prepare the special dictionary which will be returned to the API GW.
         returnme = {'Content': response.content}
