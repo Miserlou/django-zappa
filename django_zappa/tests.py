@@ -55,52 +55,9 @@ class DjangoZappaTests(TestCase):
         try:
             lambda_handler(event, None)
         except Exception as e:
+            print(e)
             self.assertTrue("PCFET0NUWVBFIGh" in str(e))
 
-    def test_lets_encrypt_event(self):
-
-        challenge_path = 'KkI_AMwzmQxlMDtaitt7eZMWEDn0t0Fsl5HjkJSPxyz'
-        challenge_content = "KkI_AMwzmQxlMDtaitt7eZMWEDn0t0Fsl5HjkJSPxyz.ABC5hET2fxMsBLCsQLlAVA5MLvYUna8gEAYaXN0xI4Y"
-
-        yay_event = {
-            "body": {},
-            "headers": {
-                "Via": "1.1 e604e934e9195aaf3e36195adbcb3e18.cloudfront.net (CloudFront)",
-            },
-            "params": {
-                "parameter_1": ".well-known",
-                "parameter_2": "acme-challenge",
-                "parameter_3": challenge_path
-            },
-            "method": "GET",
-            "query": {
-            }
-        }
-
-        try:
-            lambda_handler(yay_event, None, "test_settings")
-        except Exception as e:
-            self.assertTrue(challenge_content in str(e))
-
-        boo_event = {
-            "body": {},
-            "headers": {
-                "Via": "1.1 e604e934e9195aaf3e36195adbcb3e18.cloudfront.net (CloudFront)",
-            },
-            "params": {
-                "parameter_1": ".well-known",
-                "parameter_2": "acme-challenge",
-                "parameter_3": "barf-derp-fart"
-            },
-            "method": "GET",
-            "query": {
-            }
-        }
-
-        try:
-            lambda_handler(boo_event, None, "test_settings")
-        except Exception as e:
-            self.assertTrue(challenge_content not in str(e))
     ##
     # Commands
     ##

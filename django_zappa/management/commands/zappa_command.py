@@ -127,13 +127,6 @@ class ZappaCommand(BaseCommand):
             else:
                 script_name = ''
 
-            if not "ZappaMiddleware" in all_contents:
-                print("\n\nWARNING!\n")
-                print(
-                    "You do not have ZappaMiddleware in your remote settings's MIDDLEWARE_CLASSES.\n")
-                print(
-                    "This means that some aspects of your application may not work!\n\n")
-
             all_contents = all_contents + \
                 '\n# Automatically added by Zappa:\nSCRIPT_NAME=\'/' + script_name + '\'\n'
             f.close()

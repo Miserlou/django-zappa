@@ -8,6 +8,9 @@ import logging
 import os
 
 from django.core.handlers.wsgi import WSGIHandler
+from django.core.wsgi import get_wsgi_application
+
+from werkzeug.wrappers import Response
 
 from zappa.middleware import ZappaWSGIMiddleware 
 from zappa.wsgi import common_log, create_wsgi_request
@@ -59,21 +62,25 @@ def lambda_handler(event, context, settings_name="zappa_settings"):  # NoQA
 
         # Create the environment for WSGI and handle the request
         environ = create_wsgi_request(event, script_name=settings.SCRIPT_NAME)
-        app = WSGIHandler()
-        response = ZappaWSGIMiddleware(app(environ, start))
+        wrap_me = get_wsgi_application()
+        app = ZappaWSGIMiddleware(wrap_me)
+
+        # Execute the application
+        response = Response.from_app(app, environ)
+        response.content = response.data
 
         # Prepare the special dictionary which will be returned to the API GW.
-        returnme = {'Content': response.content}
+        returnme = {'Content': response.data}
 
         # Pack the WSGI response into our special dictionary.
-        for item in response.items():
-            returnme[item[0]] = item[1]
+        for (header_name, header_value) in response.headers:
+            returnme[header_name] = header_value
         returnme['Status'] = response.status_code
 
-        # Parse the WSGI Cookie and pack it.
-        cookie = response.cookies.output()
-        if ': ' in cookie:
-            returnme['Set-Cookie'] = response.cookies.output().split(': ')[1]
+        # # Parse the WSGI Cookie and pack it.
+        # cookie = response.cookies.output()
+        # if ': ' in cookie:
+        #     returnme['Set-Cookie'] = response.cookies.output().split(': ')[1]
 
         # To ensure correct status codes, we need to
         # pack the response as a deterministic B64 string and raise it
@@ -81,8 +88,7 @@ def lambda_handler(event, context, settings_name="zappa_settings"):  # NoQA
         # The DOCTYPE ensures that the page still renders in the browser.
         exception = None
         if response.status_code in ERROR_CODES:
-            content = response.content
-            content = u"<!DOCTYPE html>" + unicode(response.status_code) + unicode('<meta charset="utf-8" />') + response.content.encode('utf-8')
+            content = u"<!DOCTYPE html>" + unicode(response.status_code) + unicode('<meta charset="utf-8" />') + response.data.encode('utf-8')
             b64_content = base64.b64encode(content)
             exception = (b64_content)
         # Internal are changed to become relative redirects
