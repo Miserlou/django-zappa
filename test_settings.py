@@ -6,7 +6,7 @@ DATABASES = {
 }
 SECRET_KEY = "secret_key_for_testing"
 INSTALLED_APPS = ['django.contrib.sessions', 'django_zappa']
-MIDDLEWARE_CLASSES = ['django.contrib.sessions.middleware.SessionMiddleware', 'django_zappa.middleware.ZappaMiddleware']
+MIDDLEWARE_CLASSES = ['django.contrib.sessions.middleware.SessionMiddleware']
 ROOT_URLCONF = 'django_zappa.urls'
 TIME_ZONE = 'UTC'
 ALLOWED_HOSTS = ["*"]

@@ -52,16 +52,13 @@ def lambda_handler(event, context, settings_name="zappa_settings"):  # NoQA
     # This is a normal HTTP request
     if event.get('method', None):
 
-        # If we just want to inspect this,
-        # return this event instead of processing the request
-        # https://your_api.aws-api.com/?event_echo=true
-        event_echo = getattr(settings, "EVENT_ECHO", True)
-        if event_echo:
-            if 'event_echo' in event['params'].values():
-                return {'Content': str(event) + '\n' + str(context), 'Status': 200}
-
         # Create the environment for WSGI and handle the request
         environ = create_wsgi_request(event, script_name=settings.SCRIPT_NAME)
+
+        # We are always on https on Lambda, so tell our wsgi app that.
+        environ['HTTPS'] = 'on'
+        environ['wsgi.url_scheme'] = 'https'
+
         wrap_me = get_wsgi_application()
         app = ZappaWSGIMiddleware(wrap_me)
 
@@ -76,11 +73,6 @@ def lambda_handler(event, context, settings_name="zappa_settings"):  # NoQA
         for (header_name, header_value) in response.headers:
             returnme[header_name] = header_value
         returnme['Status'] = response.status_code
-
-        # # Parse the WSGI Cookie and pack it.
-        # cookie = response.cookies.output()
-        # if ': ' in cookie:
-        #     returnme['Set-Cookie'] = response.cookies.output().split(': ')[1]
 
         # To ensure correct status codes, we need to
         # pack the response as a deterministic B64 string and raise it

@@ -50,15 +50,6 @@ INSTALLED_APPS = [
 ]
 ```
 
-Zappa also requires special middleware for handling cookies, so in your remote settings file, you must include _ZappaMiddleware_ as the first item in your *MIDDLEWARE_CLASSES*:
-
-```python
-MIDDLEWARE_CLASSES = (
-    'django_zappa.middleware.ZappaMiddleware',
-    ...
-)
-```
-
 Finally, define a ZAPPA_SETTINGS setting in your local settings file which maps your named deployment environments to deployed settings and an S3 bucket (which must already be created). These can be named anything you like, but you may wish to have seperate _dev_, _staging_ and _production_ environments in order to separate your data.
 
 ```python
