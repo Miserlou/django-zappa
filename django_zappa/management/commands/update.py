@@ -29,7 +29,7 @@ class Command(ZappaCommand):
         self.require_settings(args, options)
 
         # Load your AWS credentials from ~/.aws/credentials
-        self.zappa.load_credentials()
+        self.load_credentials()
 
         # Create the Lambda Zip,
         # or used the supplied zip file.
