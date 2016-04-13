@@ -28,7 +28,7 @@ class Command(ZappaCommand):
         self.require_settings(args, options)
 
         # Load your AWS credentials from ~/.aws/credentials
-        self.zappa.load_credentials()
+        self.load_credentials()
 
         # Invoke it!
         command = {"command": ' '.join(options['environment'][1:])}

@@ -43,7 +43,7 @@ class Command(ZappaCommand):
         self.require_settings(args, options)
 
         # Load your AWS credentials from ~/.aws/credentials
-        self.zappa.load_credentials()
+        self.load_credentials()
 
         try:
             # Tail the available logs

@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+import boto3
 import inspect
 import os
 import zipfile
@@ -94,6 +95,14 @@ class ZappaCommand(BaseCommand):
             if self.zappa_settings[self.api_stage].has_key(setting):
                 setattr(self.zappa, setting, self.zappa_settings[
                         self.api_stage][setting])
+
+    def load_credentials(self):
+        session = None
+        profile_name = self.zappa_settings[self.api_stage].get('profile_name')
+        region_name = self.zappa_settings[self.api_stage].get('aws_region')
+        if profile_name is not None:
+            session = boto3.Session(profile_name=profile_name, region_name=region_name)
+        self.zappa.load_credentials(session)
 
     def create_package(self):
         """
