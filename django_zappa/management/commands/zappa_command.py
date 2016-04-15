@@ -62,7 +62,7 @@ class ZappaCommand(BaseCommand):
             self.api_stage = options['environment'][0]
         else:
             self.api_stage = options['environment']
-        self.lambda_name = self.project_name + '-' + self.api_stage
+        self.lambda_name = (self.project_name + '-' + self.api_stage).replace("_","-")
         if self.api_stage not in self.zappa_settings.keys():
             print("Please make sure that the environment '" + self.api_stage +
                   "' is defined in your ZAPPA_SETTINGS in your settings file before deploying.")
