@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 import boto3
+import botocore
 import inspect
 import os
 import zipfile
@@ -75,14 +76,17 @@ class ZappaCommand(BaseCommand):
             self.api_stage].get('vpc_config', {})
         self.memory_size = self.zappa_settings[
             self.api_stage].get('memory_size', 512)
-        self.settings_file = self.zappa_settings[
-            self.api_stage]['settings_file']
-        if '~' in self.settings_file:
-            self.settings_file = self.settings_file.replace(
-                '~', os.path.expanduser('~'))
-        if not os.path.isfile(self.settings_file):
-            print("Please make sure your settings_file is properly defined.")
-            raise ImproperlyConfigured
+
+        if not self.get_settings_location().startswith('s3://'):
+            self.settings_file = self.zappa_settings[
+                self.api_stage]['settings_file']
+            if '~' in self.settings_file:
+                self.settings_file = self.settings_file.replace(
+                    '~', os.path.expanduser('~'))
+            self.check_settings_file()
+        else:
+            self.settings_file = self.download_from_s3(*self.parse_s3_url(self.get_settings_location()))
+            self.check_settings_file()
 
         custom_settings = [
             'http_methods',
@@ -96,6 +100,56 @@ class ZappaCommand(BaseCommand):
             if self.zappa_settings[self.api_stage].has_key(setting):
                 setattr(self.zappa, setting, self.zappa_settings[
                         self.api_stage][setting])
+
+        #Remove the settings file if downloaded from S3
+        if self.get_settings_location().startswith('s3://'):
+            os.remove(self.settings_file)
+
+
+    def check_settings_file(self):
+        """
+        Checks whether the settings file specified is actually a file.
+        """
+        if not os.path.isfile(self.settings_file):
+            print("Please make sure your settings_file is properly defined.")
+            raise ImproperlyConfigured
+
+    def get_settings_location(self):
+        """
+        Returns the value of the settings file location as specified in the
+        json file.
+        :return:
+        """
+        return self.zappa_settings[self.api_stage]['settings_file']
+
+    def download_from_s3(self,bucket_name,s3_key,
+                     output_filename='temp_zappa_settings.py'):
+        """
+        Download a file from S3
+        :param bucket_name: Name of the S3 bucket (string)
+        :param s3_key: Name of the file hosted on S3 (string)
+        :param output_filename: Name of the file the download operation
+        will create (string)
+        :return: False or the value of output_filename
+        """
+        s3 = boto3.resource('s3')
+        bucket = s3.Bucket(bucket_name)
+        try:
+            s3.meta.client.head_object(Bucket=bucket_name,Key=s3_key)
+        except botocore.exceptions.ClientError:
+            return False
+        new_file = bucket.download_file(s3_key,output_filename)
+        return output_filename
+
+    def parse_s3_url(self,s3_url):
+        """
+        Parse the S3 url. Format: s3://mybucket:path/to/my/key
+        Example: s3://settings-bucket:/production_settings.py
+        :param s3_url: Path to the file hosted on S3
+        :return:
+        """
+        return s3_url.replace('s3://','').split(':')
+
 
     def load_credentials(self):
         session = None
