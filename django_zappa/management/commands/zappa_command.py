@@ -7,8 +7,9 @@ import zipfile
 
 from django.core.exceptions import ImproperlyConfigured
 from django.core.management.base import BaseCommand
-from zappa.zappa import Zappa
+from django.utils.text import slugify
 
+from zappa.zappa import Zappa
 
 class ZappaCommand(BaseCommand):
 
@@ -62,7 +63,7 @@ class ZappaCommand(BaseCommand):
             self.api_stage = options['environment'][0]
         else:
             self.api_stage = options['environment']
-        self.lambda_name = (self.project_name + '-' + self.api_stage).replace("_","-")
+        self.lambda_name = slugify(self.project_name + '-' + self.api_stage).replace("_","-")
         if self.api_stage not in self.zappa_settings.keys():
             print("Please make sure that the environment '" + self.api_stage +
                   "' is defined in your ZAPPA_SETTINGS in your settings file before deploying.")
