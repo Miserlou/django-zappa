@@ -120,6 +120,7 @@ ZAPPA_SETTINGS = {
         'http_methods': ['GET', 'POST'], # HTTP Methods to route,
         'integration_response_codes': [200, 301, 404, 500], # Integration response status codes to route
         'memory_size': 512, # Lambda function memory in MB
+        'timeout': 30, # Lambda function timeout in seconds
         'method_response_codes': [200, 301, 404, 500], # Method response status codes to route
         'parameter_depth': 10, # Size of URL depth to route. Defaults to 8.
         'role_name': "MyLambdaRole", # Lambda execution Role

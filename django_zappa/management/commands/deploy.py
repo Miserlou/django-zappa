@@ -52,7 +52,8 @@ class Command(ZappaCommand):
                                                        function_name=self.lambda_name,
                                                        handler='handler.lambda_handler',
                                                        vpc_config=self.vpc_config,
-                                                       memory_size=self.memory_size)
+                                                       memory_size=self.memory_size,
+                                                       timeout=self.timeout)
 
         # Create and configure the API Gateway
         api_id = self.zappa.create_api_gateway_routes(

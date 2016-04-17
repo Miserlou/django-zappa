@@ -28,6 +28,7 @@ class ZappaCommand(BaseCommand):
     zip_path = None
     vpc_config = None
     memory_size = None
+    timeout = None
 
     help = '''Deploy this project to AWS with Zappa.'''
 
@@ -75,6 +76,8 @@ class ZappaCommand(BaseCommand):
             self.api_stage].get('vpc_config', {})
         self.memory_size = self.zappa_settings[
             self.api_stage].get('memory_size', 512)
+        self.timeout = self.zappa_settings[
+            self.api_stage].get('timeout', 30)
         self.settings_file = self.zappa_settings[
             self.api_stage]['settings_file']
         if '~' in self.settings_file:
