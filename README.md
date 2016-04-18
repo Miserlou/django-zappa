@@ -57,7 +57,7 @@ Finally, define a ZAPPA_SETTINGS setting in your local settings file which maps 
 ZAPPA_SETTINGS = {
     'production': {
        's3_bucket': 'production-bucket',
-       'settings_file': '~/Projects/MyApp/settings/production_settings.py',
+       'settings_file': 's3://mybucketname:path/to/my/settings.py', #You can also use the local format ~/Projects/MyApp/settings/production_settings.py
     },
     'staging': {
        's3_bucket': 'staging-bucket',
