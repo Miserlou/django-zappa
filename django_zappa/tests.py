@@ -125,6 +125,17 @@ class DjangoZappaTests(TestCase):
         cmd.get_django_settings_file()
         self.assertEquals(cmd.settings_file,'test_settings.py')
 
+    def test_check_settings_file(self):
+        cmd = zappa_command.ZappaCommand()
+
+        args = {}
+        options = {'environment': ['test']}
+        cmd.require_settings(args,options)
+        with self.assertRaises(ImproperlyConfigured):
+            cmd.check_settings_file()
+
+        cmd.get_django_settings_file()
+        self.assertEqual(None,cmd.check_settings_file())
 
 
     def test_zappa_command_sanity(self):
