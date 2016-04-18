@@ -32,6 +32,9 @@ class Command(ZappaCommand):
         # Load your AWS credentials from ~/.aws/credentials
         self.load_credentials()
 
+        #Get the Django settings file
+        self.get_django_settings_file()
+
         # Make sure the necessary IAM execution roles are available
         self.zappa.create_iam_roles()
 
@@ -65,6 +68,8 @@ class Command(ZappaCommand):
         if self.zappa_settings[self.api_stage].get('delete_zip', True):
             os.remove(self.zip_path)
 
+        #Remove the local settings
+        self.remove_s3_local_settings()
         # Remove the uploaded zip from S3, because it is now registered..
         self.zappa.remove_from_s3(self.zip_path, self.s3_bucket_name)
 
