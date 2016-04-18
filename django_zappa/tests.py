@@ -131,7 +131,7 @@ class DjangoZappaTests(TestCase):
         args = {}
         options = {'environment': ['test']}
         cmd.require_settings(args,options)
-        with self.assertRaises(ImproperlyConfigured):
+        with self.assertRaises(TypeError):
             cmd.check_settings_file()
 
         cmd.get_django_settings_file()
