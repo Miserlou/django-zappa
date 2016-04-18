@@ -114,5 +114,6 @@ class DjangoZappaTests(TestCase):
         args = {}
         options = {'environment': ['test']}
         cmd.require_settings(args, options)
+        cmd.get_django_settings_file()
         cmd.create_package()
         cmd.remove_local_zip()
