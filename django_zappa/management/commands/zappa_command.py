@@ -205,6 +205,11 @@ class ZappaCommand(BaseCommand):
 
         os.unlink('zappa_settings.py')
 
+    def remove_s3_local_settings(self):
+        #Remove the settings file if downloaded from S3
+        if self.get_settings_location().startswith('s3://'):
+            os.remove(self.settings_file)
+
     def remove_local_zip(self):
         """
         Remove our local zip file.
@@ -212,9 +217,7 @@ class ZappaCommand(BaseCommand):
 
         if self.zappa_settings[self.api_stage].get('delete_zip', True):
             os.remove(self.zip_path)
-        #Remove the settings file if downloaded from S3
-        if self.get_settings_location().startswith('s3://'):
-            os.remove(self.settings_file)
+
 
     def remove_uploaded_zip(self):
         """

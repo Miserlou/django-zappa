@@ -56,6 +56,9 @@ class Command(ZappaCommand):
         if self.zappa_settings[self.api_stage].get('delete_zip', True) and not options['zip']:
             os.remove(self.zip_path)
 
+        #Remove the local settings
+        self.remove_s3_local_settings()
+
         print("Your updated Zappa deployment is live!")
 
         return
