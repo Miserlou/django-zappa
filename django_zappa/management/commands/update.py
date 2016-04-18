@@ -31,6 +31,9 @@ class Command(ZappaCommand):
         # Load your AWS credentials from ~/.aws/credentials
         self.load_credentials()
 
+        #Get the Django settings file
+        self.get_django_settings_file()
+
         # Create the Lambda Zip,
         # or used the supplied zip file.
         if not options['zip']:

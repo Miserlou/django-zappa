@@ -77,16 +77,7 @@ class ZappaCommand(BaseCommand):
         self.memory_size = self.zappa_settings[
             self.api_stage].get('memory_size', 512)
 
-        if not self.get_settings_location().startswith('s3://'):
-            self.settings_file = self.zappa_settings[
-                self.api_stage]['settings_file']
-            if '~' in self.settings_file:
-                self.settings_file = self.settings_file.replace(
-                    '~', os.path.expanduser('~'))
-            self.check_settings_file()
-        else:
-            self.settings_file = self.download_from_s3(*self.parse_s3_url(self.get_settings_location()))
-            self.check_settings_file()
+
 
         custom_settings = [
             'http_methods',
@@ -101,9 +92,19 @@ class ZappaCommand(BaseCommand):
                 setattr(self.zappa, setting, self.zappa_settings[
                         self.api_stage][setting])
 
-        #Remove the settings file if downloaded from S3
-        if self.get_settings_location().startswith('s3://'):
-            os.remove(self.settings_file)
+
+
+    def get_django_settings_file(self):
+        if not self.get_settings_location().startswith('s3://'):
+            self.settings_file = self.zappa_settings[
+                self.api_stage]['settings_file']
+            if '~' in self.settings_file:
+                self.settings_file = self.settings_file.replace(
+                    '~', os.path.expanduser('~'))
+            self.check_settings_file()
+        else:
+            self.settings_file = self.download_from_s3(*self.parse_s3_url(self.get_settings_location()))
+            self.check_settings_file()
 
 
     def check_settings_file(self):
@@ -211,6 +212,9 @@ class ZappaCommand(BaseCommand):
 
         if self.zappa_settings[self.api_stage].get('delete_zip', True):
             os.remove(self.zip_path)
+        #Remove the settings file if downloaded from S3
+        if self.get_settings_location().startswith('s3://'):
+            os.remove(self.settings_file)
 
     def remove_uploaded_zip(self):
         """

@@ -32,6 +32,9 @@ class Command(ZappaCommand):
         # Load your AWS credentials from ~/.aws/credentials
         self.load_credentials()
 
+        #Get the Django settings file
+        self.get_django_settings_file()
+
         # Make sure the necessary IAM execution roles are available
         self.zappa.create_iam_roles()
 

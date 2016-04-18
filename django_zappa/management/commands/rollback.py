@@ -21,6 +21,9 @@ class Command(ZappaCommand):
         # Load your AWS credentials from ~/.aws/credentials
         self.load_credentials()
 
+        #Get the Django settings file
+        self.get_django_settings_file()
+
         revision = options['revision'][0]
 
         print("Rolling back..")
