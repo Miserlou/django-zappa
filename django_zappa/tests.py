@@ -122,7 +122,8 @@ class DjangoZappaTests(TestCase):
         args = {}
         options = {'environment': ['test']}
         cmd.require_settings(args, options)
-        self.assertEquals(cmd.get_django_settings_file(),'test_settings.py')
+        cmd.get_django_settings_file()
+        self.assertEquals(cmd.settings_file,'test_settings.py')
 
 
 
