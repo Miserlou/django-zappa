@@ -140,6 +140,7 @@ class ZappaCommand(BaseCommand):
             s3.meta.client.head_object(Bucket=bucket_name,Key=s3_key)
         except botocore.exceptions.ClientError:
             return False
+        print(u'Downloading the settings file ({0}) from S3'.format(s3_key))
         new_file = bucket.download_file(s3_key,output_filename)
         return output_filename
 

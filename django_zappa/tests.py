@@ -107,6 +107,25 @@ class DjangoZappaTests(TestCase):
         except ImproperlyConfigured:
             return
 
+    def test_parse_s3_url(self):
+        cmd = zappa_command.ZappaCommand()
+        options = {'environment': ['s3']}
+        args = {}
+        cmd.require_settings(args,options)
+        s3_url = cmd.get_settings_location()
+        self.assertEquals(s3_url,'s3://zappa-test-bucket:test_settings.py')
+        self.assertEquals(cmd.parse_s3_url(s3_url),['zappa-test-bucket','test_settings.py'])
+
+    def test_get_django_settings_file(self):
+        cmd = zappa_command.ZappaCommand()
+
+        args = {}
+        options = {'environment': ['test']}
+        cmd.require_settings(args, options)
+        self.assertEquals(cmd.get_django_settings_file(),'test_settings.py')
+
+
+
     def test_zappa_command_sanity(self):
 
         cmd = zappa_command.ZappaCommand()
