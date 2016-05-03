@@ -18,6 +18,10 @@ ZAPPA_SETTINGS = {
     'test': {
         's3_bucket': 'zappa-test-bucket',
         'settings_file': 'test_settings.py'
+    },
+    's3': {
+        's3_bucket': 'zappa-test-bucket',
+        'settings_file': 's3://zappa-test-bucket:test_settings.py'
     }
 }
 BASE_DIR = ''

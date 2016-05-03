@@ -4,9 +4,9 @@
 
 ## django-zappa - Serverless Django
 
-[![Django-CC](https://img.shields.io/badge/Django-CC-ee66dd.svg)](https://github.com/codingjoe/django-cc) 
-[![Build Status](https://travis-ci.org/Miserlou/django-zappa.svg)](https://travis-ci.org/Miserlou/django-zappa) 
-[![Coverage](https://img.shields.io/coveralls/Miserlou/django-zappa.svg)](https://coveralls.io/github/Miserlou/django-zappa) 
+[![Django-CC](https://img.shields.io/badge/Django-CC-ee66dd.svg)](https://github.com/codingjoe/django-cc)
+[![Build Status](https://travis-ci.org/Miserlou/django-zappa.svg)](https://travis-ci.org/Miserlou/django-zappa)
+[![Coverage](https://img.shields.io/coveralls/Miserlou/django-zappa.svg)](https://coveralls.io/github/Miserlou/django-zappa)
 [![Requirements Status](https://requires.io/github/Miserlou/django-zappa/requirements.svg?branch=master)](https://requires.io/github/Miserlou/django-zappa/requirements/?branch=master)
 [![Slack](https://img.shields.io/badge/chat-slack-ff69b4.svg)](https://slackautoinviter.herokuapp.com/)
 
@@ -57,7 +57,7 @@ Finally, define a ZAPPA_SETTINGS setting in your local settings file which maps 
 ZAPPA_SETTINGS = {
     'production': {
        's3_bucket': 'production-bucket',
-       'settings_file': '~/Projects/MyApp/settings/production_settings.py',
+       'settings_file': 's3://mybucketname:path/to/my/settings.py', #You can also use the local format ~/Projects/MyApp/settings/production_settings.py
     },
     'staging': {
        's3_bucket': 'staging-bucket',
@@ -125,7 +125,7 @@ ZAPPA_SETTINGS = {
         'parameter_depth': 10, # Size of URL depth to route. Defaults to 8.
         'role_name': "MyLambdaRole", # Lambda execution Role
         's3_bucket': 'dev-bucket', # Zappa zip bucket,
-        'settings_file': '~/Projects/MyApp/settings/dev_settings.py', # Server side settings file location,
+        'settings_file': '~/Projects/MyApp/settings/dev_settings.py', # Server side settings file location or use the s3://mybucketname:path/to/my/settings.py format,
         'touch': False, # GET the production URL upon initial deployment (default True)
         'use_precompiled_packages': True, # If possible, use C-extension packages which have been pre-compiled for AWS Lambda
         'vpc_config': { # Optional VPC configuration for Lambda function
