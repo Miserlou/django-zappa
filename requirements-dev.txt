@@ -16,7 +16,7 @@ pep257==0.7.0
 pep8-naming==0.3.3
 pep8==1.7.0               # via flake8
 placebo==0.8.1            # via zappa
-pyflakes==1.2.2           # via flake8
+pyflakes==1.2.3           # via flake8
 python-dateutil==2.5.3    # via botocore, zappa
 requests==2.10.0           # via zappa
 six==1.10.0               # via python-dateutil, zappa
