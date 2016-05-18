@@ -1,7 +1,7 @@
 -e .
 base58==0.2.2
 boto3==1.3.1              # via zappa
-botocore==1.4.19          # via boto3, zappa
+botocore==1.4.20          # via boto3, zappa
 Django==1.9.6
 docutils==0.12            # via botocore, zappa
 filechunkio==1.6          # via zappa
