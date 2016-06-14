@@ -5,7 +5,7 @@ botocore==1.4.27          # via boto3, zappa
 Django==1.9.6
 docutils==0.12            # via botocore, zappa
 filechunkio==1.6          # via zappa
-flake8==2.5.4
+flake8==2.5.5
 futures==3.0.5            # via zappa
 isort==4.2.5
 jmespath==0.9.0           # via boto3, botocore, zappa
