@@ -176,12 +176,11 @@ class ZappaCommand(BaseCommand):
             inspect.getfile(inspect.currentframe())))
         handler_file = os.sep.join(current_file.split(os.sep)[
                                    0:-2]) + os.sep + 'handler.py'
-
-        exclude = ['static', 'media']
+        exclude = self.zappa_settings[self.api_stage].get('exclude', []) + ['static', 'media']
         self.zip_path = self.zappa.create_lambda_zip(
                 self.lambda_name,
                 handler_file=handler_file,
-                use_precompiled_packages=self.zappa_settings.get('use_precompiled_packages', True),
+                use_precompiled_packages=self.zappa_settings[self.api_stage].get('use_precompiled_packages', True),
                 exclude=exclude
             )
 
