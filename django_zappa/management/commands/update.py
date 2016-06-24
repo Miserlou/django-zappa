@@ -18,6 +18,18 @@ class Command(ZappaCommand):
             dest='zip',
             default=None,
             help='Use a supplied zip file')
+        parser.add_argument('--schedule',
+            dest='schedule',
+            action='store_true',
+            default=False,
+            help='Schedule Lambda Events'
+        )
+        parser.add_argument('--unschedule',
+            dest='unschedule',
+            action='store_true',
+            default=False,
+            help='UnSchedule(Remove) Lambda Events'
+        )
 
     def handle(self, *args, **options):  # NoQA
         """
@@ -61,4 +73,17 @@ class Command(ZappaCommand):
 
         print("Your updated Zappa deployment is live!")
 
-        return
+        events = self.zappa_settings[self.api_stage].get('events')
+
+        iam = self.zappa.boto_session.resource('iam')
+        self.zappa.credentials_arn = iam.Role(self.zappa.role_name).arn
+
+        if options['unschedule'] and events:
+            self.zappa.unschedule_events(lambda_arn, self.lambda_name, events)
+        elif options['unschedule'] and not events:
+            print("No Events to Unschedule")
+
+        if options['schedule'] and events:
+            self.zappa.schedule_events(lambda_arn, self.lambda_name, events)
+        elif options['schedule'] and not events:
+            print("No Events to Schedule")
