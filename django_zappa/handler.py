@@ -4,6 +4,8 @@ from __future__ import unicode_literals
 
 import base64
 import datetime
+import importlib
+import json
 import logging
 import os
 
@@ -12,7 +14,7 @@ from django.core.wsgi import get_wsgi_application
 
 from werkzeug.wrappers import Response
 
-from zappa.middleware import ZappaWSGIMiddleware 
+from zappa.middleware import ZappaWSGIMiddleware
 from zappa.wsgi import common_log, create_wsgi_request
 
 # Django requires settings and an explicit call to setup()
@@ -36,7 +38,7 @@ def start(a, b):
     return
 
 
-def lambda_handler(event, context, settings_name="zappa_settings"):  # NoQA
+def lambda_handler(event, context=None, settings_name="zappa_settings"):  # NoQA
     """
     An AWS Lambda function which parses specific API Gateway input into a WSGI request.
 
@@ -111,3 +113,14 @@ def lambda_handler(event, context, settings_name="zappa_settings"):  # NoQA
         # Read the log for now. :[]
         management.call_command(*event['command'].split(' '))
         return {}
+    elif event.get('detail'):
+        module, function = event['detail'].rsplit('.', 1)
+
+        app_module = importlib.import_module(module)
+        app_function = getattr(app_module, function)
+
+        # Execute the function!
+        app_function()
+        return
+    else:
+        logger.error('Unhandled event: {}'.format(json.dumps(event)))

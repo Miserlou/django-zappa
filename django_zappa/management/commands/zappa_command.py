@@ -60,11 +60,14 @@ class ZappaCommand(BaseCommand):
         self.zappa_settings = settings.ZAPPA_SETTINGS
 
         # Set your configuration
-        self.project_name = os.path.abspath(settings.BASE_DIR).split(os.sep)[-1]
         if type(options['environment']) == list:
             self.api_stage = options['environment'][0]
         else:
             self.api_stage = options['environment']
+        if self.zappa_settings[self.api_stage].get('project_name'):
+            self.project_name = self.zappa_settings[self.api_stage]['project_name']
+        else:
+            self.project_name = os.path.abspath(settings.BASE_DIR).split(os.sep)[-1]
         self.lambda_name = slugify(self.project_name + '-' + self.api_stage).replace("_","-")
         if self.api_stage not in self.zappa_settings.keys():
             print("Please make sure that the environment '" + self.api_stage +
@@ -176,12 +179,11 @@ class ZappaCommand(BaseCommand):
             inspect.getfile(inspect.currentframe())))
         handler_file = os.sep.join(current_file.split(os.sep)[
                                    0:-2]) + os.sep + 'handler.py'
-
-        exclude = ['static', 'media']
+        exclude = self.zappa_settings[self.api_stage].get('exclude', []) + ['static', 'media']
         self.zip_path = self.zappa.create_lambda_zip(
                 self.lambda_name,
                 handler_file=handler_file,
-                use_precompiled_packages=self.zappa_settings.get('use_precompiled_packages', True),
+                use_precompiled_packages=self.zappa_settings[self.api_stage].get('use_precompiled_packages', True),
                 exclude=exclude
             )
 

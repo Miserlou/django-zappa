@@ -19,6 +19,18 @@ class Command(ZappaCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('environment', nargs='+', type=str)
+        parser.add_argument('--schedule',
+            dest='schedule',
+            action='store_true',
+            default=False,
+            help='Schedule Lambda Events'
+        )
+        parser.add_argument('--unschedule',
+            dest='unschedule',
+            action='store_true',
+            default=False,
+            help='UnSchedule(Remove) Lambda Events'
+        )
 
     def handle(self, *args, **options):  # NoQA
         """
@@ -79,4 +91,14 @@ class Command(ZappaCommand):
 
         print("Your Zappa deployment is live!: " + endpoint_url)
 
-        return
+        events = self.zappa_settings[self.api_stage].get('events')
+
+        if options['unschedule'] and events:
+            self.zappa.unschedule_events(lambda_arn, self.lambda_name, events)
+        elif options['unschedule'] and not events:
+            print("No Events to Unschedule")
+
+        if options['schedule'] and events:
+            self.zappa.schedule_events(lambda_arn, self.lambda_name, events)
+        elif options['schedule'] and not events:
+            print("No Events to Schedule")

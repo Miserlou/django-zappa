@@ -107,6 +107,15 @@ You can watch the logs of a deployment by calling the 'tail' management command.
 
     $ python manage.py tail production
 
+#### Deploying & Updating Scheduled Events
+
+You can deploy and update scheduled events alongside the deploy or update of the main
+application by passing the `--schedule` flag.
+
+**Note**: your previous events will not be removed and updated when you run this
+flag and you will end up with duplicates if you do not run with `--unschedule` as
+well to remove previous tasks.
+
 ## Advanced Usage
 
 There are other settings that you can define in your ZAPPA_SETTINGS
@@ -128,6 +137,10 @@ ZAPPA_SETTINGS = {
         'settings_file': '~/Projects/MyApp/settings/dev_settings.py', # Server side settings file location or use the s3://mybucketname:path/to/my/settings.py format,
         'touch': False, # GET the production URL upon initial deployment (default True)
         'use_precompiled_packages': True, # If possible, use C-extension packages which have been pre-compiled for AWS Lambda
+        'events': [{
+            'function': 'your_module.your_function', // The function to execute
+            'expression': 'rate(1 minute)' // When to execute it (in cron or rate format)
+        }],
         'vpc_config': { # Optional VPC configuration for Lambda function
             'SubnetIds': [ 'subnet-12345678' ], # Note: not all availability zones support Lambda!
             'SecurityGroupIds': [ 'sg-12345678' ]
