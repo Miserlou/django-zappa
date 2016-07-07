@@ -8,10 +8,12 @@ import importlib
 import json
 import logging
 import os
+import sys
 
-from django.core.handlers.wsgi import WSGIHandler
+from django.core.exceptions import ImproperlyConfigured
 from django.core.wsgi import get_wsgi_application
-
+from django.utils import six
+from django.utils.module_loading import import_string
 from werkzeug.wrappers import Response
 
 from zappa.middleware import ZappaWSGIMiddleware
@@ -38,6 +40,28 @@ def start(a, b):
     return
 
 
+def _get_wsgi_app():
+    """Get the WSGI app specified in Django if it exists, or return a default app"""
+    app_path = getattr(settings, 'WSGI_APPLICATION')
+    if app_path is None:
+        return get_wsgi_application()
+    try:
+        return import_string(app_path)
+    except ImportError as e:
+        msg = (
+            "WSGI application '%(app_path)s' could not be loaded; "
+            "Error importing module: '%(exception)s'" % ({
+                'app_path': app_path,
+                'exception': e,
+            })
+        )
+        six.reraise(
+            ImproperlyConfigured,
+            ImproperlyConfigured(msg),
+            sys.exc_info()[2]
+        )
+
+
 def lambda_handler(event, context=None, settings_name="zappa_settings"):  # NoQA
     """
     An AWS Lambda function which parses specific API Gateway input into a WSGI request.
@@ -61,7 +85,7 @@ def lambda_handler(event, context=None, settings_name="zappa_settings"):  # NoQA
         environ['HTTPS'] = 'on'
         environ['wsgi.url_scheme'] = 'https'
 
-        wrap_me = get_wsgi_application()
+        wrap_me = _get_wsgi_app()
         app = ZappaWSGIMiddleware(wrap_me)
 
         # Execute the application
