@@ -8,6 +8,7 @@ import importlib
 import json
 import logging
 import os
+import site
 import sys
 
 from django.core.exceptions import ImproperlyConfigured
@@ -32,6 +33,12 @@ logger.setLevel(logging.INFO)
 
 ERROR_CODES = [400, 401, 403, 404, 500]
 
+# Add the current directory as a site package, allowing libraries previously
+# configured from the deployment machine's site packages to have their
+# respective `*.pth` files resolved.
+CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
+site.addsitedir(getattr(settings, 'BASE_DIR', CURRENT_DIR))
+
 
 def start(a, b):
     """
@@ -42,7 +49,7 @@ def start(a, b):
 
 def _get_wsgi_app():
     """Get the WSGI app specified in Django if it exists, or return a default app"""
-    app_path = getattr(settings, 'WSGI_APPLICATION')
+    app_path = getattr(settings, 'WSGI_APPLICATION', None)
     if app_path is None:
         return get_wsgi_application()
     try:
