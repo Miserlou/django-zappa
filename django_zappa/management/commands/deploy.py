@@ -53,6 +53,9 @@ class Command(ZappaCommand):
         # Create the Lambda Zip
         self.create_package()
 
+        # Post-package creation callback -- allows local fix-up before publication
+        self.callback()
+
         # Upload it to S3
         try:
             zip_arn = self.zappa.upload_to_s3(
