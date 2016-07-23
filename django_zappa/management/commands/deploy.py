@@ -40,6 +40,7 @@ class Command(ZappaCommand):
 
         # Load the settings
         self.require_settings(args, options)
+        self.callback('settings')
 
         # Load your AWS credentials from ~/.aws/credentials
         self.load_credentials()
@@ -52,9 +53,7 @@ class Command(ZappaCommand):
 
         # Create the Lambda Zip
         self.create_package()
-
-        # Post-package creation callback -- allows local fix-up before publication
-        self.callback()
+        self.callback('zip')
 
         # Upload it to S3
         try:
@@ -105,3 +104,5 @@ class Command(ZappaCommand):
             self.zappa.schedule_events(lambda_arn, self.lambda_name, events)
         elif options['schedule'] and not events:
             print("No Events to Schedule")
+
+        self.callback('post')
