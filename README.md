@@ -2,13 +2,17 @@
   <img src="http://i.imgur.com/oePnHJn.jpg" alt="Zappa Rocks!"/>
 </p>
 
-## django-zappa - Serverless Django
+# django-zappa - Serverless Django
 
 [![Django-CC](https://img.shields.io/badge/Django-CC-ee66dd.svg)](https://github.com/codingjoe/django-cc)
 [![Build Status](https://travis-ci.org/Miserlou/django-zappa.svg)](https://travis-ci.org/Miserlou/django-zappa)
 [![Coverage](https://img.shields.io/coveralls/Miserlou/django-zappa.svg)](https://coveralls.io/github/Miserlou/django-zappa)
 [![Requirements Status](https://requires.io/github/Miserlou/django-zappa/requirements.svg?branch=master)](https://requires.io/github/Miserlou/django-zappa/requirements/?branch=master)
 [![Slack](https://img.shields.io/badge/chat-slack-ff69b4.svg)](https://slackautoinviter.herokuapp.com/)
+
+
+## Please note that django-zappa has been superceded by [Zappa](https://github.com/Miserlou/Zappa), which includes all of the django-zappa features and more!
+## [Go there](https://github.com/Miserlou/Zappa) instead!
 
 **django-zappa** makes it super easy to deploy Django applications on AWS Lambda + API Gateway. Think of it as "serverless" web hosting for your Django apps.
 
