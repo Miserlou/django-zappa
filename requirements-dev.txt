@@ -1,5 +1,5 @@
 -e .
-base58==0.2.3
+base58==0.2.4
 boto3==1.4.0              # via zappa
 botocore==1.4.37          # via boto3, zappa
 Django==1.9.8
