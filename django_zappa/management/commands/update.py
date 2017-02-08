@@ -11,6 +11,24 @@ class Command(ZappaCommand):
     requires_system_checks = False
 
     help = '''Update the the lambda package for a given Zappa deployment.'''
+    
+    def remove_old_version_lambda_functions(self):
+        client = self.zappa.boto_session.client('lambda')
+        versions_response = client.list_versions_by_function(FunctionName=self.lambda_name)
+        available_versions_list = []
+        for version in versions_response['Versions']:
+            available_versions_list.append(version['Version'])
+        print("----- All Available Versions ------")
+        aliases_response = client.list_aliases(FunctionName=self.lambda_name)
+        aliased_versions_list = []
+        for alias in aliases_response['Aliases']:
+            aliased_versions_list.append(alias['FunctionVersion'])
+        untagged_versions = set(available_versions_list) - set(aliased_versions_list) - {'$LATEST'}
+        print("Versions that are not aliased", untagged_versions)
+        for version in untagged_versions:
+            print("Deleting Untagged Versions")
+            print(client.delete_function(FunctionName=self.lambda_name, Qualifier=version))
+
 
     def add_arguments(self, parser):
         parser.add_argument('environment', nargs='+', type=str)
@@ -61,6 +79,9 @@ class Command(ZappaCommand):
         lambda_arn = self.zappa.update_lambda_function(
             self.s3_bucket_name, self.zip_path, self.lambda_name)
 
+        # remove old version_lambda functions
+        self.remove_old_version_lambda_functions()
+        
         # Remove the uploaded zip from S3, because it is now registered..
         self.zappa.remove_from_s3(self.zip_path, self.s3_bucket_name)
 
@@ -68,6 +89,7 @@ class Command(ZappaCommand):
         if self.zappa_settings[self.api_stage].get('delete_zip', True) and not options['zip']:
             os.remove(self.zip_path)
 
+        
         #Remove the local settings
         self.remove_s3_local_settings()
 
