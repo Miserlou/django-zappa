@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 import boto3
 import botocore
+import importlib
 import inspect
 import os
 import zipfile
@@ -233,3 +234,17 @@ class ZappaCommand(BaseCommand):
 
         # Finally, delete the local copy our zip package
         self.remove_local_zip()
+
+    def callback(self, position):
+        """
+        Allows the execution of custom code between creation of the zip file and deployment to AWS
+        :return: None
+        """
+        callbacks = self.zappa_settings[self.api_stage].get('callbacks', {})
+
+        callback = callbacks.get(position)
+        if callback:
+            (mod_name, cb_func) = callback.rsplit('.', 1)
+
+            module_ = importlib.import_module(mod_name)
+            getattr(module_, cb_func)(self)  # Call the function passing self

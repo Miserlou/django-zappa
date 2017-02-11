@@ -39,6 +39,7 @@ class Command(ZappaCommand):
 
         # Load the settings
         self.require_settings(args, options)
+        self.callback('settings')
 
         # Load your AWS credentials from ~/.aws/credentials
         self.load_credentials()
@@ -50,6 +51,7 @@ class Command(ZappaCommand):
         # or used the supplied zip file.
         if not options['zip']:
             self.create_package()
+            self.callback('zip')
         else:
             self.zip_path = options['zip']
 
@@ -87,3 +89,5 @@ class Command(ZappaCommand):
             self.zappa.schedule_events(lambda_arn, self.lambda_name, events)
         elif options['schedule'] and not events:
             print("No Events to Schedule")
+
+        self.callback('post')
